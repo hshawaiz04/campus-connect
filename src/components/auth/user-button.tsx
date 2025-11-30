@@ -1,6 +1,6 @@
 'use client';
 
-import { useUser, useAuth } from '@/firebase';
+import { useUser, useAuth, useDoc, useFirestore, useMemoFirebase } from '@/firebase';
 import { useRouter } from 'next/navigation';
 import {
   DropdownMenu,
@@ -12,15 +12,25 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { LogOut, User as UserIcon } from 'lucide-react';
+import { LogOut, User as UserIcon, Shield } from 'lucide-react';
 import { Skeleton } from '../ui/skeleton';
+import { doc } from 'firebase/firestore';
 
 export function UserButton() {
   const { user, isUserLoading } = useUser();
   const auth = useAuth();
+  const firestore = useFirestore();
   const router = useRouter();
 
-  if (isUserLoading) {
+  // Check if the user is an admin
+  const adminRoleRef = useMemoFirebase(
+    () => (user ? doc(firestore, 'roles_admin', user.uid) : null),
+    [firestore, user]
+  );
+  const { data: adminRole, isLoading: isAdminLoading } = useDoc(adminRoleRef);
+  const isAdmin = !!adminRole;
+
+  if (isUserLoading || (user && isAdminLoading)) {
     return <Skeleton className="h-10 w-10 rounded-full" />;
   }
 
@@ -73,6 +83,12 @@ export function UserButton() {
           <UserIcon className="mr-2" />
           Profile
         </DropdownMenuItem>
+        {isAdmin && (
+           <DropdownMenuItem onClick={() => router.push('/admin/dashboard')}>
+            <Shield className="mr-2" />
+            Admin Dashboard
+          </DropdownMenuItem>
+        )}
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout}>
           <LogOut className="mr-2" />

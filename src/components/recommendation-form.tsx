@@ -24,6 +24,10 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Loader2 } from 'lucide-react';
+import { useUser, useDoc, useFirestore, useMemoFirebase } from '@/firebase';
+import { doc } from 'firebase/firestore';
+import type { UserProfile } from '@/lib/types';
+import { useEffect } from 'react';
 
 const recommendationSchema = z.object({
   cgpa: z.coerce.number({invalid_type_error: 'Please enter a number.'}).min(0, "CGPA must be positive.").max(10, "CGPA cannot exceed 10."),
@@ -34,7 +38,7 @@ const recommendationSchema = z.object({
   additionalDetails: z.string().optional(),
 });
 
-type GenerateCollegeRecommendationsInput = z.infer<typeof recommendationSchema>;
+export type GenerateCollegeRecommendationsInput = z.infer<typeof recommendationSchema>;
 
 
 type RecommendationFormProps = {
@@ -43,6 +47,15 @@ type RecommendationFormProps = {
 };
 
 export function RecommendationForm({ onSubmit, isLoading }: RecommendationFormProps) {
+  const { user } = useUser();
+  const firestore = useFirestore();
+
+  const profileRef = useMemoFirebase(
+    () => (user ? doc(firestore, `users/${user.uid}/profiles`, user.uid) : null),
+    [user, firestore]
+  );
+  const { data: userProfile, isLoading: isProfileLoading } = useDoc<UserProfile>(profileRef);
+
   const form = useForm<z.infer<typeof recommendationSchema>>({
     resolver: zodResolver(recommendationSchema),
     defaultValues: {
@@ -54,6 +67,20 @@ export function RecommendationForm({ onSubmit, isLoading }: RecommendationFormPr
       additionalDetails: '',
     },
   });
+
+  useEffect(() => {
+    if (userProfile) {
+      form.reset({
+        cgpa: userProfile.cgpa || 7.5,
+        entranceExamScore: userProfile.entranceExamScores || 90,
+        regionPreference: userProfile.regionPreference || 'India',
+        aptitudeTestScore: form.getValues('aptitudeTestScore'), // Keep current value
+        coursePreference: form.getValues('coursePreference'), // Keep current value
+        additionalDetails: form.getValues('additionalDetails'), // Keep current value
+      });
+    }
+  }, [userProfile, form]);
+
 
   return (
     <Card className="shadow-lg">
@@ -120,7 +147,7 @@ export function RecommendationForm({ onSubmit, isLoading }: RecommendationFormPr
                       <SelectContent>
                         <SelectItem value="Engineering">Engineering</SelectItem>
                         <SelectItem value="MBA">MBA</SelectItem>
-                        <SelectItem value="Medical">Medical Sciences</SelectItem>
+                        <SelectItem value="Medical">Medical</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -170,11 +197,11 @@ export function RecommendationForm({ onSubmit, isLoading }: RecommendationFormPr
             />
           </CardContent>
           <CardFooter>
-            <Button type="submit" disabled={isLoading} className="w-full bg-accent hover:bg-accent/90">
-              {isLoading ? (
+            <Button type="submit" disabled={isLoading || isProfileLoading} className="w-full bg-accent hover:bg-accent/90">
+              {isLoading || isProfileLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Generating...
+                  {isProfileLoading ? 'Loading Profile...' : 'Generating...'}
                 </>
               ) : (
                 'Get Recommendations'
