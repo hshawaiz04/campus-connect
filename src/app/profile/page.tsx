@@ -108,9 +108,9 @@ export default function ProfilePage() {
                   </div>
                   <div className="p-3 bg-muted/50 rounded-md">
                     <p className="font-medium text-muted-foreground">Preferred Region</p>
-                    <p className="text-xl font-bold">
+                    <div className="text-xl font-bold">
                       <Badge variant="outline">{userProfile.regionPreference || 'N/A'}</Badge>
-                    </p>
+                    </div>
                   </div>
                   <div className="p-3 bg-muted/50 rounded-md">
                     <p className="font-medium text-muted-foreground">Education Board</p>
