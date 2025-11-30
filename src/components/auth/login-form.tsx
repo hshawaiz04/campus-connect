@@ -15,7 +15,6 @@ import {
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { useAuth } from '@/firebase';
-import { initiateEmailSignIn } from '@/firebase/non-blocking-login';
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -24,6 +23,7 @@ import { useEffect, useState } from 'react';
 import { useUser } from '@/firebase/auth/use-user';
 import { doc, getDoc } from 'firebase/firestore';
 import { useFirestore } from '@/firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 
 const loginSchema = z.object({
@@ -62,9 +62,9 @@ export function LoginForm() {
 
 
   const onSubmit = async (values: z.infer<typeof loginSchema>) => {
+    if (!auth || !firestore) return;
     setIsSubmitting(true);
     try {
-      // Use a custom sign-in function that returns the user credential
       const userCredential = await signInWithEmailAndPassword(auth, values.email, values.password);
       const loggedInUser = userCredential.user;
 
@@ -93,8 +93,7 @@ export function LoginForm() {
           router.push('/profile');
         } else if (userRole === 'college' && values.role === 'college') {
           toast({ title: 'Login Successful', description: 'Redirecting to your college dashboard.' });
-          // FUTURE: router.push('/college-dashboard');
-           router.push('/'); // Placeholder
+           router.push('/college-dashboard');
         } else {
           // Role mismatch between form and database
           throw new Error(`You are registered as a ${userRole}. Please log in as a ${userRole}.`);
@@ -122,16 +121,13 @@ export function LoginForm() {
     }
   };
   
-  // Custom sign-in to handle promise
-  const signInWithEmailAndPassword = (auth: any, email: any, pass: any) => {
-      return auth.signInWithEmailAndPassword(email, pass);
-  }
-
   return (
     <Card className="w-full max-w-md shadow-lg">
-      <CardHeader>
+       <CardHeader className="text-center">
         <CardTitle className="font-headline text-2xl">Welcome Back</CardTitle>
-        <CardDescription>Enter your credentials to access your account.</CardDescription>
+        <CardDescription>
+          Please select your role and enter your credentials to access your account.
+        </CardDescription>
       </CardHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -141,24 +137,28 @@ export function LoginForm() {
               name="role"
               render={({ field }) => (
                 <FormItem className="space-y-3">
-                  <FormLabel>Login as...</FormLabel>
+                  <FormLabel>I am a...</FormLabel>
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
                       defaultValue={field.value}
-                      className="flex space-x-4"
+                      className="grid grid-cols-2 gap-4"
                     >
-                      <FormItem className="flex items-center space-x-2 space-y-0">
-                        <FormControl>
-                          <RadioGroupItem value="student" />
-                        </FormControl>
-                        <FormLabel className="font-normal">Student</FormLabel>
+                      <FormItem>
+                         <FormControl>
+                            <RadioGroupItem value="student" id="student" className="peer sr-only" />
+                         </FormControl>
+                         <Label htmlFor="student" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary">
+                            Student
+                         </Label>
                       </FormItem>
-                      <FormItem className="flex items-center space-x-2 space-y-0">
-                        <FormControl>
-                          <RadioGroupItem value="college" />
-                        </FormControl>
-                        <FormLabel className="font-normal">College Representative</FormLabel>
+                       <FormItem>
+                         <FormControl>
+                            <RadioGroupItem value="college" id="college" className="peer sr-only" />
+                         </FormControl>
+                         <Label htmlFor="college" className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary">
+                            College Representative
+                         </Label>
                       </FormItem>
                     </RadioGroup>
                   </FormControl>

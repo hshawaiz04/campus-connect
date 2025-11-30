@@ -14,6 +14,7 @@ export type College = {
     housing?: string;
     scholarships?: string;
     notes?: string;
+    managedBy?: string; // UID of the college representative
   };
   
   export type UserProfile = {

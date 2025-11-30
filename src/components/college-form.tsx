@@ -23,9 +23,12 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Loader2 } from 'lucide-react';
-import type { College } from '@/lib/types';
+import type { College as CollegeType } from '@/lib/types';
 import { useRouter } from 'next/navigation';
 import { useMemo } from 'react';
+
+// New type for the form data to handle managedBy field.
+export type College = CollegeType & { managedBy?: string };
 
 const collegeSchema = z.object({
   name: z.string().min(1, "Name is required."),
@@ -59,9 +62,9 @@ export function CollegeForm({ college, onSubmit, isSubmitting, mode }: CollegeFo
     name: college?.name || '',
     description: college?.description || '',
     location: college?.location || '',
-    ranking: college?.ranking || 0,
+    ranking: college?.ranking || 1, // Default to a valid number
     fees: college?.fees || '',
-    courses: college?.courses.join(', ') || '',
+    courses: college?.courses?.join(', ') || '',
     eligibility: college?.eligibility || '',
     region: college?.region || 'India',
     field: college?.field || 'Engineering',
@@ -79,9 +82,12 @@ export function CollegeForm({ college, onSubmit, isSubmitting, mode }: CollegeFo
   const handleSubmit = (data: CollegeFormData) => {
     const processedData: College = {
       ...data,
+      // If it's a new college being created by an admin, generate an ID.
+      // If it's being edited, or created by a college rep, the ID is managed by the parent page.
       id: college?.id || `clg-${data.region.slice(0,2).toLowerCase()}-${data.field.slice(0,3).toLowerCase()}-${data.tier}-${Math.random().toString(36).substring(2, 6)}`,
       imageUrl: college?.imageUrl || `https://picsum.photos/seed/${data.name.replace(/\s+/g, '')}/800/600`,
       courses: data.courses.split(',').map(c => c.trim()),
+      managedBy: college?.managedBy,
     };
     onSubmit(processedData);
   };
@@ -89,7 +95,7 @@ export function CollegeForm({ college, onSubmit, isSubmitting, mode }: CollegeFo
   return (
     <Card className="max-w-2xl mx-auto">
       <CardHeader>
-        <CardTitle>{mode === 'create' ? 'Add New College' : 'Edit College'}</CardTitle>
+        <CardTitle>{mode === 'create' ? 'Add/Create College Profile' : 'Edit College Profile'}</CardTitle>
         <CardDescription>
           {mode === 'create' ? 'Fill out the form to add a new college to the database.' : `You are editing ${college?.name}.`}
         </CardDescription>
@@ -103,7 +109,7 @@ export function CollegeForm({ college, onSubmit, isSubmitting, mode }: CollegeFo
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>College Name</FormLabel>
-                  <FormControl><Input placeholder="e.g., IIT Bombay" {...field} /></FormControl>
+                  <FormControl><Input placeholder="e.g., State University" {...field} /></FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -218,7 +224,7 @@ export function CollegeForm({ college, onSubmit, isSubmitting, mode }: CollegeFo
                     render={({ field }) => (
                         <FormItem>
                         <FormLabel>Region</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select onValueChange={field.onChange} value={field.value}>
                             <FormControl><SelectTrigger><SelectValue /></SelectTrigger></FormControl>
                             <SelectContent>
                                 <SelectItem value="India">India</SelectItem>
@@ -235,7 +241,7 @@ export function CollegeForm({ college, onSubmit, isSubmitting, mode }: CollegeFo
                     render={({ field }) => (
                         <FormItem>
                         <FormLabel>Field</FormLabel>
-                         <Select onValueChange={field.onChange} defaultValue={field.value}>
+                         <Select onValueChange={field.onChange} value={field.value}>
                             <FormControl><SelectTrigger><SelectValue /></SelectTrigger></FormControl>
                             <SelectContent>
                                 <SelectItem value="Engineering">Engineering</SelectItem>
@@ -253,7 +259,7 @@ export function CollegeForm({ college, onSubmit, isSubmitting, mode }: CollegeFo
                     render={({ field }) => (
                         <FormItem>
                         <FormLabel>Tier</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select onValueChange={field.onChange} value={field.value}>
                             <FormControl><SelectTrigger><SelectValue /></SelectTrigger></FormControl>
                             <SelectContent>
                                 <SelectItem value="top">Top</SelectItem>
