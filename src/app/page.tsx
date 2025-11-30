@@ -14,6 +14,7 @@ type GenerateCollegeRecommendationsInput = {
     entranceExamScore: number;
     aptitudeTestScore: number;
     regionPreference: string;
+    coursePreference: string;
     additionalDetails?: string;
 };
 

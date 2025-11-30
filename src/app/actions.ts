@@ -8,6 +8,7 @@ const recommendationSchema = z.object({
   entranceExamScore: z.coerce.number().min(0),
   aptitudeTestScore: z.coerce.number().min(0),
   regionPreference: z.string(),
+  coursePreference: z.string(),
   additionalDetails: z.string().optional(),
 });
 
@@ -17,20 +18,20 @@ type GenerateCollegeRecommendationsInput = z.infer<typeof recommendationSchema>;
 const getLocalRecommendations = (
   input: GenerateCollegeRecommendationsInput
 ) => {
-  const { regionPreference, cgpa } = input;
+  const { regionPreference, cgpa, coursePreference } = input;
 
   const filteredColleges = colleges
-    .filter((college) => college.region === regionPreference)
+    .filter((college) => college.region === regionPreference && college.field === coursePreference)
     .sort((a, b) => a.ranking - b.ranking); // Sort by ranking
 
-  // Simple logic: suggest top 3 ranked colleges in the preferred region.
+  // Simple logic: suggest top 3 ranked colleges in the preferred region and field.
   // A more complex engine could match CGPA, scores, etc.
   const recommended = filteredColleges.slice(0, 3);
 
   return {
     recommendations: recommended.map((college) => ({
       collegeName: college.name,
-      reason: `A top-ranked institution in your preferred region (${college.region}) with a focus on programs like ${college.courses[0]}.`,
+      reason: `A top-ranked institution in your preferred region (${college.region}) and field (${college.field}) with a focus on programs like ${college.courses[0]}.`,
     })),
   };
 };

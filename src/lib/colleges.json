@@ -10,7 +10,8 @@
       "fees": 250000,
       "courses": ["Computer Science", "Mechanical Engineering", "Electrical Engineering"],
       "eligibility": "JEE Advanced Rank",
-      "region": "India"
+      "region": "India",
+      "field": "Engineering"
     },
     {
       "id": "clg-002",
@@ -22,7 +23,8 @@
       "fees": 55000,
       "courses": ["Computer Science", "Physics", "Economics"],
       "eligibility": "SAT/ACT Scores, Essays, Interviews",
-      "region": "Abroad"
+      "region": "Abroad",
+      "field": "Engineering"
     },
     {
       "id": "clg-003",
@@ -34,7 +36,8 @@
       "fees": 2300000,
       "courses": ["MBA", "PGP in Management", "Executive MBA"],
       "eligibility": "CAT Score",
-      "region": "India"
+      "region": "India",
+      "field": "MBA"
     },
     {
       "id": "clg-004",
@@ -46,7 +49,8 @@
       "fees": 57000,
       "courses": ["Business", "Law", "Medicine", "Engineering"],
       "eligibility": "SAT/ACT Scores, Essays",
-      "region": "Abroad"
+      "region": "Abroad",
+      "field": "Engineering"
     },
     {
       "id": "clg-005",
@@ -58,7 +62,8 @@
       "fees": 25000,
       "courses": ["Natural Sciences", "History", "Mathematics"],
       "eligibility": "A-Levels, IB",
-      "region": "Abroad"
+      "region": "Abroad",
+      "field": "Engineering"
     },
     {
       "id": "clg-006",
@@ -70,7 +75,8 @@
       "fees": 17550,
       "courses": ["Computing", "Business Analytics", "Architecture"],
       "eligibility": "Varies by country-specific qualifications",
-      "region": "Abroad"
+      "region": "Abroad",
+      "field": "Engineering"
     },
     {
       "id": "clg-007",
@@ -82,7 +88,8 @@
       "fees": 235000,
       "courses": ["Electrical Engineering", "Computer Science", "Textile Technology"],
       "eligibility": "JEE Advanced Rank",
-      "region": "India"
+      "region": "India",
+      "field": "Engineering"
     },
     {
       "id": "clg-008",
@@ -94,7 +101,8 @@
       "fees": 27000,
       "courses": ["Philosophy, Politics and Economics (PPE)", "Medicine", "Law"],
       "eligibility": "A-Levels, IB, or equivalent",
-      "region": "Abroad"
+      "region": "Abroad",
+      "field": "Engineering"
     },
     {
       "id": "clg-009",
@@ -106,7 +114,8 @@
       "fees": 198000,
       "courses": ["Computer Science and Engineering", "Electronics and Communication", "Biotechnology"],
       "eligibility": "VITEEE Rank",
-      "region": "India"
+      "region": "India",
+      "field": "Engineering"
     },
     {
       "id": "clg-010",
@@ -118,7 +127,8 @@
       "fees": 45000,
       "courses": ["Life Sciences", "Commerce", "Humanities"],
       "eligibility": "High School Diploma, Specific course prerequisites",
-      "region": "Abroad"
+      "region": "Abroad",
+      "field": "Engineering"
     },
     {
       "id": "clg-011",
@@ -130,7 +140,99 @@
       "fees": 6500,
       "courses": ["MBBS", "B.Sc Nursing", "M.D."],
       "eligibility": "NEET UG / INI CET Rank",
-      "region": "India"
+      "region": "India",
+      "field": "Medical"
+    },
+    {
+      "id": "clg-012",
+      "name": "Harvard University",
+      "description": "Harvard University is a private Ivy League research university in Cambridge, Massachusetts. Its history, influence, and wealth have made it one of the most prestigious universities in the world.",
+      "imageUrl": "https://images.unsplash.com/photo-1614361521033-2805e718f673?q=80&w=1080&auto=format&fit=crop",
+      "location": "Cambridge, USA",
+      "ranking": 3,
+      "fees": 54000,
+      "courses": ["Law", "Business Administration", "Computer Science"],
+      "eligibility": "SAT/ACT, Essays, Interviews",
+      "region": "Abroad",
+      "field": "MBA"
+    },
+    {
+      "id": "clg-013",
+      "name": "Indian Institute of Science, Bangalore",
+      "description": "IISc is a public university for scientific research and higher education located in Bangalore, India. It is one of the country's leading institutions in science and engineering.",
+      "imageUrl": "https://images.unsplash.com/photo-1599424239246-306c59b95147?q=80&w=1080&auto=format&fit=crop",
+      "location": "Bangalore, India",
+      "ranking": 3,
+      "fees": 30000,
+      "courses": ["Physics", "Aerospace Engineering", "Biological Sciences"],
+      "eligibility": "JEE/NEET/GATE/JAM",
+      "region": "India",
+      "field": "Engineering"
+    },
+    {
+      "id": "clg-014",
+      "name": "Johns Hopkins University",
+      "description": "Johns Hopkins is a private research university in Baltimore, Maryland. It is especially renowned for its medical school and the Johns Hopkins Hospital.",
+      "imageUrl": "https://images.unsplash.com/photo-1618999335688-9b88939c4d92?q=80&w=1080&auto=format&fit=crop",
+      "location": "Baltimore, USA",
+      "ranking": 9,
+      "fees": 60000,
+      "courses": ["Medicine", "Public Health", "International Studies"],
+      "eligibility": "SAT/ACT, Essays, Letters of Recommendation",
+      "region": "Abroad",
+      "field": "Medical"
+    },
+    {
+      "id": "clg-015",
+      "name": "Christian Medical College, Vellore",
+      "description": "CMC Vellore is a private, minority-run medical school, hospital and research institute. It is consistently ranked among the top medical colleges in India.",
+      "imageUrl": "https://images.unsplash.com/photo-1551601651-2a8555f1a13e?q=80&w=1080&auto=format&fit=crop",
+      "location": "Vellore, India",
+      "ranking": 3,
+      "fees": 50000,
+      "courses": ["MBBS", "Nursing", "Allied Health Sciences"],
+      "eligibility": "NEET UG",
+      "region": "India",
+      "field": "Medical"
+    },
+    {
+      "id": "clg-016",
+      "name": "Indian School of Business, Hyderabad",
+      "description": "ISB is a private business school in India with campuses in Hyderabad and Mohali. It offers a globally ranked Post Graduate Programme in Management.",
+      "imageUrl": "https://images.unsplash.com/photo-1591123120675-6f7f1aae0e5b?q=80&w=1080&auto=format&fit=crop",
+      "location": "Hyderabad, India",
+      "ranking": 2,
+      "fees": 3600000,
+      "courses": ["Post Graduate Programme in Management (PGP)", "Executive Fellow Programme"],
+      "eligibility": "GMAT/GRE, Work Experience",
+      "region": "India",
+      "field": "MBA"
+    },
+    {
+      "id": "clg-017",
+      "name": "The Wharton School, University of Pennsylvania",
+      "description": "The Wharton School is the business school of the University of Pennsylvania, a private Ivy League research university. It is widely regarded as one of the world's leading business schools.",
+      "imageUrl": "https://images.unsplash.com/photo-1504754524776-8f4f37790772?q=80&w=1080&auto=format&fit=crop",
+      "location": "Philadelphia, USA",
+      "ranking": 1,
+      "fees": 80000,
+      "courses": ["MBA", "Executive MBA", "PhD Programs"],
+      "eligibility": "GMAT/GRE, Essays, Interviews",
+      "region": "Abroad",
+      "field": "MBA"
+    },
+    {
+      "id": "clg-018",
+      "name": "INSEAD",
+      "description": "INSEAD is a non-profit graduate business school with locations in Europe, Asia, the Middle East, and North America. It is one of the world's most international business schools.",
+      "imageUrl": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1080&auto=format&fit=crop",
+      "location": "Fontainebleau, France",
+      "ranking": 2,
+      "fees": 97000,
+      "courses": ["MBA", "Global Executive MBA", "Master in Management"],
+      "eligibility": "GMAT/GRE, Work Experience, Interviews",
+      "region": "Abroad",
+      "field": "MBA"
     }
   ]
 }

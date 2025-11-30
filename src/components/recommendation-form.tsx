@@ -30,6 +30,7 @@ const recommendationSchema = z.object({
   entranceExamScore: z.coerce.number({invalid_type_error: 'Please enter a number.'}).min(0, "Score must be positive."),
   aptitudeTestScore: z.coerce.number({invalid_type_error: 'Please enter a number.'}).min(0, "Score must be positive."),
   regionPreference: z.string().min(1, "Please select a region."),
+  coursePreference: z.string().min(1, "Please select a field of study."),
   additionalDetails: z.string().optional(),
 });
 
@@ -49,6 +50,7 @@ export function RecommendationForm({ onSubmit, isLoading }: RecommendationFormPr
       entranceExamScore: 90,
       aptitudeTestScore: 85,
       regionPreference: 'India',
+      coursePreference: 'Engineering',
       additionalDetails: '',
     },
   });
@@ -99,6 +101,28 @@ export function RecommendationForm({ onSubmit, isLoading }: RecommendationFormPr
                     <FormControl>
                       <Input type="number" placeholder="e.g., 88" {...field} />
                     </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+               <FormField
+                control={form.control}
+                name="coursePreference"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Field of Study</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select your preferred field" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="Engineering">Engineering</SelectItem>
+                        <SelectItem value="MBA">MBA</SelectItem>
+                        <SelectItem value="Medical">Medical Sciences</SelectItem>
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}
