@@ -12,6 +12,7 @@ export type College = {
   eligibility: string;
   region: 'India' | 'Abroad';
   field: 'Engineering' | 'MBA' | 'Medical';
+  tier: 'top' | 'mid' | 'low';
 };
 
 export const colleges: College[] = data.colleges;
