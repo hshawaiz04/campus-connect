@@ -31,33 +31,46 @@ export default function AdminDashboard() {
 
   const [collegeToDelete, setCollegeToDelete] = useState<College | null>(null);
 
-  // Instead of checking for a role document, we attempt to query the 'colleges'
-  // collection. The security rules will only allow an admin to do this.
-  // If the query fails with a permission error, we know the user is not an admin.
+  // Attempt to query the 'colleges' collection.
+  // Security rules will only allow this for an admin user.
   const collegesQuery = useMemoFirebase(
     () => (user ? collection(firestore, 'colleges') : null),
     [firestore, user]
   );
   const { data: colleges, isLoading: areCollegesLoading, error: collegesError } = useCollection<College>(collegesQuery);
 
-  const isAdmin = !collegesError; // If there's no permission error, the user is an admin.
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const isLoading = isUserLoading || areCollegesLoading;
 
   useEffect(() => {
-    // If auth is still loading, or collections are loading, do nothing yet.
-    if (isLoading) return;
+    if (isLoading) {
+      return; // Wait until loading is complete
+    }
+
+    if (!user) {
+      toast({
+        variant: 'destructive',
+        title: 'Access Denied',
+        description: 'You must be logged in to view this page.'
+      });
+      router.push('/login');
+      return;
+    }
     
-    // After loading, if the user is not logged in OR if there was a permission error fetching colleges,
-    // they are not an admin. Redirect them.
-    if (!user || !isAdmin) {
+    // After loading, if there's a permission error, the user is not an admin.
+    if (collegesError) {
+      setIsAdmin(false);
       toast({
         variant: 'destructive',
         title: 'Access Denied',
         description: 'You must be an administrator to view this page.'
-      })
+      });
       router.push('/');
+    } else {
+      // If there's no error, loading is done, and we have a user, they are an admin.
+      setIsAdmin(true);
     }
-  }, [user, isLoading, isAdmin, router, toast]);
+  }, [user, isLoading, collegesError, router, toast]);
   
   const handleDelete = () => {
     if (!collegeToDelete || !firestore) return;
@@ -70,7 +83,7 @@ export default function AdminDashboard() {
     setCollegeToDelete(null);
   };
 
-  if (isLoading || !isAdmin) {
+  if (isLoading || isAdmin === null) {
     return (
       <div className="container mx-auto py-12">
         <Card>
