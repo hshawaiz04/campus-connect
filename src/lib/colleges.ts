@@ -18,4 +18,4 @@ export type College = {
   notes?: string;
 };
 
-export const colleges: College[] = data;
+export const colleges: College[] = data as College[];
