@@ -5,9 +5,10 @@ import { doc } from 'firebase/firestore';
 import { useParams, useRouter } from 'next/navigation';
 import type { College } from '@/lib/types';
 import { CollegeForm } from '@/components/college-form';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
+import { colleges as localColleges } from '@/lib/colleges';
 
 export default function EditCollegePage() {
   const params = useParams();
@@ -17,20 +18,33 @@ export default function EditCollegePage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const collegeId = typeof params.id === 'string' ? params.id : '';
 
+  const localCollege = useMemo(() => localColleges.find(c => c.id === collegeId), [collegeId]);
+
   const collegeRef = useMemoFirebase(
     () => (collegeId ? doc(firestore, 'colleges', collegeId) : null),
     [firestore, collegeId]
   );
-  const { data: college, isLoading } = useDoc<College>(collegeRef);
+  const { data: firestoreCollege, isLoading: isFirestoreLoading } = useDoc<College>(collegeRef);
+
+  const college = firestoreCollege || localCollege;
+  const isLoading = !college && isFirestoreLoading;
 
   const handleSubmit = (data: College) => {
-    if (!collegeRef) return;
+    if (!collegeId) return;
+
+    const finalData: College = {
+      ...data,
+      id: collegeId, // Ensure the ID is maintained
+    };
+
+    const docRef = doc(firestore, 'colleges', collegeId);
+    
     setIsSubmitting(true);
-    setDocumentNonBlocking(collegeRef, data, { merge: true });
+    setDocumentNonBlocking(docRef, finalData, { merge: true });
 
     toast({
       title: 'College Updated',
-      description: `${data.name} has been successfully updated.`,
+      description: `${finalData.name} has been successfully updated.`,
     });
 
     setTimeout(() => {

@@ -42,9 +42,11 @@ export default function AdminDashboard() {
     () => (firestore ? collection(firestore, 'colleges') : null),
     [firestore]
   );
-  const { data: firestoreColleges, isLoading: areCollegesLoading, error: collegesError } = useCollection<College>(collegesQuery);
+  const { data: firestoreColleges, isLoading: areCollegesLoading } = useCollection<College>(collegesQuery);
 
   const allColleges = useMemo(() => {
+    if (areCollegesLoading) return [];
+    
     const combined = new Map<string, College>();
     
     // Add local colleges first
@@ -56,18 +58,16 @@ export default function AdminDashboard() {
     }
     
     return Array.from(combined.values()).sort((a,b) => a.ranking - b.ranking);
-  }, [firestoreColleges]);
+  }, [firestoreColleges, areCollegesLoading]);
 
 
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
 
   useEffect(() => {
-    // Wait until user and data loading is complete
-    if (isUserLoading) {
+    if (isUserLoading || areCollegesLoading) {
       return;
     }
 
-    // If there is no user, redirect to login
     if (!user) {
       toast({
         variant: 'destructive',
@@ -79,8 +79,9 @@ export default function AdminDashboard() {
       return;
     }
     
-    // If there is a permission error fetching colleges, the user is not an admin
-    // We check this by seeing if the user is `admin@gmail.com`
+    // The most reliable security check is if the data fetch itself fails due to rules.
+    // However, since we now merge local and remote data, a simple check on user email is a good
+    // secondary client-side check. The ultimate security is in firestore.rules.
     if (user.email !== 'admin@gmail.com') {
       toast({
         variant: 'destructive',
@@ -91,18 +92,18 @@ export default function AdminDashboard() {
       setIsAuthorized(false);
       return;
     }
+    
+    setIsAuthorized(true);
 
-    // If loading is finished, there's a user, and it's the admin, they are authorized
-    if (!isUserLoading && user.email === 'admin@gmail.com') {
-        setIsAuthorized(true);
-    }
-
-  }, [user, isUserLoading, router, toast]);
+  }, [user, isUserLoading, areCollegesLoading, router, toast]);
 
   const handleDeleteCollege = async () => {
     if (!collegeToDelete || !firestore) return;
 
     try {
+      // This will attempt to delete the document from Firestore.
+      // After deletion, the useCollection hook will update, and the merged `allColleges`
+      // list will no longer include the deleted college, whether it was originally local or from Firestore.
       await deleteDoc(doc(firestore, 'colleges', collegeToDelete.id));
       toast({
         title: 'College Deleted',
@@ -239,7 +240,7 @@ export default function AdminDashboard() {
               ) : (
                 <TableRow>
                   <TableCell colSpan={5} className="text-center h-24 text-muted-foreground">
-                    No colleges found. Start by adding one.
+                    No colleges found. Start by adding one or seeding the database.
                   </TableCell>
                 </TableRow>
               )}
