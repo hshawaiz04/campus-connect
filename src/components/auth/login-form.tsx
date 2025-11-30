@@ -208,6 +208,22 @@ export function LoginForm() {
                 as a College
               </Link>
             </div>
+            <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                    <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                    <span className="bg-background px-2 text-muted-foreground">
+                    Or
+                    </span>
+                </div>
+            </div>
+            <div className="border rounded-md p-4 text-center text-sm">
+                <p className="font-semibold text-muted-foreground">For Administrators</p>
+                <p className="text-muted-foreground/80 mt-1">
+                    Login via the 'Student' section. Contact your administrator for login credentials.
+                </p>
+            </div>
           </CardFooter>
         </form>
       </Form>
