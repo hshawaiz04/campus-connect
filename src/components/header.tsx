@@ -83,11 +83,11 @@ export default function Header() {
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           <div className="flex-1 md:w-auto md:flex-none">
             {process.env.NODE_ENV === 'development' && (
-              <Link href="/admin/seed" passHref legacyBehavior>
-                <Button variant="outline" size="sm" asChild>
-                  <a><Upload className="mr-2 h-4 w-4" /> Seed Data</a>
-                </Button>
-              </Link>
+              <Button asChild variant="outline" size="sm">
+                <Link href="/admin/seed">
+                  <Upload className="mr-2 h-4 w-4" /> Seed Data
+                </Link>
+              </Button>
             )}
           </div>
           <UserButton />
