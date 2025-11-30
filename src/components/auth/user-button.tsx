@@ -49,6 +49,8 @@ export function UserButton() {
     return email.charAt(0).toUpperCase();
   };
 
+  const isAdmin = user.email === 'admin@gmail.com';
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -75,10 +77,12 @@ export function UserButton() {
           <UserIcon className="mr-2 h-4 w-4" />
           Profile
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => router.push('/admin/dashboard')}>
-            <Shield className="mr-2 h-4 w-4" />
-            Admin Dashboard
-        </DropdownMenuItem>
+        {isAdmin && (
+          <DropdownMenuItem onClick={() => router.push('/admin/dashboard')}>
+              <Shield className="mr-2 h-4 w-4" />
+              Admin Dashboard
+          </DropdownMenuItem>
+        )}
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout}>
           <LogOut className="mr-2 h-4 w-4" />

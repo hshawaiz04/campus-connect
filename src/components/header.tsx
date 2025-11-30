@@ -6,37 +6,16 @@ import { Menu, Upload } from 'lucide-react';
 import { UserButton } from '@/components/auth/user-button';
 
 export default function Header() {
+  const navLinks = [
+    { href: "/#recommendation-tool", label: "Recommendations" },
+    { href: "/colleges", label: "Colleges" },
+    { href: "/aptitude-test", label: "Aptitude Test" },
+  ];
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
-        <div className="mr-4 hidden md:flex">
-          <Link href="/" className="mr-6 flex items-center space-x-2">
-            <Logo className="h-6 w-6 text-primary" />
-            <span className="hidden font-bold sm:inline-block font-headline">
-              CampusConnect
-            </span>
-          </Link>
-          <nav className="flex items-center space-x-6 text-sm font-medium">
-            <Link
-              href="/#recommendation-tool"
-              className="transition-colors hover:text-foreground/80 text-foreground/60"
-            >
-              Recommendations
-            </Link>
-            <Link
-              href="/colleges"
-              className="transition-colors hover:text-foreground/80 text-foreground/60"
-            >
-              Colleges
-            </Link>
-            <Link
-              href="/aptitude-test"
-              className="transition-colors hover:text-foreground/80 text-foreground/60"
-            >
-              Aptitude Test
-            </Link>
-          </nav>
-        </div>
+        {/* Mobile Menu */}
         <Sheet>
           <SheetTrigger asChild>
             <Button
@@ -49,49 +28,50 @@ export default function Header() {
             </Button>
           </SheetTrigger>
           <SheetContent side="left" className="pr-0">
-          <Link href="/" className="mr-6 flex items-center space-x-2">
-            <Logo className="h-6 w-6 text-primary" />
-            <span className="font-bold sm:inline-block font-headline">
-              CampusConnect
-            </span>
-          </Link>
+            <Link href="/" className="mr-6 flex items-center space-x-2">
+              <Logo className="h-6 w-6 text-primary" />
+              <span className="font-bold sm:inline-block font-headline">
+                CampusConnect
+              </span>
+            </Link>
             <div className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
               <div className="flex flex-col space-y-3">
-              <Link
-                href="/#recommendation-tool"
-                className="transition-colors hover:text-foreground/80 text-foreground/60"
-              >
-                Recommendations
-              </Link>
-              <Link
-                href="/colleges"
-                className="transition-colors hover:text-foreground/80 text-foreground/60"
-              >
-                Colleges
-              </Link>
-              <Link
-                href="/aptitude-test"
-                className="transition-colors hover:text-foreground/80 text-foreground/60"
-              >
-                Aptitude Test
-              </Link>
+                {navLinks.map(link => (
+                  <Link key={link.href} href={link.href} className="transition-colors hover:text-foreground">
+                    {link.label}
+                  </Link>
+                ))}
               </div>
             </div>
           </SheetContent>
         </Sheet>
-
-        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <div className="flex-1 md:w-auto md:flex-none">
-            {process.env.NODE_ENV === 'development' && (
-              <div className="flex items-center gap-2">
-                <Link href="/admin/seed">
-                  <Button variant="outline" size="sm">
-                    <Upload className="mr-2 h-4 w-4" /> Seed Data
-                  </Button>
+        
+        {/* Desktop Logo and Nav */}
+        <div className="mr-auto flex items-center">
+           <Link href="/" className="mr-6 flex items-center space-x-2">
+            <Logo className="h-6 w-6 text-primary" />
+            <span className="hidden font-bold md:inline-block font-headline">
+              CampusConnect
+            </span>
+          </Link>
+          <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
+             {navLinks.map(link => (
+                <Link key={link.href} href={link.href} className="transition-colors text-foreground/60 hover:text-foreground/80">
+                    {link.label}
                 </Link>
-              </div>
-            )}
-          </div>
+            ))}
+          </nav>
+        </div>
+
+        {/* Right side actions */}
+        <div className="flex items-center justify-end space-x-2">
+          {process.env.NODE_ENV === 'development' && (
+              <Link href="/admin/seed">
+                <Button variant="outline" size="sm">
+                  <Upload className="mr-2 h-4 w-4" /> Seed Data
+                </Button>
+              </Link>
+          )}
           <UserButton />
         </div>
       </div>

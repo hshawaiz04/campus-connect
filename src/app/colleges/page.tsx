@@ -136,7 +136,7 @@ export default function CollegesPage() {
       
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {!isLoading && filteredColleges.map((college) => (
-          <Card key={college.id} className="flex flex-col overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
+          <Card key={college.id} className="flex flex-col overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
             <CardHeader>
               <div className="flex justify-between items-start">
                   <CardTitle className="font-headline text-xl flex-1 pr-4">{college.name}</CardTitle>
