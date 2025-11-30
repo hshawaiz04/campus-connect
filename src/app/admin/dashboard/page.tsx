@@ -36,17 +36,17 @@ export default function AdminDashboard() {
     [firestore, user]
   );
   const { data: colleges, isLoading: areCollegesLoading, error: collegesError } = useCollection<College>(collegesQuery);
-
-  const hasPermissionError = !!collegesError;
-  const isCheckingPermissions = isUserLoading || (areCollegesLoading && !colleges);
+  
+  const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
 
   useEffect(() => {
-    if (isCheckingPermissions) {
-      return; // Wait until loading is complete
+    if (isUserLoading || areCollegesLoading) {
+      // Still checking permissions, do nothing.
+      return;
     }
 
     if (!user) {
-      toast({
+       toast({
         variant: 'destructive',
         title: 'Access Denied',
         description: 'You must be logged in to view this page.'
@@ -54,17 +54,21 @@ export default function AdminDashboard() {
       router.push('/login');
       return;
     }
-    
-    // If loading is finished and there's a permission error, they are not an admin.
-    if (hasPermissionError) {
+
+    // After loading, if there's a permission error, user is not an admin.
+    if (collegesError) {
+      setIsAuthorized(false);
       toast({
         variant: 'destructive',
         title: 'Access Denied',
         description: 'You must be an administrator to view this page.'
       });
       router.push('/');
+    } else {
+      // If there is no error after loading, user is an admin.
+      setIsAuthorized(true);
     }
-  }, [user, isCheckingPermissions, hasPermissionError, router, toast]);
+  }, [user, isUserLoading, areCollegesLoading, collegesError, router, toast]);
   
   const handleDelete = () => {
     if (!collegeToDelete || !firestore) return;
@@ -77,7 +81,9 @@ export default function AdminDashboard() {
     setCollegeToDelete(null);
   };
 
-  if (isCheckingPermissions) {
+  // Show a full-page loading skeleton while we determine authorization.
+  // isAuthorized is null until we have a definitive answer.
+  if (isAuthorized === null) {
     return (
       <div className="container mx-auto py-12">
         <Card>
@@ -102,8 +108,8 @@ export default function AdminDashboard() {
     );
   }
 
-  // If there was an error and the redirect hasn't happened yet, show nothing.
-  if (hasPermissionError) {
+  // If not authorized, show nothing while redirecting.
+  if (!isAuthorized) {
     return null;
   }
 
