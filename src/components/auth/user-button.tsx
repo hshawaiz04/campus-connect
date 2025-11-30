@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { LogOut, User as UserIcon } from 'lucide-react';
+import { LogOut, User as UserIcon, Shield } from 'lucide-react';
 import { Skeleton } from '../ui/skeleton';
 
 export function UserButton() {
@@ -74,6 +74,10 @@ export function UserButton() {
         <DropdownMenuItem onClick={() => router.push('/profile')}>
           <UserIcon className="mr-2 h-4 w-4" />
           Profile
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => router.push('/admin/dashboard')}>
+            <Shield className="mr-2 h-4 w-4" />
+            Admin Dashboard
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout}>
