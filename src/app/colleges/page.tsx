@@ -2,7 +2,6 @@
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import type { College } from '@/lib/types';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -10,7 +9,8 @@ import Link from 'next/link';
 import { useState, useEffect, useMemo } from 'react';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Search } from 'lucide-react';
+import { Search, MapPin, BookOpen } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 export default function CollegesPage() {
   const [allColleges, setAllColleges] = useState<College[]>([]);
@@ -102,7 +102,6 @@ export default function CollegesPage() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {[...Array(6)].map((_, i) => (
             <Card key={i} className="flex flex-col overflow-hidden">
-              <Skeleton className="h-56 w-full" />
               <CardHeader>
                 <Skeleton className="h-6 w-3/4" />
                 <Skeleton className="h-4 w-1/2" />
@@ -129,22 +128,24 @@ export default function CollegesPage() {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {filteredColleges?.map((college) => (
           <Card key={college.id} className="flex flex-col overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
-            <div className="relative h-56 w-full">
-              <Image
-                src={college.imageUrl}
-                alt={college.name}
-                fill
-                className="object-cover"
-              />
-            </div>
             <CardHeader>
-              <CardTitle className="font-headline text-xl">{college.name}</CardTitle>
-              <CardDescription>{college.location}</CardDescription>
+              <div className="flex justify-between items-start">
+                  <CardTitle className="font-headline text-xl flex-1 pr-4">{college.name}</CardTitle>
+                  <Badge variant="outline" className="capitalize">{college.tier} Tier</Badge>
+              </div>
+              <div className="flex items-center text-sm text-muted-foreground pt-1">
+                <MapPin className="h-4 w-4 mr-2" />
+                <span>{college.location}</span>
+              </div>
             </CardHeader>
-            <CardContent className="flex-grow">
+            <CardContent className="flex-grow space-y-3">
               <p className="text-muted-foreground text-sm line-clamp-3">
                 {college.description}
               </p>
+               <div className="flex items-center text-sm text-muted-foreground">
+                <BookOpen className="h-4 w-4 mr-2" />
+                <span>{college.field}</span>
+              </div>
             </CardContent>
             <div className="p-6 pt-0">
               <Button className="w-full" asChild>

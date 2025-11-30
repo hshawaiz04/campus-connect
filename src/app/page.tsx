@@ -6,8 +6,6 @@ import { RecommendationForm } from '@/components/recommendation-form';
 import { RecommendationList } from '@/components/recommendation-list';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import Image from 'next/image';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Link from 'next/link';
 
 type GenerateCollegeRecommendationsInput = {
@@ -27,7 +25,6 @@ type RecommendedCollege = {
 export default function Home() {
   const [recommendations, setRecommendations] = useState<RecommendedCollege[]>([]);
   const { toast } = useToast();
-  const heroImage = PlaceHolderImages.find(p => p.id === 'hero-campus');
 
   const [loading, setLoading] = useState(false);
 
@@ -68,15 +65,15 @@ export default function Home() {
   return (
     <main>
       <section className="relative py-20 md:py-32 bg-card border-b">
-        <div className="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6 text-center md:text-left">
+        <div className="container mx-auto px-4 text-center">
+          <div className="max-w-3xl mx-auto space-y-6">
             <h1 className="text-4xl md:text-6xl font-headline font-bold tracking-tighter">
               Find Your <span className="text-primary">Future</span> Campus
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto md:mx-0">
+            <p className="text-lg md:text-xl text-muted-foreground">
               Our tool analyzes your academic profile and preferences to provide personalized college recommendations, guiding you to the perfect institution.
             </p>
-            <div className="flex gap-4 justify-center md:justify-start">
+            <div className="flex gap-4 justify-center">
               <Button size="lg" asChild>
                 <a href="#recommendation-tool">Get Started</a>
               </Button>
@@ -84,18 +81,6 @@ export default function Home() {
                 <Link href="/colleges">Learn More</Link>
               </Button>
             </div>
-          </div>
-          <div className="relative h-64 md:h-96 rounded-lg overflow-hidden shadow-2xl">
-            {heroImage && (
-              <Image
-                src={heroImage.imageUrl}
-                alt={heroImage.description}
-                data-ai-hint={heroImage.imageHint}
-                fill
-                className="object-cover"
-              />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-background/50 to-transparent"></div>
           </div>
         </div>
       </section>

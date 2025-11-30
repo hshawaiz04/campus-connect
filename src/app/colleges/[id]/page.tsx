@@ -3,7 +3,6 @@
 
 import { useParams } from 'next/navigation';
 import type { College } from '@/lib/types';
-import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
@@ -90,7 +89,6 @@ export default function CollegeDetailsPage() {
       <div className="container mx-auto py-12">
         <Skeleton className="h-10 w-32 mb-8" />
         <Card className="max-w-4xl mx-auto">
-          <Skeleton className="h-80 w-full rounded-t-lg" />
           <CardHeader>
             <Skeleton className="h-8 w-3/4" />
             <Skeleton className="h-5 w-1/2" />
@@ -149,22 +147,14 @@ export default function CollegeDetailsPage() {
           </Button>
         )}
       </div>
-      <Card className="max-w-4xl mx-auto overflow-hidden shadow-2xl">
-        <div className="relative h-64 md:h-80 w-full">
-          <Image
-            src={college.imageUrl}
-            alt={college.name}
-            fill
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-          <div className="absolute bottom-0 left-0 p-6">
-            <Badge className="text-sm mb-2">{college.region}</Badge>
-            <h1 className="text-3xl md:text-4xl font-headline font-bold text-white tracking-tighter">
+      <Card className="max-w-4xl mx-auto overflow-hidden shadow-lg">
+         <CardHeader className="p-6 md:p-8 bg-card border-b">
+            <Badge className="text-sm mb-2 w-fit">{college.region}</Badge>
+            <CardTitle className="text-3xl md:text-4xl font-headline font-bold tracking-tighter">
               {college.name}
-            </h1>
-          </div>
-        </div>
+            </CardTitle>
+            <CardDescription className="text-lg">{college.location}</CardDescription>
+        </CardHeader>
         <CardContent className="p-6 md:p-8 space-y-6">
           <div>
             <h2 className="text-xl font-semibold font-headline mb-2">Description</h2>
