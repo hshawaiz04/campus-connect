@@ -68,6 +68,23 @@
       "required": [
         "id"
       ]
+    },
+    "College": {
+      "title": "College",
+      "type": "object",
+      "description": "Represents a college or university.",
+      "properties": {
+        "name": { "type": "string", "description": "Name of the college." },
+        "description": { "type": "string", "description": "A detailed description of the college." },
+        "imageUrl": { "type": "string", "description": "URL of an image of the college." },
+        "location": { "type": "string", "description": "City and country of the college." },
+        "ranking": { "type": "number", "description": "The college's ranking." },
+        "fees": { "type": "number", "description": "Annual tuition fees." },
+        "courses": { "type": "array", "items": { "type": "string" }, "description": "List of courses offered." },
+        "eligibility": { "type": "string", "description": "Eligibility criteria for admission." },
+        "region": { "type": "string", "enum": ["India", "Abroad"], "description": "The geographical region of the college." }
+      },
+      "required": ["name", "description", "imageUrl", "location", "ranking", "fees", "courses", "eligibility", "region"]
     }
   },
   "auth": {
@@ -129,8 +146,16 @@
             }
           ]
         }
+      },
+      {
+        "path": "/colleges/{collegeId}",
+        "definition": {
+          "entityName": "College",
+          "schema": { "$ref": "#/backend/entities/College" },
+          "description": "Stores information about individual colleges."
+        }
       }
     ],
-    "reasoning": "This Firestore data structure is designed to support the CampusConnect application, focusing on user authentication, college browsing, aptitude tests, college recommendations, registration, admin dashboards, and college profile management. The design prioritizes Authorization Independence and QAPs (Rules are not Filters).  User data and profiles are separated into different collections to optimize data access and security. Roles are managed using dedicated collections instead of custom claims (DBAC). The design employs path-based ownership for user-related data and denormalization for collaborative data. For Authorization Independence, key attributes like roles or membership maps are denormalized into subcollections where needed.\n\n**Authorization Independence (CRITICAL):**  The design avoids hierarchical authorization dependencies (`get()`). Structures relying on parent data break atomic operations (transactions/batches) and are hard to debug. User roles are determined by the existence of a document in role collections (e.g. `roles_admin/{uid}`). College membership is determined through the `members` map.\n\n**Clarity of Intent (Debuggability):** The structure makes authorization intent explicit. Role collections like `roles_admin` clearly indicate admin privileges.  Membership maps in collaborative entities explicitly define user roles within those entities.\n\n**DBAC (No Custom Claims):** Roles are stored in the database. Authorization relies solely on `request.auth.uid`. Role-based access is determined by checking for the existence of documents in role collections.\n\n**QAPs (Rules are not Filters):** The structure enables secure `list` operations.  By segregating data with different access needs into separate collections (e.g., `/users/{userId}/profiles` for private profiles), list operations can be secured without complex filtering in rules. This approach prevents unintended data exposure and improves performance.\n\n**Invariants:** The structure supports the integrity of ownership, timestamps, and denormalized data. Ownership is enforced through path-based security rules (e.g., only the user can modify their profile). Timestamps can be added as needed within documents and secured via rules. Denormalized data, such as membership maps, is maintained by triggers or application logic to ensure consistency.\n"
+    "reasoning": "This Firestore data structure is designed to support the CampusConnect application, focusing on user authentication, college browsing, aptitude tests, college recommendations, registration, admin dashboards, and college profile management. The design prioritizes Authorization Independence and QAPs (Rules are not Filters).  User data and profiles are separated into different collections to optimize data access and security. Roles are managed using dedicated collections instead of custom claims (DBAC). The design employs path-based ownership for user-related data and denormalization for collaborative data. For Authorization Independence, key attributes like roles or membership maps are denormalized into subcollections where needed.\n\n**Authorization Independence (CRITICAL):**  The design avoids hierarchical authorization dependencies (`get()`). Structures relying on parent data break atomic operations (transactions/batches) and are hard to debug. User roles are determined by the existence of a document in role collections (e.g. `roles_admin/{uid}`). College membership is determined through the `members` map.\n\n**Clarity of Intent (Debuggability):** The structure makes authorization intent explicit. Role collections like `roles_admin` clearly indicate admin privileges.  Membership maps in collaborative entities explicitly define user roles within those entities.\n\n**DBAC (No Custom Claims):** Roles are stored in the. database. Authorization relies solely on `request.auth.uid`. Role-based access is determined by checking for the existence of documents in role collections.\n\n**QAPs (Rules are not Filters):** The structure enables secure `list` operations.  By segregating data with different access needs into separate collections (e.g., `/users/{userId}/profiles` for private profiles), list operations can be secured without complex filtering in rules. This approach prevents unintended data exposure and improves performance.\n\n**Invariants:** The structure supports the integrity of ownership, timestamps, and denormalized data. Ownership is enforced through path-based security rules (e.g., only the user can modify their profile). Timestamps can be added as needed within documents and secured via rules. Denormalized data, such as membership maps, is maintained by triggers or application logic to ensure consistency.\n"
   }
 }

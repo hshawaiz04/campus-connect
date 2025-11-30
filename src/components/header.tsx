@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/icons';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu } from 'lucide-react';
+import { Menu, Upload } from 'lucide-react';
 import { UserButton } from '@/components/auth/user-button';
 
 export default function Header() {
@@ -82,7 +82,13 @@ export default function Header() {
 
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           <div className="flex-1 md:w-auto md:flex-none">
-            {/* Search bar could go here */}
+            {process.env.NODE_ENV === 'development' && (
+              <Link href="/admin/seed" passHref legacyBehavior>
+                <Button variant="outline" size="sm" asChild>
+                  <a><Upload className="mr-2 h-4 w-4" /> Seed Data</a>
+                </Button>
+              </Link>
+            )}
           </div>
           <UserButton />
         </div>

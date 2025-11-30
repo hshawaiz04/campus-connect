@@ -10,6 +10,7 @@ export type College = {
   fees: number;
   courses: string[];
   eligibility: string;
+  region: 'India' | 'Abroad';
 };
 
 export const colleges: College[] = data.colleges;

@@ -9,7 +9,8 @@
       "ranking": 1,
       "fees": 250000,
       "courses": ["Computer Science", "Mechanical Engineering", "Electrical Engineering"],
-      "eligibility": "JEE Advanced Rank"
+      "eligibility": "JEE Advanced Rank",
+      "region": "India"
     },
     {
       "id": "clg-002",
@@ -20,7 +21,8 @@
       "ranking": 1,
       "fees": 55000,
       "courses": ["Computer Science", "Physics", "Economics"],
-      "eligibility": "SAT/ACT Scores, Essays, Interviews"
+      "eligibility": "SAT/ACT Scores, Essays, Interviews",
+      "region": "Abroad"
     },
     {
       "id": "clg-003",
@@ -31,7 +33,8 @@
       "ranking": 1,
       "fees": 2300000,
       "courses": ["MBA", "PGP in Management", "Executive MBA"],
-      "eligibility": "CAT Score"
+      "eligibility": "CAT Score",
+      "region": "India"
     },
     {
       "id": "clg-004",
@@ -42,7 +45,8 @@
       "ranking": 2,
       "fees": 57000,
       "courses": ["Business", "Law", "Medicine", "Engineering"],
-      "eligibility": "SAT/ACT Scores, Essays"
+      "eligibility": "SAT/ACT Scores, Essays",
+      "region": "Abroad"
     },
     {
       "id": "clg-005",
@@ -53,7 +57,8 @@
       "ranking": 3,
       "fees": 25000,
       "courses": ["Natural Sciences", "History", "Mathematics"],
-      "eligibility": "A-Levels, IB"
+      "eligibility": "A-Levels, IB",
+      "region": "Abroad"
     },
     {
       "id": "clg-006",
@@ -64,7 +69,8 @@
       "ranking": 8,
       "fees": 17550,
       "courses": ["Computing", "Business Analytics", "Architecture"],
-      "eligibility": "Varies by country-specific qualifications"
+      "eligibility": "Varies by country-specific qualifications",
+      "region": "Abroad"
     }
   ]
 }
