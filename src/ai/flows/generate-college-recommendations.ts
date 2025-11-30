@@ -47,7 +47,9 @@ const prompt = ai.definePrompt({
   name: 'generateCollegeRecommendationsPrompt',
   input: {schema: GenerateCollegeRecommendationsInputSchema},
   output: {schema: GenerateCollegeRecommendationsOutputSchema},
-  prompt: `You are an expert college advisor. Given a student's profile, academic records, aptitude test results, and preferences, you will generate a personalized list of recommended colleges to apply to.
+  prompt: `You are an expert college advisor with access to a vast database of information about colleges and universities around the world. Your task is to provide personalized college recommendations based on a student's profile.
+
+Analyze the provided student profile and leverage your knowledge of real-world colleges to suggest suitable institutions. Consider factors like admission difficulty relative to the student's scores, program strengths, location, and any other relevant details from the student's input.
 
 Student Profile:
 CGPA: {{{cgpa}}}
@@ -56,14 +58,7 @@ Aptitude Test Score: {{{aptitudeTestScore}}}
 Region Preference: {{{regionPreference}}}
 Additional Details: {{{additionalDetails}}}
 
-Based on this information, recommend a list of colleges that the student should consider applying to. Explain why each college is a good fit for the student.
-
-Format your output as a JSON array of college recommendations, including the college name and the reason for the recommendation.
-
-{{#each this}}
-  College Name: {{{collegeName}}}
-  Reason: {{{reason}}}
-{{/each}}`,
+Based on this information, recommend a list of 3-5 colleges. For each college, provide a clear and concise reason explaining why it is a good match for the student. Your response must be in the specified JSON format.`,
 });
 
 const generateCollegeRecommendationsFlow = ai.defineFlow(
