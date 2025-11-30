@@ -84,7 +84,7 @@ export default function CollegeDetailsPage() {
   const detailItems = [
     { icon: MapPin, label: 'Location', value: college.location },
     { icon: School, label: 'Ranking', value: `#${college.ranking}` },
-    { icon: DollarSign, label: 'Annual Fees', value: `$${college.fees.toLocaleString()}` },
+    { icon: DollarSign, label: 'Annual Fees', value: `₹${college.fees.toLocaleString()}` },
     { icon: Target, label: 'Eligibility', value: college.eligibility },
   ];
 
