@@ -83,10 +83,13 @@
         "imageUrl": { "type": "string", "description": "URL of an image of the college." },
         "location": { "type": "string", "description": "City and country of the college." },
         "ranking": { "type": "number", "description": "The college's ranking." },
-        "fees": { "type": "number", "description": "Annual tuition fees." },
+        "fees": { "type": "string", "description": "Annual tuition fees." },
         "courses": { "type": "array", "items": { "type": "string" }, "description": "List of courses offered." },
         "eligibility": { "type": "string", "description": "Eligibility criteria for admission." },
-        "region": { "type": "string", "enum": ["India", "Abroad"], "description": "The geographical region of the college." }
+        "region": { "type": "string", "enum": ["India", "Abroad"], "description": "The geographical region of the college." },
+        "housing": { "type": "string", "description": "Information about housing and accommodation." },
+        "scholarships": { "type": "string", "description": "Details about available scholarships." },
+        "notes": { "type": "string", "description": "Additional notes or important information about the college." }
       },
       "required": ["name", "description", "imageUrl", "location", "ranking", "fees", "courses", "eligibility", "region"]
     },

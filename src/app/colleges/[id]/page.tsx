@@ -7,13 +7,14 @@ import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, School, MapPin, Target, BookOpen, DollarSign, Milestone, Heart } from 'lucide-react';
+import { ArrowLeft, School, MapPin, Target, BookOpen, DollarSign, Milestone, Heart, Home, Award, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useUser, useFirestore, useDoc, useMemoFirebase, setDocumentNonBlocking, deleteDocumentNonBlocking } from '@/firebase';
 import { doc } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 export default function CollegeDetailsPage() {
   const params = useParams();
@@ -128,7 +129,7 @@ export default function CollegeDetailsPage() {
   const detailItems = [
     { icon: MapPin, label: 'Location', value: college.location },
     { icon: School, label: 'Ranking', value: `#${college.ranking}` },
-    { icon: DollarSign, label: 'Annual Fees', value: `₹${Number(college.fees).toLocaleString('en-IN')}` },
+    { icon: DollarSign, label: 'Annual Fees', value: college.fees },
     { icon: Target, label: 'Eligibility', value: college.eligibility },
   ];
 
@@ -204,6 +205,34 @@ export default function CollegeDetailsPage() {
                 <Badge variant="outline" className="capitalize text-sm">{college.field}</Badge>
             </div>
           </div>
+
+          <Accordion type="single" collapsible className="w-full">
+            {college.housing && (
+              <AccordionItem value="housing">
+                <AccordionTrigger className="text-lg font-semibold"><Home className="mr-2"/>Housing</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pl-8">
+                  {college.housing}
+                </AccordionContent>
+              </AccordionItem>
+            )}
+             {college.scholarships && (
+              <AccordionItem value="scholarships">
+                <AccordionTrigger className="text-lg font-semibold"><Award className="mr-2"/>Scholarships</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pl-8">
+                  {college.scholarships}
+                </AccordionContent>
+              </AccordionItem>
+            )}
+             {college.notes && (
+              <AccordionItem value="notes">
+                <AccordionTrigger className="text-lg font-semibold"><Info className="mr-2"/>Notes</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pl-8">
+                  {college.notes}
+                </AccordionContent>
+              </AccordionItem>
+            )}
+          </Accordion>
+
         </CardContent>
       </Card>
     </div>

@@ -11,6 +11,9 @@ export type College = {
     region: 'India' | 'Abroad';
     field: 'Engineering' | 'MBA' | 'Medical';
     tier: 'top' | 'mid' | 'low';
+    housing?: string;
+    scholarships?: string;
+    notes?: string;
   };
   
   export type UserProfile = {

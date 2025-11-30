@@ -39,6 +39,9 @@ const collegeSchema = z.object({
   region: z.enum(['India', 'Abroad']),
   field: z.enum(['Engineering', 'MBA', 'Medical']),
   tier: z.enum(['top', 'mid', 'low']),
+  housing: z.string().optional(),
+  scholarships: z.string().optional(),
+  notes: z.string().optional(),
 });
 
 type CollegeFormData = z.infer<typeof collegeSchema>;
@@ -65,6 +68,9 @@ export function CollegeForm({ college, onSubmit, isSubmitting, mode }: CollegeFo
     region: college?.region || 'India',
     field: college?.field || 'Engineering',
     tier: college?.tier || 'mid',
+    housing: college?.housing || '',
+    scholarships: college?.scholarships || '',
+    notes: college?.notes || '',
   }), [college]);
 
   const form = useForm<CollegeFormData>({
@@ -180,6 +186,39 @@ export function CollegeForm({ college, onSubmit, isSubmitting, mode }: CollegeFo
                 <FormItem>
                   <FormLabel>Courses (comma-separated)</FormLabel>
                   <FormControl><Input placeholder="Computer Science, Mechanical Engineering" {...field} /></FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="housing"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Housing</FormLabel>
+                  <FormControl><Textarea placeholder="Details about on-campus housing, fees, etc." {...field} /></FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="scholarships"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Scholarships</FormLabel>
+                  <FormControl><Textarea placeholder="Information about available scholarships..." {...field} /></FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="notes"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Additional Notes</FormLabel>
+                  <FormControl><Textarea placeholder="Any other relevant notes..." {...field} /></FormControl>
                   <FormMessage />
                 </FormItem>
               )}
