@@ -26,7 +26,7 @@ export function UserButton() {
 
   if (!user) {
     return (
-      <nav className="flex items-center">
+      <nav className="flex items-center space-x-2">
         <Button variant="ghost" size="sm" onClick={() => router.push('/login')}>
           Login
         </Button>
@@ -63,7 +63,7 @@ export function UserButton() {
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">
-              {user.displayName ?? 'User'}
+              {user.displayName ?? user.email}
             </p>
             <p className="text-xs leading-none text-muted-foreground">
               {user.email}
