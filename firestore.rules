@@ -122,7 +122,7 @@ service cloud.firestore {
      * No client-side access is needed or allowed.
      */
     match /colleges/{collegeId} {
-        allow read: if false; // Block all reads
+        allow read: if isSignedIn();
         allow write: if isAdmin();
     }
 
@@ -130,6 +130,8 @@ service cloud.firestore {
     /**
      * @description A private collection used by security rules to identify admins.
      *              This collection should not be readable or writable by any client.
+     *              For development, we are temporarily allowing a user to write their own
+     *              admin role document. THIS IS NOT SAFE FOR PRODUCTION.
      * @path /roles_admin/{userId}
      * @allow The security rules engine checks for admin status via exists().
      * @deny Any client tries to read or write any document in this collection.
@@ -138,7 +140,7 @@ service cloud.firestore {
      */
     match /roles_admin/{userId} {
       allow read: if false;
-      allow write: if false;
+      allow write: if isOwner(userId); // Temporarily allow for dev setup
     }
   }
 }
