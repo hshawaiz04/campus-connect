@@ -76,6 +76,7 @@ export function LoginForm() {
       if (loggedInUser.email === 'admin@gmail.com') {
         toast({ title: 'Admin Login Successful', description: 'Redirecting to dashboard...' });
         router.push('/admin/dashboard');
+        setIsSubmitting(false);
         return;
       }
 
@@ -99,8 +100,7 @@ export function LoginForm() {
           throw new Error(`You are registered as a ${userRole}. Please log in as a ${userRole}.`);
         }
       } else {
-         // This case handles users who signed up before the role system was in place.
-         // Default them to 'student' role.
+         // This case handles users who signed up before the role system was in place, default to 'student'
          if(values.role === 'student') {
             toast({ title: 'Login Successful', description: 'Welcome back!' });
             router.push('/profile');

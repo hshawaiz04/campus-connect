@@ -1,6 +1,6 @@
 'use client';
 
-import { useUser, useDoc, useFirestore, useMemoFirebase, setDocumentNonBlocking, doc } from '@/firebase';
+import { useUser, useDoc, useFirestore, useMemoFirebase, setDocumentNonBlocking } from '@/firebase';
 import type { College } from '@/lib/types';
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
@@ -8,6 +8,7 @@ import { CollegeForm } from '@/components/college-form';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { doc, getDoc } from 'firebase/firestore';
 
 export default function CollegeDashboardPage() {
   const { user, isUserLoading } = useUser();
@@ -15,6 +16,7 @@ export default function CollegeDashboardPage() {
   const router = useRouter();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
 
   const collegeDocId = useMemo(() => user ? `user-managed-${user.uid}` : null, [user]);
 
@@ -30,17 +32,31 @@ export default function CollegeDashboardPage() {
       router.push('/login');
       return;
     }
+    
     // A simple role check, real security is in Firestore rules
     const checkRole = async () => {
         if (user) {
-            const userDoc = await doc(firestore, 'users', user.uid).get();
-            if (userDoc.exists() && userDoc.data().role !== 'college') {
-                 toast({
+            try {
+                const userDocSnap = await getDoc(doc(firestore, 'users', user.uid));
+                if (userDocSnap.exists() && userDocSnap.data().role === 'college') {
+                    setIsAuthorized(true);
+                } else {
+                    toast({
+                        variant: 'destructive',
+                        title: 'Access Denied',
+                        description: 'You are not authorized to view this page.'
+                    });
+                    router.push('/');
+                    setIsAuthorized(false);
+                }
+            } catch (error) {
+                toast({
                     variant: 'destructive',
-                    title: 'Access Denied',
-                    description: 'You are not authorized to view this page.'
+                    title: 'Error',
+                    description: 'Failed to verify user role.'
                 });
                 router.push('/');
+                setIsAuthorized(false);
             }
         }
     };
@@ -69,9 +85,9 @@ export default function CollegeDashboardPage() {
     }, 1000);
   };
   
-  const isLoading = isUserLoading || isCollegeLoading;
+  const isLoading = isUserLoading || isCollegeLoading || isAuthorized === null;
 
-  if (isLoading || !user) {
+  if (isLoading || !user || !isAuthorized) {
       return (
         <div className="container mx-auto py-12">
             <div className="max-w-2xl mx-auto space-y-6">
