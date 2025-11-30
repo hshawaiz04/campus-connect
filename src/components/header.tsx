@@ -30,7 +30,7 @@ export default function Header() {
               Colleges
             </Link>
             <Link
-              href="#"
+              href="/aptitude-test"
               className="transition-colors hover:text-foreground/80 text-foreground/60"
             >
               Aptitude Test
@@ -70,7 +70,7 @@ export default function Header() {
                 Colleges
               </Link>
               <Link
-                href="#"
+                href="/aptitude-test"
                 className="transition-colors hover:text-foreground/80 text-foreground/60"
               >
                 Aptitude Test
