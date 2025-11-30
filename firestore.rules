@@ -107,14 +107,12 @@ service cloud.firestore {
     }
 
     /**
-     * @description Publicly readable collection of colleges.
-     * @path /colleges/{collegeId}
-     * @allow Any user (authenticated or not) can read or list the colleges.
-     * @deny Writes are only allowed for administrators.
+     * @description Collection of colleges. This data is now served from a public file
+     * and should only be managed by admins through the app's admin dashboard.
+     * Direct client access is denied.
      */
     match /colleges/{collegeId} {
-      allow read: if true;
-      allow write: if isAdmin();
+      allow read, write: if false;
     }
 
     /**

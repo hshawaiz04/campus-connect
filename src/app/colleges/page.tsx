@@ -3,44 +3,50 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
-import { collection, query, where, orderBy, Query } from 'firebase/firestore';
 import type { College } from '@/lib/colleges';
 import { Skeleton } from '@/components/ui/skeleton';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Search } from 'lucide-react';
 
 export default function CollegesPage() {
-  const firestore = useFirestore();
+  const [allColleges, setAllColleges] = useState<College[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [fieldFilter, setFieldFilter] = useState('All');
   const [regionFilter, setRegionFilter] = useState('All');
 
-  const collegesQuery = useMemoFirebase(() => {
-    if (!firestore) return null;
+  useEffect(() => {
+    const fetchColleges = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch('/colleges.json');
+        const data: College[] = await response.json();
+        setAllColleges(data.sort((a, b) => a.ranking - b.ranking));
+      } catch (error) {
+        console.error("Failed to fetch college data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchColleges();
+  }, []);
 
-    let q: Query = collection(firestore, 'colleges');
+  const filteredColleges = useMemo(() => {
+    return allColleges
+      .filter(college =>
+        college.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+      .filter(college =>
+        fieldFilter === 'All' ? true : college.field === fieldFilter
+      )
+      .filter(college =>
+        regionFilter === 'All' ? true : college.region === regionFilter
+      );
+  }, [allColleges, searchTerm, fieldFilter, regionFilter]);
 
-    if (fieldFilter !== 'All') {
-      q = query(q, where('field', '==', fieldFilter));
-    }
-    if (regionFilter !== 'All') {
-      q = query(q, where('region', '==', regionFilter));
-    }
-
-    q = query(q, orderBy('ranking', 'asc'));
-
-    return q;
-  }, [firestore, fieldFilter, regionFilter]);
-
-  const { data: colleges, isLoading } = useCollection<College>(collegesQuery);
-
-  const filteredColleges = colleges?.filter(college =>
-    college.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   return (
     <div className="container mx-auto py-12">

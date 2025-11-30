@@ -1,7 +1,5 @@
 'use client';
 
-import { useDoc, useFirestore, useMemoFirebase } from '@/firebase';
-import { doc } from 'firebase/firestore';
 import { useParams } from 'next/navigation';
 import type { College } from '@/lib/colleges';
 import Image from 'next/image';
@@ -11,17 +9,35 @@ import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, School, MapPin, Target, BookOpen, DollarSign, Milestone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 export default function CollegeDetailsPage() {
   const params = useParams();
-  const firestore = useFirestore();
   const collegeId = typeof params.id === 'string' ? params.id : '';
+  const [college, setCollege] = useState<College | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const collegeRef = useMemoFirebase(
-    () => (collegeId ? doc(firestore, 'colleges', collegeId) : null),
-    [firestore, collegeId]
-  );
-  const { data: college, isLoading } = useDoc<College>(collegeRef);
+  useEffect(() => {
+    if (!collegeId) return;
+
+    const fetchCollege = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch('/colleges.json');
+        const allColleges: College[] = await response.json();
+        const foundCollege = allColleges.find(c => c.id === collegeId);
+        setCollege(foundCollege || null);
+      } catch (error) {
+        console.error("Failed to fetch college data:", error);
+        setCollege(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCollege();
+  }, [collegeId]);
+
 
   if (isLoading) {
     return (
