@@ -7,7 +7,6 @@ import { RecommendationList } from '@/components/recommendation-list';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
-import Image from 'next/image';
 
 type GenerateCollegeRecommendationsInput = {
     cgpa: number;
@@ -65,21 +64,13 @@ export default function Home() {
 
   return (
     <main>
-       <section className="relative py-20 md:py-32 bg-card border-b h-[60vh] flex items-center justify-center">
-        <Image
-          src="/images/hero-campus.jpg"
-          alt="A beautiful modern university campus"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="container mx-auto px-4 text-center relative z-10">
+       <section className="py-20 md:py-32 bg-card border-b">
+        <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto space-y-6">
-            <h1 className="text-4xl md:text-6xl font-headline font-bold tracking-tighter text-white">
+            <h1 className="text-4xl md:text-6xl font-headline font-bold tracking-tighter text-foreground">
               Find Your <span className="text-primary">Future</span> Campus
             </h1>
-            <p className="text-lg md:text-xl text-slate-200">
+            <p className="text-lg md:text-xl text-muted-foreground">
               Our tool analyzes your academic profile and preferences to provide personalized college recommendations, guiding you to the perfect institution.
             </p>
             <div className="flex gap-4 justify-center">
