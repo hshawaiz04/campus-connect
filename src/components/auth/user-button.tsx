@@ -1,6 +1,6 @@
 'use client';
 
-import { useUser, useAuth, useDoc, useFirestore, useMemoFirebase } from '@/firebase';
+import { useUser, useAuth } from '@/firebase';
 import { useRouter } from 'next/navigation';
 import {
   DropdownMenu,
@@ -14,23 +14,13 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { LogOut, User as UserIcon, Shield } from 'lucide-react';
 import { Skeleton } from '../ui/skeleton';
-import { doc } from 'firebase/firestore';
 
 export function UserButton() {
   const { user, isUserLoading } = useUser();
   const auth = useAuth();
-  const firestore = useFirestore();
   const router = useRouter();
 
-  // Check if the user is an admin by looking for a document in the 'roles_admin' collection.
-  const adminRoleRef = useMemoFirebase(
-    () => (user ? doc(firestore, 'roles_admin', user.uid) : null),
-    [firestore, user]
-  );
-  const { data: adminRole, isLoading: isAdminLoading } = useDoc(adminRoleRef);
-  const isAdmin = !!adminRole;
-
-  if (isUserLoading || (user && isAdminLoading)) {
+  if (isUserLoading) {
     return <Skeleton className="h-10 w-10 rounded-full" />;
   }
 
@@ -48,7 +38,9 @@ export function UserButton() {
   }
 
   const handleLogout = () => {
-    auth.signOut();
+    if (auth) {
+      auth.signOut();
+    }
     router.push('/');
   };
 
@@ -83,12 +75,14 @@ export function UserButton() {
           <UserIcon className="mr-2 h-4 w-4" />
           Profile
         </DropdownMenuItem>
-        {isAdmin && (
-           <DropdownMenuItem onClick={() => router.push('/admin/dashboard')}>
-            <Shield className="mr-2 h-4 w-4" />
-            Admin Dashboard
-          </DropdownMenuItem>
-        )}
+        {/*
+          The admin dashboard link is shown to all users.
+          The dashboard page itself will handle authorization.
+        */}
+        <DropdownMenuItem onClick={() => router.push('/admin/dashboard')}>
+          <Shield className="mr-2 h-4 w-4" />
+          Admin Dashboard
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout}>
           <LogOut className="mr-2 h-4 w-4" />
