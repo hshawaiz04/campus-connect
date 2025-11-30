@@ -30,7 +30,6 @@ import { useMemo } from 'react';
 const collegeSchema = z.object({
   name: z.string().min(1, "Name is required."),
   description: z.string().min(1, "Description is required."),
-  imageUrl: z.string().url("Must be a valid URL."),
   location: z.string().min(1, "Location is required."),
   ranking: z.coerce.number().int().positive(),
   fees: z.string().min(1, "Fees are required."),
@@ -59,7 +58,6 @@ export function CollegeForm({ college, onSubmit, isSubmitting, mode }: CollegeFo
   const defaultValues = useMemo(() => ({
     name: college?.name || '',
     description: college?.description || '',
-    imageUrl: college?.imageUrl || '',
     location: college?.location || '',
     ranking: college?.ranking || 0,
     fees: college?.fees || '',
@@ -82,6 +80,7 @@ export function CollegeForm({ college, onSubmit, isSubmitting, mode }: CollegeFo
     const processedData: College = {
       ...data,
       id: college?.id || `clg-${data.region.slice(0,2).toLowerCase()}-${data.field.slice(0,3).toLowerCase()}-${data.tier}-${Math.random().toString(36).substring(2, 6)}`,
+      imageUrl: college?.imageUrl || `https://picsum.photos/seed/${data.name.replace(/\s+/g, '')}/800/600`,
       courses: data.courses.split(',').map(c => c.trim()),
     };
     onSubmit(processedData);
@@ -116,17 +115,6 @@ export function CollegeForm({ college, onSubmit, isSubmitting, mode }: CollegeFo
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl><Textarea placeholder="A premier institution..." {...field} /></FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-             <FormField
-              control={form.control}
-              name="imageUrl"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Image URL</FormLabel>
-                  <FormControl><Input type="url" placeholder="https://images.unsplash.com/..." {...field} /></FormControl>
                   <FormMessage />
                 </FormItem>
               )}
