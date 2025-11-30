@@ -11,21 +11,38 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Search, MapPin, BookOpen } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { colleges as allColleges } from '@/lib/colleges';
+import { colleges as localColleges } from '@/lib/colleges';
+import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
+import { collection } from 'firebase/firestore';
 
 export default function CollegesPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [fieldFilter, setFieldFilter] = useState('All');
   const [regionFilter, setRegionFilter] = useState('All');
-  const [isLoading, setIsLoading] = useState(true);
+  
+  const firestore = useFirestore();
+  const collegesQuery = useMemoFirebase(
+    () => (firestore ? collection(firestore, 'colleges') : null),
+    [firestore]
+  );
+  const { data: firestoreColleges, isLoading: areFirestoreCollegesLoading } = useCollection<College>(collegesQuery);
 
-  useEffect(() => {
-    // Simulate loading
-    setTimeout(() => setIsLoading(false), 500);
-  }, []);
+  const allColleges = useMemo(() => {
+    const combined = new Map<string, College>();
+    
+    // Add local colleges first
+    localColleges.forEach(college => combined.set(college.id, college));
+
+    // Add/overwrite with firestore colleges
+    if (firestoreColleges) {
+      firestoreColleges.forEach(college => combined.set(college.id, college));
+    }
+    
+    return Array.from(combined.values());
+  }, [firestoreColleges]);
+
 
   const filteredColleges = useMemo(() => {
-    if (!allColleges) return [];
     return allColleges
       .filter(college =>
         college.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -35,9 +52,11 @@ export default function CollegesPage() {
       )
       .filter(college =>
         regionFilter === 'All' ? true : college.region === regionFilter
-      );
+      )
+      .sort((a, b) => a.ranking - b.ranking);
   }, [allColleges, searchTerm, fieldFilter, regionFilter]);
 
+  const isLoading = areFirestoreCollegesLoading;
 
   return (
     <div className="container mx-auto py-12">
@@ -108,7 +127,7 @@ export default function CollegesPage() {
         </div>
       )}
 
-      {!isLoading && filteredColleges && filteredColleges.length === 0 && (
+      {!isLoading && filteredColleges.length === 0 && (
         <div className="text-center py-16 border-2 border-dashed rounded-lg">
           <h2 className="text-xl font-semibold">No Colleges Found</h2>
           <p className="text-muted-foreground mt-2">Try adjusting your search or filter criteria.</p>
@@ -116,7 +135,7 @@ export default function CollegesPage() {
       )}
       
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filteredColleges?.map((college) => (
+        {!isLoading && filteredColleges.map((college) => (
           <Card key={college.id} className="flex flex-col overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
             <CardHeader>
               <div className="flex justify-between items-start">

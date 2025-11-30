@@ -2,7 +2,7 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { colleges } from '@/lib/colleges';
+import { colleges as localColleges } from '@/lib/colleges';
 import type { College } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -22,20 +22,22 @@ export default function CollegeDetailsPage() {
   const { user } = useUser();
   const firestore = useFirestore();
   const { toast } = useToast();
-  const [isLoading, setIsLoading] = useState(true);
-  const [college, setCollege] = useState<College | undefined>(undefined);
 
-  useEffect(() => {
-    if (collegeId) {
-      const foundCollege = colleges.find(c => c.id === collegeId);
-      setCollege(foundCollege);
-    }
-    setIsLoading(false);
-  }, [collegeId]);
+  // Attempt to find the college in the local JSON data first
+  const localCollege = localColleges.find(c => c.id === collegeId);
 
+  const collegeRef = useMemoFirebase(
+    // Only try to fetch from Firestore if it's not found locally
+    () => (firestore && collegeId && !localCollege ? doc(firestore, 'colleges', collegeId) : null),
+    [firestore, collegeId, localCollege]
+  );
+  const { data: firestoreCollege, isLoading: isFirestoreLoading } = useDoc<College>(collegeRef);
+
+  const college = localCollege || firestoreCollege;
+  const isLoading = !localCollege && isFirestoreLoading;
 
   const favoriteRef = useMemoFirebase(
-    () => (user ? doc(firestore, `users/${user.uid}/favorites`, collegeId) : null),
+    () => (user && collegeId ? doc(firestore, `users/${user.uid}/favorites`, collegeId) : null),
     [user, firestore, collegeId]
   );
   const { data: favorite } = useDoc(favoriteRef);
