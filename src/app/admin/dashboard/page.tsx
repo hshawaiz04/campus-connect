@@ -41,17 +41,24 @@ export default function AdminDashboard() {
   const isAdmin = !!adminRole;
 
   const collegesQuery = useMemoFirebase(
-    () => collection(firestore, 'colleges'),
-    [firestore]
+    () => (isAdmin ? collection(firestore, 'colleges') : null),
+    [firestore, isAdmin]
   );
-  const { data: colleges, isLoading: areCollegesLoading, error: collegesError } = useCollection<College>(collegesQuery);
+  const { data: colleges, isLoading: areCollegesLoading } = useCollection<College>(collegesQuery);
 
   useEffect(() => {
-    // If not loading and user is not admin, redirect
-    if (!isUserLoading && !isAdminLoading && !isAdmin) {
+    // If auth is still loading, do nothing.
+    if (isUserLoading || isAdminLoading) return;
+    // If loading is finished and user is not logged in or not an admin, redirect to home.
+    if (!user || !isAdmin) {
+      toast({
+        variant: 'destructive',
+        title: 'Access Denied',
+        description: 'You must be an administrator to view this page.'
+      })
       router.push('/');
     }
-  }, [user, isUserLoading, isAdmin, isAdminLoading, router]);
+  }, [user, isUserLoading, isAdmin, isAdminLoading, router, toast]);
   
   const handleDelete = () => {
     if (!collegeToDelete || !firestore) return;
@@ -66,7 +73,7 @@ export default function AdminDashboard() {
 
   const isLoading = isUserLoading || isAdminLoading || areCollegesLoading;
 
-  if (isLoading) {
+  if (isLoading || !isAdmin) {
     return (
       <div className="container mx-auto py-12">
         <Card>
@@ -87,15 +94,6 @@ export default function AdminDashboard() {
             </div>
           </CardContent>
         </Card>
-      </div>
-    );
-  }
-  
-  if (!isAdmin) {
-     return (
-      <div className="container mx-auto py-12 text-center">
-        <h1 className="text-2xl font-bold">Access Denied</h1>
-        <p className="text-muted-foreground">You do not have permission to view this page.</p>
       </div>
     );
   }
