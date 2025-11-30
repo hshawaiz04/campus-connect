@@ -2,6 +2,7 @@
 'use client';
 
 import { useParams } from 'next/navigation';
+import { colleges } from '@/lib/colleges';
 import type { College } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -13,6 +14,7 @@ import { useUser, useFirestore, useDoc, useMemoFirebase, setDocumentNonBlocking,
 import { doc } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { useEffect, useState } from 'react';
 
 export default function CollegeDetailsPage() {
   const params = useParams();
@@ -20,12 +22,17 @@ export default function CollegeDetailsPage() {
   const { user } = useUser();
   const firestore = useFirestore();
   const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(true);
+  const [college, setCollege] = useState<College | undefined>(undefined);
 
-  const collegeRef = useMemoFirebase(
-    () => (firestore && collegeId ? doc(firestore, 'colleges', collegeId) : null),
-    [firestore, collegeId]
-  );
-  const { data: college, isLoading } = useDoc<College>(collegeRef);
+  useEffect(() => {
+    if (collegeId) {
+      const foundCollege = colleges.find(c => c.id === collegeId);
+      setCollege(foundCollege);
+    }
+    setIsLoading(false);
+  }, [collegeId]);
+
 
   const favoriteRef = useMemoFirebase(
     () => (user ? doc(firestore, `users/${user.uid}/favorites`, collegeId) : null),

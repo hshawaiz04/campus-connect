@@ -1,30 +1,28 @@
 
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import type { College } from '@/lib/types';
 import { Skeleton } from '@/components/ui/skeleton';
 import Link from 'next/link';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Search, MapPin, BookOpen } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
-import { collection, orderBy, query } from 'firebase/firestore';
+import { colleges as allColleges } from '@/lib/colleges';
 
 export default function CollegesPage() {
-  const firestore = useFirestore();
   const [searchTerm, setSearchTerm] = useState('');
   const [fieldFilter, setFieldFilter] = useState('All');
   const [regionFilter, setRegionFilter] = useState('All');
+  const [isLoading, setIsLoading] = useState(true);
 
-  const collegesQuery = useMemoFirebase(
-    () => (firestore ? query(collection(firestore, 'colleges'), orderBy('ranking')) : null),
-    [firestore]
-  );
-  const { data: allColleges, isLoading } = useCollection<College>(collegesQuery);
+  useEffect(() => {
+    // Simulate loading
+    setTimeout(() => setIsLoading(false), 500);
+  }, []);
 
   const filteredColleges = useMemo(() => {
     if (!allColleges) return [];
