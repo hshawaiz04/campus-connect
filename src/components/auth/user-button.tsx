@@ -1,6 +1,6 @@
 'use client';
 
-import { useUser, useAuth, useDoc, useFirestore, useMemoFirebase } from '@/firebase';
+import { useUser, useAuth } from '@/firebase';
 import { useRouter } from 'next/navigation';
 import {
   DropdownMenu,
@@ -14,21 +14,28 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { LogOut, User as UserIcon, Shield } from 'lucide-react';
 import { Skeleton } from '../ui/skeleton';
-import { doc } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { isAdmin as checkIsAdmin } from '@/ai/flows/is-admin';
+
 
 export function UserButton() {
   const { user, isUserLoading } = useUser();
   const auth = useAuth();
-  const firestore = useFirestore();
   const router = useRouter();
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdminLoading, setIsAdminLoading] = useState(true);
 
-  // Check if the user is an admin
-  const adminRoleRef = useMemoFirebase(
-    () => (user ? doc(firestore, 'roles_admin', user.uid) : null),
-    [firestore, user]
-  );
-  const { data: adminRole, isLoading: isAdminLoading } = useDoc(adminRoleRef);
-  const isAdmin = !!adminRole;
+  useEffect(() => {
+    if (user) {
+      setIsAdminLoading(true);
+      checkIsAdmin(user.uid)
+        .then(setIsAdmin)
+        .finally(() => setIsAdminLoading(false));
+    } else {
+      setIsAdmin(false);
+      setIsAdminLoading(false);
+    }
+  }, [user]);
 
   if (isUserLoading || (user && isAdminLoading)) {
     return <Skeleton className="h-10 w-10 rounded-full" />;
