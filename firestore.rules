@@ -14,7 +14,7 @@ service cloud.firestore {
     function isAdmin() {
       // The admin's email is hardcoded here.
       // Any user who signs in with this email will have admin privileges.
-      return request.auth.token.email == "admin@example.com";
+      return request.auth.token.email == "admin@gmail.com";
     }
 
     match /users/{userId} {

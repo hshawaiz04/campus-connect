@@ -16,8 +16,8 @@ export default function LoginPage() {
         </CardHeader>
         <CardContent>
           <div className="space-y-2 text-sm">
-            <p><strong>Email:</strong> admin@example.com</p>
-            <p><strong>Password:</strong> password</p>
+            <p><strong>Email:</strong> admin@gmail.com</p>
+            <p><strong>Password:</strong> admin@123</p>
           </div>
         </CardContent>
       </Card>
