@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
-import { useAuth, useFirestore } from '@/firebase';
+import { useAuth, useFirestore, FirestorePermissionError, errorEmitter } from '@/firebase';
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
@@ -55,18 +55,26 @@ export function SignupForm() {
       const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
       const user = userCredential.user;
 
-      // Add role to the user document in Firestore
       const userDocRef = doc(firestore, 'users', user.uid);
-      await setDoc(userDocRef, {
+      const userData = {
         email: user.email,
         role: 'student',
-      }, { merge: true });
+      };
+      
+      setDoc(userDocRef, userData, { merge: true }).catch(error => {
+        const permissionError = new FirestorePermissionError({
+          path: userDocRef.path,
+          operation: 'create',
+          requestResourceData: userData,
+        });
+        errorEmitter.emit('permission-error', permissionError);
+      });
 
       toast({
         title: 'Account Created!',
         description: 'Your student account has been successfully created.',
       });
-      router.push('/profile/edit'); // Redirect to profile to fill details
+      router.push('/profile/edit');
 
     } catch (error) {
        const e = error as { code?: string; message: string };

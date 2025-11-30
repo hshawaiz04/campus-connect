@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
-import { useAuth, useFirestore } from '@/firebase';
+import { useAuth, useFirestore, setDocumentNonBlocking, FirestorePermissionError, errorEmitter } from '@/firebase';
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
@@ -54,34 +54,44 @@ export function CollegeSignupForm() {
   const onSubmit = async (values: z.infer<typeof collegeSignupSchema>) => {
     setIsSubmitting(true);
     try {
-      // 1. Create the user in Firebase Auth
       const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
       const user = userCredential.user;
 
-      // 2. Create a user document in Firestore with the 'college' role
       const userDocRef = doc(firestore, 'users', user.uid);
-      await setDoc(userDocRef, {
+      const userData = {
         email: user.email,
         role: 'college',
-        collegeName: values.collegeName, // Store college name for reference
+        collegeName: values.collegeName,
+      };
+      setDoc(userDocRef, userData).catch(error => {
+        const permissionError = new FirestorePermissionError({
+          path: userDocRef.path,
+          operation: 'create',
+          requestResourceData: userData,
+        });
+        errorEmitter.emit('permission-error', permissionError);
       });
 
-      // 3. Create the initial college document (can be expanded later)
       const collegeDocRef = doc(firestore, 'colleges', `user-managed-${user.uid}`);
-      await setDoc(collegeDocRef, {
+      const collegeData = {
         name: values.collegeName,
         managedBy: user.uid,
-        // Add other initial fields here if necessary
-      }, { merge: true });
-
+      };
+      setDoc(collegeDocRef, collegeData, { merge: true }).catch(error => {
+         const permissionError = new FirestorePermissionError({
+          path: collegeDocRef.path,
+          operation: 'create',
+          requestResourceData: collegeData,
+        });
+        errorEmitter.emit('permission-error', permissionError);
+      });
 
       toast({
         title: 'Account Created!',
         description: "Your college representative account has been created.",
       });
       
-      // Redirect to a future college dashboard
-      router.push('/'); // Placeholder redirect
+      router.push('/'); 
 
     } catch (error) {
       const e = error as { code?: string; message: string };
