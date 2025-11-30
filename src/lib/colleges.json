@@ -4,13 +4,13 @@
     {
       "id": "clg-in-eng-top-01",
       "name": "IIT Bombay",
-      "description": "Indian Institute of Technology Bombay is a public technical and research university located in Powai, Mumbai. It is a premier engineering institution in India.",
+      "description": "One of India’s best for placements — strong CS/ECE hiring. Branch-dependent: top CS grads get very high offers (domestic & international). Average/median varies by dept (median often much lower than CS averages). Internship & startup opportunities strong.",
       "imageUrl": "https://images.unsplash.com/photo-1628745348882-8430a3821568?q=80&w=1080&auto=format&fit=crop",
       "location": "Mumbai, India",
       "ranking": 3,
-      "fees": 228000,
+      "fees": 220000,
       "courses": ["Aerospace Engineering", "Chemical Engineering", "Computer Science"],
-      "eligibility": "JEE Advanced Rank",
+      "eligibility": "JEE Advanced (through JoSAA). + meet category/document criteria.",
       "region": "India",
       "field": "Engineering",
       "tier": "top"
@@ -18,13 +18,13 @@
     {
       "id": "clg-in-eng-top-02",
       "name": "IIT Delhi",
-      "description": "Indian Institute of Technology Delhi is a public technical and research university located in Hauz Khas, Delhi. It is globally recognized for its engineering programs.",
+      "description": "Very strong placements — CS/EE/ME recruit well; high recruiter presence (tech, consulting, finance). Department-wise averages vary.",
       "imageUrl": "https://images.unsplash.com/photo-1607205499242-de6ee1188c74?q=80&w=1080&auto=format&fit=crop",
       "location": "New Delhi, India",
       "ranking": 2,
-      "fees": 235000,
+      "fees": 210000,
       "courses": ["Electrical Engineering", "Computer Science", "Textile Technology"],
-      "eligibility": "JEE Advanced Rank",
+      "eligibility": "JEE Advanced + JoSAA allocation.",
       "region": "India",
       "field": "Engineering",
       "tier": "top"
@@ -32,13 +32,13 @@
     {
       "id": "clg-in-eng-top-03",
       "name": "IIT Madras",
-      "description": "Indian Institute of Technology Madras is a public technical and research university located in Chennai, Tamil Nadu and is known for its strong engineering and technology programs.",
+      "description": "Consistently strong; CS, ECE, ME placements excellent. Good research & internship ecosystem. Particularly noted for engineering research & industry R&D tie-ups.",
       "imageUrl": "https://images.unsplash.com/photo-1620712953154-712b7f32f3b3?q=80&w=1080&auto=format&fit=crop",
       "location": "Chennai, India",
       "ranking": 1,
-      "fees": 250000,
+      "fees": 200000,
       "courses": ["Computer Science", "Mechanical Engineering", "Electrical Engineering"],
-      "eligibility": "JEE Advanced Rank",
+      "eligibility": "JEE Advanced + JoSAA.",
       "region": "India",
       "field": "Engineering",
       "tier": "top"
@@ -46,13 +46,13 @@
     {
       "id": "clg-in-eng-mid-01",
       "name": "NIT Trichy",
-      "description": "National Institute of Technology Tiruchirappalli is a public technical and research university with a reputation for excellence in engineering and technology.",
+      "description": "Very good among NITs — core & IT companies recruit actively. Average packages vary by branch (typical averages 6–12 LPA in strong branches). Strong regional industry links.",
       "imageUrl": "https://images.unsplash.com/photo-1567093323631-456578a16c7a?q=80&w=1080&auto=format&fit=crop",
       "location": "Tiruchirappalli, India",
       "ranking": 9,
-      "fees": 150000,
+      "fees": 125000,
       "courses": ["Civil Engineering", "Computer Science", "Mechanical Engineering"],
-      "eligibility": "JEE Main Rank",
+      "eligibility": "JEE Main + JoSAA counselling (NIT seats allocated through JoSAA).",
       "region": "India",
       "field": "Engineering",
       "tier": "mid"
@@ -60,13 +60,13 @@
     {
       "id": "clg-in-eng-mid-02",
       "name": "NIT Surathkal",
-      "description": "National Institute of Technology Karnataka, Surathkal is a public engineering university at Surathkal, Mangalore. It is one of India's premier technical universities.",
+      "description": "Among top NITs for placements — strong engineering recruitment; averages depend on branch (~6–12 LPA for top branches). Strong core engineering presence and good recruiter mix.",
       "imageUrl": "https://images.unsplash.com/photo-1617993740292-29e28d453386?q=80&w=1080&auto=format&fit=crop",
       "location": "Mangalore, India",
       "ranking": 12,
-      "fees": 155000,
+      "fees": 125000,
       "courses": ["Information Technology", "Chemical Engineering", "Metallurgical Engineering"],
-      "eligibility": "JEE Main Rank",
+      "eligibility": "JEE Main + JoSAA.",
       "region": "India",
       "field": "Engineering",
       "tier": "mid"
@@ -74,13 +74,13 @@
     {
       "id": "clg-in-eng-mid-03",
       "name": "BITS Pilani",
-      "description": "Birla Institute of Technology & Science, Pilani is a private deemed university in Pilani, India. It is known for its flexible academic structure and strong industry linkages.",
+      "description": "Strong placements, especially in CS/Electronics; good international internship & placement opportunities via active placements cell. Average packages depend on major (CS often significantly higher). Higher fees than public institutions, but strong brand & alumni network.",
       "imageUrl": "https://images.unsplash.com/photo-1606761568499-6d2451b23c66?q=80&w=1080&auto=format&fit=crop",
       "location": "Pilani, India",
       "ranking": 25,
-      "fees": 450000,
+      "fees": 375000,
       "courses": ["Computer Science", "Electronics & Communication", "Pharmacy"],
-      "eligibility": "BITSAT Score",
+      "eligibility": "BITSAT (institute entrance) or state boards + admissions rules.",
       "region": "India",
       "field": "Engineering",
       "tier": "mid"
@@ -88,13 +88,13 @@
     {
       "id": "clg-in-eng-mid-04",
       "name": "IIIT Hyderabad",
-      "description": "The International Institute of Information Technology, Hyderabad is a private deemed university located in Hyderabad, Telangana, known for its research in IT and computer science.",
+      "description": "Strong CS/IT placements — high average packages for CS & research-oriented programs. Many students place in product companies & research labs. One of India’s best for CS & research-focused CS degrees.",
       "imageUrl": "https://images.unsplash.com/photo-1599424239246-306c59b95147?q=80&w=1080&auto=format&fit=crop",
       "location": "Hyderabad, India",
       "ranking": 55,
-      "fees": 360000,
+      "fees": 325000,
       "courses": ["Computer Science", "AI & Machine Learning", "Computational Linguistics"],
-      "eligibility": "JEE Main Rank / UGEE",
+      "eligibility": "Admissions via JEE Advanced / UGEE / institute-specific tests & interviews.",
       "region": "India",
       "field": "Engineering",
       "tier": "mid"
@@ -102,13 +102,13 @@
     {
       "id": "clg-in-eng-mid-05",
       "name": "Jadavpur University",
-      "description": "Jadavpur University is a public technical university located in Kolkata, West Bengal. It has been cited as one of the best universities in India.",
+      "description": "Decent placements especially for core engineering branches; strong reputation in Eastern India. Average packages vary widely by dept (~4–8 LPA typical; CS higher).",
       "imageUrl": "https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1080&auto=format&fit=crop",
       "location": "Kolkata, India",
       "ranking": 10,
-      "fees": 10000,
+      "fees": 85000,
       "courses": ["Information Technology", "Power Engineering", "Construction Engineering"],
-      "eligibility": "WBJEE Rank",
+      "eligibility": "West Bengal Joint Entrance (WBJEE) / JEE Main-based admissions.",
       "region": "India",
       "field": "Engineering",
       "tier": "mid"
@@ -116,13 +116,13 @@
     {
       "id": "clg-in-eng-low-01",
       "name": "Lovely Professional University (LPU)",
-      "description": "Lovely Professional University is a private university situated in Chaheru, Phagwara, Punjab, India. It is one of the largest single-campus universities in India.",
+      "description": "Mixed outcomes — some branches & top students get good packages; overall averages vary (often 3–6 LPA band). Good industry outreach & large campus placement drives but varied quality.",
       "imageUrl": "https://images.unsplash.com/photo-1581362074092-35075d113c28?q=80&w=1080&auto=format&fit=crop",
       "location": "Phagwara, India",
       "ranking": 46,
-      "fees": 280000,
+      "fees": 210000,
       "courses": ["Computer Science", "Business Administration", "Biotechnology"],
-      "eligibility": "LPUNEST Score",
+      "eligibility": "LPUNEST and also accepts JEE Main/other tests.",
       "region": "India",
       "field": "Engineering",
       "tier": "low"
@@ -130,13 +130,13 @@
     {
       "id": "clg-in-eng-low-02",
       "name": "Chitkara University",
-      "description": "Chitkara University is a private university located in Rajpura, Punjab, India. It offers undergraduate programs, post-graduate program and doctoral programs in varied fields.",
+      "description": "Vary by program and campus; many students get campus offers from regional recruiters, averages often in lower bands (3–6 LPA typical for engineering overall).",
       "imageUrl": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1080&auto=format&fit=crop",
       "location": "Rajpura, India",
       "ranking": 151,
-      "fees": 200000,
+      "fees": 175000,
       "courses": ["Computer Science", "Mechanical Engineering", "Hospitality Management"],
-      "eligibility": "JEE Main / 12th Grade Marks",
+      "eligibility": "University entrance criteria (may accept JEE Main / university test / merit).",
       "region": "India",
       "field": "Engineering",
       "tier": "low"
@@ -843,3 +843,5 @@
     }
   ]
 }
+
+    
