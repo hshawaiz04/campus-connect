@@ -43,6 +43,21 @@ const questions = [
     question: "Odometer is to mileage as compass is to:",
     options: ["speed", "hiking", "needle", "direction"],
     answer: "direction"
+  },
+  {
+    question: "What is 3/7 of 140?",
+    options: ["30", "40", "60", "70"],
+    answer: "60"
+  },
+  {
+    question: "A man buys an article for $27.50 and sells it for $28.60. Find his gain percent.",
+    options: ["3%", "4%", "5%", "6%"],
+    answer: "4%"
+  },
+  {
+    question: "Which of the following is not a prime number?",
+    options: ["31", "41", "51", "61"],
+    answer: "51"
   }
 ];
 
