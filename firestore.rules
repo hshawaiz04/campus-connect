@@ -139,7 +139,9 @@ service cloud.firestore {
      *            preventing the discovery or manipulation of administrator lists.
      */
     match /roles_admin/{userId} {
-      allow read: if false;
+      allow get: if isOwner(userId);
+      allow read: if isOwner(userId);
+      allow list: if false;
       allow write: if isOwner(userId); // Temporarily allow for dev setup
     }
   }
