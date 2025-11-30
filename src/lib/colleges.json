@@ -71,6 +71,66 @@
       "courses": ["Computing", "Business Analytics", "Architecture"],
       "eligibility": "Varies by country-specific qualifications",
       "region": "Abroad"
+    },
+    {
+      "id": "clg-007",
+      "name": "Indian Institute of Technology, Delhi",
+      "description": "IIT Delhi is a public technical and research university located in Hauz Khas, Delhi, India. It is one of the oldest Indian Institutes of Technology in India.",
+      "imageUrl": "https://images.unsplash.com/photo-1607205499242-de6ee1188c74?q=80&w=1080&auto=format&fit=crop",
+      "location": "New Delhi, India",
+      "ranking": 2,
+      "fees": 235000,
+      "courses": ["Electrical Engineering", "Computer Science", "Textile Technology"],
+      "eligibility": "JEE Advanced Rank",
+      "region": "India"
+    },
+    {
+      "id": "clg-008",
+      "name": "University of Oxford",
+      "description": "The University of Oxford is a collegiate research university in Oxford, England. There is evidence of teaching as early as 1096, making it the oldest university in the English-speaking world.",
+      "imageUrl": "https://images.unsplash.com/photo-1528652614643-9a3c75b56345?q=80&w=1080&auto=format&fit=crop",
+      "location": "Oxford, UK",
+      "ranking": 4,
+      "fees": 27000,
+      "courses": ["Philosophy, Politics and Economics (PPE)", "Medicine", "Law"],
+      "eligibility": "A-Levels, IB, or equivalent",
+      "region": "Abroad"
+    },
+    {
+      "id": "clg-009",
+      "name": "Vellore Institute of Technology",
+      "description": "VIT is a private deemed university located in Vellore, India. It is one of the most sought-after private engineering universities in India.",
+      "imageUrl": "https://images.unsplash.com/photo-1628745348882-8430a3821568?q=80&w=1080&auto=format&fit=crop",
+      "location": "Vellore, India",
+      "ranking": 15,
+      "fees": 198000,
+      "courses": ["Computer Science and Engineering", "Electronics and Communication", "Biotechnology"],
+      "eligibility": "VITEEE Rank",
+      "region": "India"
+    },
+    {
+      "id": "clg-010",
+      "name": "University of Toronto",
+      "description": "The University of Toronto is a public research university in Toronto, Ontario, Canada, located on the grounds that surround Queen's Park.",
+      "imageUrl": "https://images.unsplash.com/photo-1517935418141-828a20469d4d?q=80&w=1080&auto=format&fit=crop",
+      "location": "Toronto, Canada",
+      "ranking": 18,
+      "fees": 45000,
+      "courses": ["Life Sciences", "Commerce", "Humanities"],
+      "eligibility": "High School Diploma, Specific course prerequisites",
+      "region": "Abroad"
+    },
+    {
+      "id": "clg-011",
+      "name": "All India Institute of Medical Sciences, Delhi",
+      "description": "AIIMS Delhi is a medical school, hospital and public medical research university based in New Delhi, India. The institute is governed by the AIIMS Act, 1956.",
+      "imageUrl": "https://images.unsplash.com/photo-1584820927239-158de8b2096a?q=80&w=1080&auto=format&fit=crop",
+      "location": "New Delhi, India",
+      "ranking": 1,
+      "fees": 6500,
+      "courses": ["MBBS", "B.Sc Nursing", "M.D."],
+      "eligibility": "NEET UG / INI CET Rank",
+      "region": "India"
     }
   ]
 }
