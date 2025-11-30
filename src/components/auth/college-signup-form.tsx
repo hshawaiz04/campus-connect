@@ -94,7 +94,7 @@ export function CollegeSignupForm() {
         description: "Your college representative account has been created.",
       });
       
-      router.push('/'); 
+      router.push('/college-dashboard'); 
 
     } catch (error) {
       const e = error as { code?: string; message: string };
@@ -181,6 +181,12 @@ export function CollegeSignupForm() {
               Already have a representative account?{' '}
               <Link href="/login" className="font-medium text-primary hover:underline">
                 Log in
+              </Link>
+            </div>
+             <div className="text-center text-sm text-muted-foreground mt-2">
+                Not a college representative?{' '}
+              <Link href="/signup" className="font-medium text-primary hover:underline">
+                Sign up as a Student
               </Link>
             </div>
           </CardFooter>
