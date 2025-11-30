@@ -31,19 +31,17 @@ export default function AdminDashboard() {
 
   const [collegeToDelete, setCollegeToDelete] = useState<College | null>(null);
 
-  // Attempt to query the 'colleges' collection.
-  // Security rules will only allow this for an admin user.
   const collegesQuery = useMemoFirebase(
     () => (user ? collection(firestore, 'colleges') : null),
     [firestore, user]
   );
   const { data: colleges, isLoading: areCollegesLoading, error: collegesError } = useCollection<College>(collegesQuery);
 
-  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
-  const isLoading = isUserLoading || areCollegesLoading;
+  const hasPermissionError = !!collegesError;
+  const isCheckingPermissions = isUserLoading || (areCollegesLoading && !colleges);
 
   useEffect(() => {
-    if (isLoading) {
+    if (isCheckingPermissions) {
       return; // Wait until loading is complete
     }
 
@@ -57,20 +55,16 @@ export default function AdminDashboard() {
       return;
     }
     
-    // After loading, if there's a permission error, the user is not an admin.
-    if (collegesError) {
-      setIsAdmin(false);
+    // If loading is finished and there's a permission error, they are not an admin.
+    if (hasPermissionError) {
       toast({
         variant: 'destructive',
         title: 'Access Denied',
         description: 'You must be an administrator to view this page.'
       });
       router.push('/');
-    } else {
-      // If there's no error, loading is done, and we have a user, they are an admin.
-      setIsAdmin(true);
     }
-  }, [user, isLoading, collegesError, router, toast]);
+  }, [user, isCheckingPermissions, hasPermissionError, router, toast]);
   
   const handleDelete = () => {
     if (!collegeToDelete || !firestore) return;
@@ -83,7 +77,7 @@ export default function AdminDashboard() {
     setCollegeToDelete(null);
   };
 
-  if (isLoading || isAdmin === null) {
+  if (isCheckingPermissions) {
     return (
       <div className="container mx-auto py-12">
         <Card>
@@ -106,6 +100,11 @@ export default function AdminDashboard() {
         </Card>
       </div>
     );
+  }
+
+  // If there was an error and the redirect hasn't happened yet, show nothing.
+  if (hasPermissionError) {
+    return null;
   }
 
   return (

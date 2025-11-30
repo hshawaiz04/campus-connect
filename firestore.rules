@@ -34,6 +34,7 @@ service cloud.firestore {
 
     match /colleges/{collegeId} {
         allow read: if isSignedIn();
+        // Only the admin can list all colleges and write to them.
         allow list, write: if isAdmin();
     }
   }
