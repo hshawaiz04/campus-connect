@@ -2,7 +2,8 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/icons';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, User } from 'lucide-react';
+import { Menu } from 'lucide-react';
+import { UserButton } from '@/components/auth/user-button';
 
 export default function Header() {
   return (
@@ -17,7 +18,7 @@ export default function Header() {
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
             <Link
-              href="#recommendation-tool"
+              href="/#recommendation-tool"
               className="transition-colors hover:text-foreground/80 text-foreground/60"
             >
               Recommendations
@@ -57,7 +58,7 @@ export default function Header() {
             <div className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
               <div className="flex flex-col space-y-3">
               <Link
-                href="#recommendation-tool"
+                href="/#recommendation-tool"
                 className="transition-colors hover:text-foreground/80 text-foreground/60"
               >
                 Recommendations
@@ -83,10 +84,7 @@ export default function Header() {
           <div className="flex-1 md:w-auto md:flex-none">
             {/* Search bar could go here */}
           </div>
-          <nav className="flex items-center">
-            <Button variant="ghost" size="sm">Login</Button>
-            <Button size="sm">Sign Up</Button>
-          </nav>
+          <UserButton />
         </div>
       </div>
     </header>

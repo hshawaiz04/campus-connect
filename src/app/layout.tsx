@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
+import { FirebaseClientProvider } from '@/firebase';
 
 export const metadata: Metadata = {
   title: 'CampusConnect',
@@ -31,10 +32,12 @@ export default function RootLayout({
           'flex flex-col'
         )}
       >
-        <Header />
-        <div className="flex-1">{children}</div>
-        <Footer />
-        <Toaster />
+        <FirebaseClientProvider>
+          <Header />
+          <div className="flex-1">{children}</div>
+          <Footer />
+          <Toaster />
+        </FirebaseClientProvider>
       </body>
     </html>
   );
