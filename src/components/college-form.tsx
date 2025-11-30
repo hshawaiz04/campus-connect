@@ -25,7 +25,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Loader2 } from 'lucide-react';
 import type { College as CollegeType } from '@/lib/types';
 import { useRouter } from 'next/navigation';
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 
 // New type for the form data to handle managedBy field.
 export type College = CollegeType & { managedBy?: string };
@@ -49,7 +49,7 @@ const collegeSchema = z.object({
 type CollegeFormData = z.infer<typeof collegeSchema>;
 
 interface CollegeFormProps {
-  college?: College;
+  college?: College | null;
   onSubmit: (data: College) => void;
   isSubmitting: boolean;
   mode: 'create' | 'edit';
@@ -79,6 +79,12 @@ export function CollegeForm({ college, onSubmit, isSubmitting, mode }: CollegeFo
     defaultValues,
   });
 
+  // Reset the form whenever the college prop changes
+  useEffect(() => {
+    form.reset(defaultValues);
+  }, [defaultValues, form]);
+
+
   const handleSubmit = (data: CollegeFormData) => {
     const processedData: College = {
       ...data,
@@ -95,9 +101,9 @@ export function CollegeForm({ college, onSubmit, isSubmitting, mode }: CollegeFo
   return (
     <Card className="max-w-2xl mx-auto">
       <CardHeader>
-        <CardTitle>{mode === 'create' ? 'Add/Create College Profile' : 'Edit College Profile'}</CardTitle>
+        <CardTitle>{mode === 'create' ? 'Create Your College Profile' : 'Edit College Profile'}</CardTitle>
         <CardDescription>
-          {mode === 'create' ? 'Fill out the form to add a new college to the database.' : `You are editing ${college?.name}.`}
+          {mode === 'create' ? 'Fill out the form to add your college to the listings.' : `You are editing ${college?.name}.`}
         </CardDescription>
       </CardHeader>
       <Form {...form}>
@@ -276,11 +282,13 @@ export function CollegeForm({ college, onSubmit, isSubmitting, mode }: CollegeFo
           <CardFooter className="gap-4">
             <Button type="submit" disabled={isSubmitting}>
               {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              {mode === 'create' ? 'Create College' : 'Save Changes'}
+              {mode === 'create' ? 'Create College Profile' : 'Save Changes'}
             </Button>
-            <Button variant="outline" onClick={() => router.back()}>
-              Cancel
-            </Button>
+            {mode === 'edit' && (
+                <Button variant="outline" onClick={() => router.back()}>
+                    Cancel
+                </Button>
+            )}
           </CardFooter>
         </form>
       </Form>

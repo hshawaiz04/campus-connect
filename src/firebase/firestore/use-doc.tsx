@@ -1,6 +1,6 @@
 'use client';
     
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   DocumentReference,
   onSnapshot,
@@ -22,6 +22,7 @@ export interface UseDocResult<T> {
   data: WithId<T> | null; // Document data with ID, or null.
   isLoading: boolean;       // True if loading.
   error: FirestoreError | Error | null; // Error object, or null.
+  refetch: () => void; // Function to manually refetch data
 }
 
 /**
@@ -46,6 +47,10 @@ export function useDoc<T = any>(
   const [data, setData] = useState<StateDataType>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<FirestoreError | Error | null>(null);
+  const [refetchIndex, setRefetchIndex] = useState(0);
+
+  const refetch = useCallback(() => setRefetchIndex(prev => prev + 1), []);
+
 
   useEffect(() => {
     if (!memoizedDocRef) {
@@ -87,7 +92,7 @@ export function useDoc<T = any>(
     );
 
     return () => unsubscribe();
-  }, [memoizedDocRef]); // Re-run if the memoizedDocRef changes.
+  }, [memoizedDocRef, refetchIndex]); // Re-run if the memoizedDocRef or refetchIndex changes.
 
-  return { data, isLoading, error };
+  return { data, isLoading, error, refetch };
 }

@@ -1,14 +1,27 @@
 'use client';
 
-import { useUser, useDoc, useFirestore, useMemoFirebase, setDocumentNonBlocking } from '@/firebase';
+import { useUser, useDoc, useFirestore, useMemoFirebase, setDocumentNonBlocking, deleteDocumentNonBlocking } from '@/firebase';
 import type { College } from '@/lib/types';
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { CollegeForm } from '@/components/college-form';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { doc, getDoc } from 'firebase/firestore';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
+import { Trash2 } from 'lucide-react';
+
 
 export default function CollegeDashboardPage() {
   const { user, isUserLoading } = useUser();
@@ -17,6 +30,7 @@ export default function CollegeDashboardPage() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const collegeDocId = useMemo(() => user ? `user-managed-${user.uid}` : null, [user]);
 
@@ -24,7 +38,7 @@ export default function CollegeDashboardPage() {
     () => (collegeDocId ? doc(firestore, 'colleges', collegeDocId) : null),
     [firestore, collegeDocId]
   );
-  const { data: college, isLoading: isCollegeLoading } = useDoc<College>(collegeRef);
+  const { data: college, isLoading: isCollegeLoading, refetch } = useDoc<College>(collegeRef);
 
   useEffect(() => {
     if (isUserLoading) return;
@@ -85,6 +99,17 @@ export default function CollegeDashboardPage() {
     }, 1000);
   };
   
+  const handleDelete = () => {
+    if (!collegeRef) return;
+    deleteDocumentNonBlocking(collegeRef);
+    toast({
+      title: 'Profile Deleted',
+      description: 'Your college profile has been successfully removed.',
+    });
+    setIsDeleting(false);
+    refetch(); // Refetch to update the UI state, showing the profile is gone
+  };
+
   const isLoading = isUserLoading || isCollegeLoading || isAuthorized === null;
 
   if (isLoading || !user || !isAuthorized) {
@@ -106,17 +131,41 @@ export default function CollegeDashboardPage() {
 
   return (
     <div className="container mx-auto py-12">
+       <AlertDialog open={isDeleting} onOpenChange={setIsDeleting}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete your college profile.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
        <Card className="max-w-2xl mx-auto mb-8 border-l-4 border-l-primary">
         <CardHeader>
-          <CardTitle>Welcome, College Representative!</CardTitle>
-          <CardDescription>
-            Use the form below to create or update your college's public profile. Any changes you save will be visible to students browsing the site.
-          </CardDescription>
+          <div className="flex justify-between items-start">
+            <div>
+              <CardTitle>Welcome, College Representative!</CardTitle>
+              <CardDescription>
+                {college ? "Update your college's public profile below." : "Create your college's public profile to be listed on the site."}
+              </CardDescription>
+            </div>
+             {college && (
+                <Button variant="destructive" size="sm" onClick={() => setIsDeleting(true)}>
+                    <Trash2 className="mr-2"/> Delete Profile
+                </Button>
+            )}
+          </div>
         </CardHeader>
       </Card>
       <CollegeForm
         mode={college ? 'edit' : 'create'}
-        college={college || { name: 'My College' } as College} // Pass a default for creation
+        college={college}
         onSubmit={handleSubmit}
         isSubmitting={isSubmitting}
       />
