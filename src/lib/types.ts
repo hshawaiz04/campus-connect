@@ -21,5 +21,14 @@ export type College = {
     board?: string;
     entranceExamScores?: number;
     regionPreference?: string;
+    aptitudeTestScore?: number;
+  }
+
+  export type FavoriteCollege = {
+    id: string;
+    collegeId: string;
+    name: string;
+    location: string;
+    field: string;
   }
   

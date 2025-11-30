@@ -89,31 +89,40 @@ service cloud.firestore {
       allow create: if isOwner(userId);
       allow update: if isExistingOwner(userId);
       allow delete: if isExistingOwner(userId);
-    }
 
-    /**
-     * @description Manages a user's private profile data, stored in a subcollection.
-     * @path /users/{userId}/profiles/{profileId}
-     * @allow An authenticated user creates or updates their own profile (create/update, auth.uid == userId).
-     * @deny User A tries to read or list the profiles of User B (get/list, auth.uid != userId).
-     * @principle Restricts all access to a user's own data tree (path-based ownership).
-     */
-    match /users/{userId}/profiles/{profileId} {
-      allow get: if isOwner(userId) || isAdmin();
-      allow list: if isOwner(userId);
-      allow create: if isOwner(userId);
-      allow update: if isExistingOwner(userId);
-      allow delete: if isExistingOwner(userId);
+      /**
+       * @description Manages a user's private profile data, stored in a subcollection.
+       * @path /users/{userId}/profiles/{profileId}
+       * @allow An authenticated user creates or updates their own profile (create/update, auth.uid == userId).
+       * @deny User A tries to read or list the profiles of User B (get/list, auth.uid != userId).
+       * @principle Restricts all access to a user's own data tree (path-based ownership).
+       */
+      match /profiles/{profileId} {
+        allow get: if isOwner(userId) || isAdmin();
+        allow list: if isOwner(userId);
+        allow create: if isOwner(userId);
+        allow update: if isExistingOwner(userId);
+        allow delete: if isExistingOwner(userId);
+      }
+
+      /**
+       * @description Manages a user's saved colleges.
+       * @path /users/{userId}/favorites/{collegeId}
+       * @allow A user can manage their own list of favorite colleges.
+       * @principle Path-based ownership ensures a user can only access their own favorites.
+       */
+      match /favorites/{collegeId} {
+        allow read, write: if isOwner(userId);
+      }
     }
 
     /**
      * @description Collection of colleges. This data is now served from a public file
      * and should only be managed by admins through the app's admin dashboard.
-     * Direct client access for public pages is no longer needed.
-     * Admins can read and write.
+     * No client-side access is needed or allowed.
      */
     match /colleges/{collegeId} {
-        allow read: if true;
+        allow read: if false; // Block all reads
         allow write: if isAdmin();
     }
 

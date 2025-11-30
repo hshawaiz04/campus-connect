@@ -7,6 +7,9 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { CheckCircle, XCircle } from 'lucide-react';
+import { useUser, useFirestore, setDocumentNonBlocking, useMemoFirebase } from '@/firebase';
+import { doc } from 'firebase/firestore';
+import { useToast } from '@/hooks/use-toast';
 
 const questions = [
   {
@@ -76,6 +79,10 @@ export default function AptitudeTest() {
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, string>>({});
   const [score, setScore] = useState<number | null>(null);
 
+  const { user } = useUser();
+  const firestore = useFirestore();
+  const { toast } = useToast();
+
   const handleOptionChange = (value: string) => {
     setSelectedAnswers({
       ...selectedAnswers,
@@ -103,6 +110,16 @@ export default function AptitudeTest() {
       }
     });
     setScore(finalScore);
+
+    if (user && firestore) {
+      const profileRef = doc(firestore, `users/${user.uid}/profiles`, user.uid);
+      const scoreData = { aptitudeTestScore: finalScore };
+      setDocumentNonBlocking(profileRef, scoreData, { merge: true });
+      toast({
+        title: "Score Saved!",
+        description: "Your aptitude test score has been saved to your profile.",
+      });
+    }
   };
 
   const handleRetake = () => {
@@ -118,7 +135,9 @@ export default function AptitudeTest() {
       <div className="text-center space-y-6">
         <h2 className="text-2xl font-bold font-headline">Test Complete!</h2>
         <p className="text-4xl font-bold text-primary">Your Score: {score} / {questions.length}</p>
-        <p className="text-muted-foreground">You can now use this score in the recommendation tool for more accurate results.</p>
+        <p className="text-muted-foreground">
+            {user ? 'Your score has been saved to your profile and can be used for recommendations.' : 'Log in to save your score and get better recommendations.'}
+        </p>
         <div className="space-y-4">
             <h3 className="text-xl font-semibold">Your Answers:</h3>
             {questions.map((q, index) => (

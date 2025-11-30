@@ -36,6 +36,7 @@ const profileSchema = z.object({
   board: z.string().optional(),
   entranceExamScores: z.coerce.number().min(0),
   regionPreference: z.string().min(1, "Please select a region."),
+  aptitudeTestScore: z.coerce.number().min(0).optional(),
 });
 
 type ProfileFormData = z.infer<typeof profileSchema>;
@@ -62,6 +63,7 @@ export default function EditProfilePage() {
       board: '',
       entranceExamScores: 0,
       regionPreference: '',
+      aptitudeTestScore: 0,
     },
   });
 
@@ -77,6 +79,7 @@ export default function EditProfilePage() {
         board: userProfile.board || '',
         entranceExamScores: userProfile.entranceExamScores || 0,
         regionPreference: userProfile.regionPreference || '',
+        aptitudeTestScore: userProfile.aptitudeTestScore || 0,
       });
     }
   }, [user, isUserLoading, userProfile, form, router]);
@@ -165,6 +168,19 @@ export default function EditProfilePage() {
                       <FormLabel>Entrance Exam Score</FormLabel>
                       <FormControl>
                         <Input type="number" placeholder="e.g., 95" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="aptitudeTestScore"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Aptitude Test Score</FormLabel>
+                      <FormControl>
+                        <Input type="number" placeholder="Your score" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

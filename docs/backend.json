@@ -57,12 +57,16 @@
           "description": "User's education board."
         },
         "entranceExamScores": {
-          "type": "string",
+          "type": "number",
           "description": "User's entrance exam scores."
         },
         "regionPreference": {
           "type": "string",
           "description": "User's preferred region (e.g., 'India', 'Abroad')."
+        },
+        "aptitudeTestScore": {
+          "type": "number",
+          "description": "User's score from the aptitude test."
         }
       },
       "required": [
@@ -85,6 +89,30 @@
         "region": { "type": "string", "enum": ["India", "Abroad"], "description": "The geographical region of the college." }
       },
       "required": ["name", "description", "imageUrl", "location", "ranking", "fees", "courses", "eligibility", "region"]
+    },
+    "FavoriteCollege": {
+      "title": "FavoriteCollege",
+      "type": "object",
+      "description": "Represents a user's saved or favorited college.",
+      "properties": {
+        "collegeId": {
+          "type": "string",
+          "description": "The ID of the favorited college."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the college."
+        },
+        "location": {
+          "type": "string",
+          "description": "The location of the college."
+        },
+        "field": {
+          "type": "string",
+          "description": "The field of study of the college."
+        }
+      },
+      "required": ["collegeId", "name", "location", "field"]
     }
   },
   "auth": {
@@ -127,6 +155,26 @@
             {
               "name": "profileId",
               "description": "The unique identifier for the user profile."
+            }
+          ]
+        }
+      },
+       {
+        "path": "/users/{userId}/favorites/{collegeId}",
+        "definition": {
+          "entityName": "FavoriteCollege",
+          "schema": {
+            "$ref": "#/backend/entities/FavoriteCollege"
+          },
+          "description": "Stores a user's favorited colleges. Path-based ownership ensures only the user can manage their favorites.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            },
+            {
+              "name": "collegeId",
+              "description": "The unique identifier for the college."
             }
           ]
         }

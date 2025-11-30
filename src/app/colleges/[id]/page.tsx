@@ -7,16 +7,29 @@ import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, School, MapPin, Target, BookOpen, DollarSign, Milestone } from 'lucide-react';
+import { ArrowLeft, School, MapPin, Target, BookOpen, DollarSign, Milestone, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { useUser, useFirestore, useDoc, useMemoFirebase, setDocumentNonBlocking, deleteDocumentNonBlocking } from '@/firebase';
+import { doc } from 'firebase/firestore';
+import { useToast } from '@/hooks/use-toast';
 
 export default function CollegeDetailsPage() {
   const params = useParams();
   const collegeId = typeof params.id === 'string' ? params.id : '';
   const [college, setCollege] = useState<College | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { user } = useUser();
+  const firestore = useFirestore();
+  const { toast } = useToast();
+
+  const favoriteRef = useMemoFirebase(
+    () => (user ? doc(firestore, `users/${user.uid}/favorites`, collegeId) : null),
+    [user, firestore, collegeId]
+  );
+  const { data: favorite } = useDoc(favoriteRef);
+  const isFavorite = !!favorite;
 
   useEffect(() => {
     if (!collegeId) return;
@@ -39,6 +52,37 @@ export default function CollegeDetailsPage() {
     fetchCollege();
   }, [collegeId]);
 
+  const handleFavoriteToggle = () => {
+    if (!user) {
+      toast({
+        variant: "destructive",
+        title: "Please log in",
+        description: "You need to be logged in to save colleges.",
+      });
+      return;
+    }
+    if (!college || !favoriteRef) return;
+
+    if (isFavorite) {
+      deleteDocumentNonBlocking(favoriteRef);
+      toast({
+        title: "Removed from Favorites",
+        description: `${college.name} has been removed from your list.`,
+      });
+    } else {
+      const favoriteData = {
+        collegeId: college.id,
+        name: college.name,
+        location: college.location,
+        field: college.field,
+      };
+      setDocumentNonBlocking(favoriteRef, favoriteData, { merge: false });
+      toast({
+        title: "Added to Favorites!",
+        description: `${college.name} has been added to your list.`,
+      });
+    }
+  };
 
   if (isLoading) {
     return (
@@ -90,12 +134,20 @@ export default function CollegeDetailsPage() {
 
   return (
     <div className="container mx-auto py-12">
-       <Button asChild variant="outline" className="mb-8">
-        <Link href="/colleges">
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to All Colleges
-        </Link>
-      </Button>
+       <div className="flex justify-between items-center mb-8">
+        <Button asChild variant="outline">
+          <Link href="/colleges">
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to All Colleges
+          </Link>
+        </Button>
+        {user && (
+           <Button variant="outline" onClick={handleFavoriteToggle}>
+            <Heart className={`mr-2 h-4 w-4 ${isFavorite ? 'fill-red-500 text-red-500' : ''}`} />
+            {isFavorite ? 'Saved' : 'Save'}
+          </Button>
+        )}
+      </div>
       <Card className="max-w-4xl mx-auto overflow-hidden shadow-2xl">
         <div className="relative h-64 md:h-80 w-full">
           <Image
@@ -131,7 +183,7 @@ export default function CollegeDetailsPage() {
           </div>
 
           <div>
-            <h2 className="text-xl font-semibold font-headline mb-3 flex items-center gap-2">
+            <h2 className="text-xl font-semibold font_headline mb-3 flex items-center gap-2">
                 <BookOpen className="h-5 w-5 text-primary" />
                 Courses Offered
             </h2>
