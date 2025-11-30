@@ -1,7 +1,7 @@
 'use client';
 
-import { useFirestore, addDocumentNonBlocking } from '@/firebase';
-import { collection } from 'firebase/firestore';
+import { useFirestore, addDocumentNonBlocking, setDocumentNonBlocking } from '@/firebase';
+import { collection, doc } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 import type { College } from '@/lib/types';
 import { CollegeForm } from '@/components/college-form';
@@ -16,18 +16,16 @@ export default function NewCollegePage() {
 
   const collegesRef = collection(firestore, 'colleges');
 
-  const handleSubmit = async (data: College) => {
+  const handleSubmit = (data: College) => {
     setIsSubmitting(true);
-    // We need to use the returned promise to set the document ID
-    const docRefPromise = addDocumentNonBlocking(collegesRef, { ...data, id: '' });
+    
+    const docRefPromise = addDocumentNonBlocking(collegesRef, data);
     
     docRefPromise.then(docRef => {
         if(docRef) {
-          // Firebase generates the ID, so we set it here before non-blocking update.
-          const finalData = {...data, id: docRef.id };
-          // This is a bit of a hack to update the doc with its own ID.
-          // In a real app, you might not store the ID in the doc itself.
-           addDocumentNonBlocking(doc(firestore, 'colleges', docRef.id), finalData);
+          // Update the new document with its own ID.
+          const collegeDocRef = doc(firestore, 'colleges', docRef.id);
+          setDocumentNonBlocking(collegeDocRef, { id: docRef.id }, { merge: true });
         }
     });
 
