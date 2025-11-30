@@ -8,8 +8,12 @@
       "imageUrl": "https://images.unsplash.com/photo-1628745348882-8430a3821568?q=80&w=1080&auto=format&fit=crop",
       "location": "Mumbai, India",
       "ranking": 3,
-      "fees": 220000,
-      "courses": ["Aerospace Engineering", "Chemical Engineering", "Computer Science"],
+      "fees": "₹1.8–2.5 L / year",
+      "courses": [
+        "Aerospace Engineering",
+        "Chemical Engineering",
+        "Computer Science"
+      ],
       "eligibility": "JEE Advanced (through JoSAA). + meet category/document criteria.",
       "region": "India",
       "field": "Engineering",
@@ -22,8 +26,12 @@
       "imageUrl": "https://images.unsplash.com/photo-1607205499242-de6ee1188c74?q=80&w=1080&auto=format&fit=crop",
       "location": "New Delhi, India",
       "ranking": 2,
-      "fees": 210000,
-      "courses": ["Electrical Engineering", "Computer Science", "Textile Technology"],
+      "fees": "₹1.8–2.4 L / year",
+      "courses": [
+        "Electrical Engineering",
+        "Computer Science",
+        "Textile Technology"
+      ],
       "eligibility": "JEE Advanced + JoSAA allocation.",
       "region": "India",
       "field": "Engineering",
@@ -36,8 +44,12 @@
       "imageUrl": "https://images.unsplash.com/photo-1620712953154-712b7f32f3b3?q=80&w=1080&auto=format&fit=crop",
       "location": "Chennai, India",
       "ranking": 1,
-      "fees": 200000,
-      "courses": ["Computer Science", "Mechanical Engineering", "Electrical Engineering"],
+      "fees": "₹1.8–2.3 L / year",
+      "courses": [
+        "Computer Science",
+        "Mechanical Engineering",
+        "Electrical Engineering"
+      ],
       "eligibility": "JEE Advanced + JoSAA.",
       "region": "India",
       "field": "Engineering",
@@ -50,8 +62,12 @@
       "imageUrl": "https://images.unsplash.com/photo-1567093323631-456578a16c7a?q=80&w=1080&auto=format&fit=crop",
       "location": "Tiruchirappalli, India",
       "ranking": 9,
-      "fees": 125000,
-      "courses": ["Civil Engineering", "Computer Science", "Mechanical Engineering"],
+      "fees": "₹1.0–1.5 L / year",
+      "courses": [
+        "Civil Engineering",
+        "Computer Science",
+        "Mechanical Engineering"
+      ],
       "eligibility": "JEE Main + JoSAA counselling (NIT seats allocated through JoSAA).",
       "region": "India",
       "field": "Engineering",
@@ -64,8 +80,12 @@
       "imageUrl": "https://images.unsplash.com/photo-1617993740292-29e28d453386?q=80&w=1080&auto=format&fit=crop",
       "location": "Mangalore, India",
       "ranking": 12,
-      "fees": 125000,
-      "courses": ["Information Technology", "Chemical Engineering", "Metallurgical Engineering"],
+      "fees": "₹1.0–1.5 L / year",
+      "courses": [
+        "Information Technology",
+        "Chemical Engineering",
+        "Metallurgical Engineering"
+      ],
       "eligibility": "JEE Main + JoSAA.",
       "region": "India",
       "field": "Engineering",
@@ -78,8 +98,12 @@
       "imageUrl": "https://images.unsplash.com/photo-1606761568499-6d2451b23c66?q=80&w=1080&auto=format&fit=crop",
       "location": "Pilani, India",
       "ranking": 25,
-      "fees": 375000,
-      "courses": ["Computer Science", "Electronics & Communication", "Pharmacy"],
+      "fees": "₹3.0–4.5 L / year",
+      "courses": [
+        "Computer Science",
+        "Electronics & Communication",
+        "Pharmacy"
+      ],
       "eligibility": "BITSAT (institute entrance) or state boards + admissions rules.",
       "region": "India",
       "field": "Engineering",
@@ -92,8 +116,12 @@
       "imageUrl": "https://images.unsplash.com/photo-1599424239246-306c59b95147?q=80&w=1080&auto=format&fit=crop",
       "location": "Hyderabad, India",
       "ranking": 55,
-      "fees": 325000,
-      "courses": ["Computer Science", "AI & Machine Learning", "Computational Linguistics"],
+      "fees": "₹2.5–4.0 L / year",
+      "courses": [
+        "Computer Science",
+        "AI & Machine Learning",
+        "Computational Linguistics"
+      ],
       "eligibility": "Admissions via JEE Advanced / UGEE / institute-specific tests & interviews.",
       "region": "India",
       "field": "Engineering",
@@ -106,8 +134,12 @@
       "imageUrl": "https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1080&auto=format&fit=crop",
       "location": "Kolkata, India",
       "ranking": 10,
-      "fees": 85000,
-      "courses": ["Information Technology", "Power Engineering", "Construction Engineering"],
+      "fees": "₹0.5–1.2 L / year",
+      "courses": [
+        "Information Technology",
+        "Power Engineering",
+        "Construction Engineering"
+      ],
       "eligibility": "West Bengal Joint Entrance (WBJEE) / JEE Main-based admissions.",
       "region": "India",
       "field": "Engineering",
@@ -120,8 +152,12 @@
       "imageUrl": "https://images.unsplash.com/photo-1581362074092-35075d113c28?q=80&w=1080&auto=format&fit=crop",
       "location": "Phagwara, India",
       "ranking": 46,
-      "fees": 210000,
-      "courses": ["Computer Science", "Business Administration", "Biotechnology"],
+      "fees": "₹1.2–3.0 L / year",
+      "courses": [
+        "Computer Science",
+        "Business Administration",
+        "Biotechnology"
+      ],
       "eligibility": "LPUNEST and also accepts JEE Main/other tests.",
       "region": "India",
       "field": "Engineering",
@@ -134,8 +170,12 @@
       "imageUrl": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1080&auto=format&fit=crop",
       "location": "Rajpura, India",
       "ranking": 151,
-      "fees": 175000,
-      "courses": ["Computer Science", "Mechanical Engineering", "Hospitality Management"],
+      "fees": "₹1.0–2.5 L / year",
+      "courses": [
+        "Computer Science",
+        "Mechanical Engineering",
+        "Hospitality Management"
+      ],
       "eligibility": "University entrance criteria (may accept JEE Main / university test / merit).",
       "region": "India",
       "field": "Engineering",
@@ -143,42 +183,53 @@
     },
     {
       "id": "clg-in-mba-top-01",
-      "name": "IIM Ahmedabad",
+      "name": "IIM Ahmedabad (IIMA)",
       "description": "Known for consulting & finance placements. One of the most academically intense B-schools. Consistently ranked as one of the best business schools in India.",
       "imageUrl": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1080&auto=format&fit=crop",
       "location": "Ahmedabad, India",
       "ranking": 1,
-      "fees": 2650000,
-      "courses": ["MBA (PGP)", "PGPX", "PhD"],
-      "eligibility": "CAT score (99-99.5 percentile for General). Shortlist based on academics, work ex, diversity, WAT/PI.",
+      "fees": "₹23-30 lakh total for 2-year PGP",
+      "courses": [
+        "MBA",
+        "PGP in Management",
+        "Executive MBA (PGPX)"
+      ],
+      "eligibility": "CAT score, ≥50% bachelor’s degree. Shortlist → WAT/PI. Weightage: academics + work experience + diversity + CAT percentile.",
       "region": "India",
       "field": "MBA",
       "tier": "top"
     },
     {
       "id": "clg-in-mba-top-02",
-      "name": "IIM Bangalore",
-      "description": "Known for consulting, general management, and tech strategy roles. Features one of India’s most beautiful campuses and a strong incubation hub (NSRCEL).",
+      "name": "IIM Bangalore (IIMB)",
+      "description": "Known for consulting, general management, and tech strategy roles. Founded in 1973, it was the third IIM to be established.",
       "imageUrl": "https://images.unsplash.com/photo-1591123120675-6f7f1aae0e5b?q=80&w=1080&auto=format&fit=crop",
       "location": "Bangalore, India",
       "ranking": 2,
-      "fees": 2450000,
-      "courses": ["MBA (PGP)", "EPGP", "PGPEM"],
-      "eligibility": "CAT score (99-99.5 percentile for General). Work experience is highly valued. Followed by WAT/PI.",
+      "fees": "₹23-26 lakh for 2-year PGP",
+      "courses": [
+        "Post Graduate Programme in Management (PGP)",
+        "Executive PGP"
+      ],
+      "eligibility": "CAT/GMAT/GRE, Bachelor’s ≥50%, Work experience valued. Shortlist → WAT/PI.",
       "region": "India",
       "field": "MBA",
       "tier": "top"
     },
     {
       "id": "clg-in-mba-top-03",
-      "name": "IIM Calcutta",
-      "description": "Known as the 'Finance campus of India', IIMC is very strong for finance, quantitative management, and consulting roles. It was the first IIM to be established.",
+      "name": "IIM Calcutta (IIMC)",
+      "description": "Very strong for finance, quantitative management, consulting. It was the first Indian Institute of Management to be established.",
       "imageUrl": "https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1080&auto=format&fit=crop",
       "location": "Kolkata, India",
       "ranking": 3,
-      "fees": 2350000,
-      "courses": ["MBA", "PGDBA", "Executive MBA"],
-      "eligibility": "CAT score (98-99+ percentile for General). High weightage for academics and CAT score. Followed by WAT/PI.",
+      "fees": "₹20–27 lakh total",
+      "courses": [
+        "MBA",
+        "PGDBA",
+        "Executive MBA"
+      ],
+      "eligibility": "CAT, ≥50% graduation, WAT + PI. Weightage for academics & CAT very high.",
       "region": "India",
       "field": "MBA",
       "tier": "top"
@@ -186,13 +237,16 @@
     {
       "id": "clg-in-mba-mid-01",
       "name": "SP Jain Institute of Management & Research (SPJIMR)",
-      "description": "Known for its unique profile-based shortlisting method and strong industry exposure. Excellent placements with strong recruiters from consulting and FMCG sectors.",
+      "description": "Known for strong peer group & industry exposure. Sits on a 45-acre campus in the western suburbs of Andheri in Mumbai.",
       "imageUrl": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1080&auto=format&fit=crop",
       "location": "Mumbai, India",
       "ranking": 20,
-      "fees": 1950000,
-      "courses": ["PGDM", "Global Management Programme"],
-      "eligibility": "CAT/XAT/GMAT (CAT: 92-97 %ile, XAT: 85-95 %ile). Profiles-based shortlisting where work-ex heavy profiles are often preferred.",
+      "fees": "₹17–22 lakh (PGDM)",
+      "courses": [
+        "PGDM",
+        "Global Management Programme"
+      ],
+      "eligibility": "CAT / XAT / GMAT. Profiles-based shortlisting. Work experience helpful.",
       "region": "India",
       "field": "MBA",
       "tier": "mid"
@@ -200,13 +254,17 @@
     {
       "id": "clg-in-mba-mid-02",
       "name": "Narsee Monjee Institute of Management Studies (NMIMS)",
-      "description": "High competition for the Mumbai campus. Offers a wide range of specializations with good recruiter diversity, especially in marketing and finance.",
+      "description": "High competition for Mumbai campus specifically. The University also has campuses at Shirpur, Bangalore, Hyderabad, Indore and Navi Mumbai.",
       "imageUrl": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1080&auto=format&fit=crop",
       "location": "Mumbai, India",
       "ranking": 21,
-      "fees": 1600000,
-      "courses": ["MBA", "MBA Tech", "MBA Pharma"],
-      "eligibility": "NMAT by GMAC (score of 220-235+ typically required). Followed by GD/PI.",
+      "fees": "₹12–20 lakh depending on specialization",
+      "courses": [
+        "MBA",
+        "MBA Tech",
+        "MBA Pharma"
+      ],
+      "eligibility": "NMAT (primary), GMAT in some rounds. GD/PI after shortlist.",
       "region": "India",
       "field": "MBA",
       "tier": "mid"
@@ -214,27 +272,33 @@
     {
       "id": "clg-in-mba-mid-03",
       "name": "Symbiosis Institute of Business Management (SIBM Pune)",
-      "description": "Situated on a beautiful hilltop campus in Lavale, SIBM Pune has a strong brand value across India, particularly known for its marketing placements.",
+      "description": "Strong brand value across India. It is one of the top B-Schools in India.",
       "imageUrl": "https://images.unsplash.com/photo-1535982330050-73f23e2e75f9?q=80&w=1080&auto=format&fit=crop",
       "location": "Pune, India",
       "ranking": 17,
-      "fees": 2000000,
-      "courses": ["MBA", "MBA (Innovation and Entrepreneurship)"],
-      "eligibility": "SNAP exam (97-99 percentile required). Followed by GE-PI-WAT.",
+      "fees": "₹18–22 lakh",
+      "courses": [
+        "MBA",
+        "MBA (Innovation and Entrepreneurship)"
+      ],
+      "eligibility": "SNAP exam. GE-PI-WAT after shortlist.",
       "region": "India",
       "field": "MBA",
       "tier": "mid"
     },
     {
       "id": "clg-in-mba-mid-04",
-      "name": "Xavier School of Management (XLRI Jamshedpur)",
-      "description": "XLRI has a very strong peer group and rigorous academics. Its Human Resource Management (HRM) program is considered the best in India.",
+      "name": "Xavier Labour Relations Institute (XLRI Jamshedpur)",
+      "description": "Very strong peer group, rigorous academics. HRM program is India’s best. It is one of the oldest business schools in India.",
       "imageUrl": "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1080&auto=format&fit=crop",
       "location": "Jamshedpur, India",
       "ranking": 9,
-      "fees": 2550000,
-      "courses": ["PGDM (BM)", "PGDM (HRM)"],
-      "eligibility": "XAT exam (95-99+ percentile). GMAT for some categories. Followed by PI rounds.",
+      "fees": "₹23–28 lakh",
+      "courses": [
+        "PGDM (BM)",
+        "PGDM (HRM)"
+      ],
+      "eligibility": "XAT (primary exam), GMAT for some categories. PI rounds.",
       "region": "India",
       "field": "MBA",
       "tier": "mid"
@@ -242,13 +306,15 @@
     {
       "id": "clg-in-mba-mid-05",
       "name": "Jamnalal Bajaj Institute of Management Studies (JBIMS)",
-      "description": "Offers one of the best ROIs in India due to very low fees and high salaries. It has a major advantage for finance placements due to its Mumbai location.",
+      "description": "Extremely high ROI (low fees + high salaries). Core focus on academics + industry lectures. No 'luxury' campus.",
       "imageUrl": "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?q=80&w=1080&auto=format&fit=crop",
       "location": "Mumbai, India",
       "ranking": 10,
-      "fees": 650000,
-      "courses": ["Masters in Management Studies (MMS)"],
-      "eligibility": "MAH-CET (99.9+ percentile) or CAT (~99%ile for All-India seats).",
+      "fees": "₹6–7 lakh",
+      "courses": [
+        "Masters in Management Studies (MMS)"
+      ],
+      "eligibility": "MAH-CET / CAT. DTE Maharashtra counselling.",
       "region": "India",
       "field": "MBA",
       "tier": "mid"
@@ -256,13 +322,16 @@
     {
       "id": "clg-in-mba-low-01",
       "name": "Amity University (MBA)",
-      "description": "Better than many private institutions, but has inconsistent placement outcomes due to a large batch size. Known for very good campus infrastructure.",
+      "description": "Better than many private institutions, but inconsistent placements due to batch size. Known for its industry-oriented curriculum and large alumni network.",
       "imageUrl": "https://images.unsplash.com/photo-1592329388863-13a1e1a46b5e?q=80&w=1080&auto=format&fit=crop",
       "location": "Noida, India",
       "ranking": 100,
-      "fees": 900000,
-      "courses": ["MBA", "MBA (International Business)"],
-      "eligibility": "Amity test or CAT/MAT/XAT/NMAT (CAT ~60-70%ile). Followed by PI.",
+      "fees": "₹6–12 lakh depending on specialization",
+      "courses": [
+        "MBA",
+        "MBA (International Business)"
+      ],
+      "eligibility": "Amity test or CAT / MAT / XAT / NMAT. Personal interview.",
       "region": "India",
       "field": "MBA",
       "tier": "low"
@@ -270,13 +339,16 @@
     {
       "id": "clg-in-mba-low-02",
       "name": "ICFAI Business School (IBS)",
-      "description": "IBS Hyderabad is the flagship campus. It has a massive campus with good facilities, but placement outcomes are variable due to the large batch size.",
+      "description": "IBS Hyderabad is the strongest among IBS campuses. Placement numbers vary a lot with role & specialization. Known for its case-study based learning approach.",
       "imageUrl": "https://images.unsplash.com/photo-1627556704302-6242884b7713?q=80&w=1080&auto=format&fit=crop",
       "location": "Hyderabad, India",
       "ranking": 120,
-      "fees": 1100000,
-      "courses": ["MBA", "PGPM"],
-      "eligibility": "IBSAT (60-70 percentile equivalent) or CAT/GMAT/NMAT (CAT ~60-70%ile). Followed by GD/PI.",
+      "fees": "₹7–15 lakh depending on campus",
+      "courses": [
+        "MBA",
+        "PGPM"
+      ],
+      "eligibility": "IBSAT exam. Also accepts CAT / GMAT / NMAT. GD/PI rounds.",
       "region": "India",
       "field": "MBA",
       "tier": "low"
@@ -284,13 +356,17 @@
     {
       "id": "clg-in-med-top-01",
       "name": "AIIMS Delhi",
-      "description": "Ranked #1 in India, AIIMS offers best-in-class clinical exposure. Attached to India's largest tertiary care hospital, it's the most competitive medical college to get into.",
+      "description": "#1 medical college in India. Best-in-class exposure in all specialties. Attached to India’s largest tertiary care hospital.",
       "imageUrl": "https://images.unsplash.com/photo-1584820927239-158de8b2096a?q=80&w=1080&auto=format&fit=crop",
       "location": "New Delhi, India",
       "ranking": 1,
-      "fees": 2500,
-      "courses": ["MBBS", "MD", "MDS"],
-      "eligibility": "NEET-UG with top 50-100 All India Ranks for open category.",
+      "fees": "₹1,300–3,000 per year (Tuition)",
+      "courses": [
+        "MBBS",
+        "B.Sc Nursing",
+        "M.D."
+      ],
+      "eligibility": "Must clear NEET-UG with top 50–100 All India Ranks for open category. Admission through MCC AIQ counselling.",
       "region": "India",
       "field": "Medical",
       "tier": "top"
@@ -298,13 +374,17 @@
     {
       "id": "clg-in-med-top-02",
       "name": "Christian Medical College (CMC Vellore)",
-      "description": "A top-ranked private medical college with a charitable model, making it one of the most affordable private options. Known for top-notch academics, discipline, and a service-oriented culture.",
+      "description": "Top-notch academics + discipline. Strong for surgery, pediatrics, medicine, neurology. One of the most affordable private colleges due to charitable model.",
       "imageUrl": "https://images.unsplash.com/photo-1551601651-2a8555f1a13e?q=80&w=1080&auto=format&fit=crop",
       "location": "Vellore, India",
       "ranking": 3,
-      "fees": 175000,
-      "courses": ["MBBS", "Nursing", "Allied Health Sciences"],
-      "eligibility": "NEET-UG with very high marks (620-650+ for general). Followed by CMC-specific selection.",
+      "fees": "₹1–2.5 lakh per year",
+      "courses": [
+        "MBBS",
+        "Nursing",
+        "Allied Health Sciences"
+      ],
+      "eligibility": "NEET-UG + CMC-specific selection & counselling rounds. Very high cutoffs for open seats.",
       "region": "India",
       "field": "Medical",
       "tier": "top"
@@ -312,13 +392,15 @@
     {
       "id": "clg-in-med-top-03",
       "name": "Armed Forces Medical College (AFMC Pune)",
-      "description": "The best option for a military medical career. Admission includes a mandatory service bond. The course is almost fully subsidized by the government, and students receive a stipend.",
+      "description": "Best for students wanting a military medical career. Almost fully subsidized by the government. Guaranteed job after graduation.",
       "imageUrl": "https://images.unsplash.com/photo-1588776814546-da624a734049?q=80&w=1080&auto=format&fit=crop",
       "location": "Pune, India",
       "ranking": 5,
-      "fees": 45000,
-      "courses": ["MBBS"],
-      "eligibility": "NEET-UG (620-640+ marks) + AFMC screening test and medical fitness.",
+      "fees": "₹30,000–60,000 per year (including mess/hostel)",
+      "courses": [
+        "MBBS"
+      ],
+      "eligibility": "NEET-UG + AFMC screening test + medical fitness. Mandatory service bond in Armed Forces after MBBS.",
       "region": "India",
       "field": "Medical",
       "tier": "top"
@@ -326,13 +408,17 @@
     {
       "id": "clg-in-med-mid-01",
       "name": "Kasturba Medical College (KMC Manipal)",
-      "description": "A premium private medical college with strong global recognition. Known for its strong clinical exposure at the large Manipal hospital and good success rate for foreign licensing exams.",
+      "description": "Premium private medical college with strong global recognition. Very strong clinical exposure because Manipal hospital is large.",
       "imageUrl": "https://images.unsplash.com/photo-1629909619969-6c38945f0dce?q=80&w=1080&auto=format&fit=crop",
       "location": "Manipal, India",
       "ranking": 9,
-      "fees": 1950000,
-      "courses": ["MBBS", "MD", "MS"],
-      "eligibility": "NEET-UG (General: ~540-580+ marks). Admission through Manipal counselling.",
+      "fees": "₹17–22 lakh per year",
+      "courses": [
+        "MBBS",
+        "MD",
+        "MS"
+      ],
+      "eligibility": "NEET-UG, Manipal counselling. No state quota (private deemed university).",
       "region": "India",
       "field": "Medical",
       "tier": "mid"
@@ -340,13 +426,17 @@
     {
       "id": "clg-in-med-mid-02",
       "name": "Jawaharlal Institute of Postgraduate Medical Education & Research (JIPMER)",
-      "description": "Often ranked just behind AIIMS, JIPMER is a government-run elite institution with extremely low tuition fees. It offers very strong clinical exposure due to its tertiary hospital.",
+      "description": "Often ranked just behind AIIMS. Very strong clinical exposure with a tertiary hospital and huge OPD/IPD numbers.",
       "imageUrl": "https://images.unsplash.com/photo-1618999335688-9b88939c4d92?q=80&w=1080&auto=format&fit=crop",
       "location": "Puducherry, India",
       "ranking": 5,
-      "fees": 10000,
-      "courses": ["MBBS", "MD", "MS"],
-      "eligibility": "NEET-UG with high marks required (General: 630-660+).",
+      "fees": "< ₹10,000 per year",
+      "courses": [
+        "MBBS",
+        "MD",
+        "MS"
+      ],
+      "eligibility": "NEET-UG. High NEET marks required.",
       "region": "India",
       "field": "Medical",
       "tier": "mid"
@@ -354,13 +444,16 @@
     {
       "id": "clg-in-med-mid-03",
       "name": "Maulana Azad Medical College (MAMC Delhi)",
-      "description": "Considered one of the best government medical colleges in India, attached to the extremely busy LNJP & GB Pant hospitals, offering some of the best trauma and medicine exposure.",
+      "description": "Considered one of the best govt. medical colleges in India. Attached to LNJP & GB Pant hospitals — extremely busy hospitals. Best trauma & medicine exposure after AIIMS.",
       "imageUrl": "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?q=80&w=1080&auto=format&fit=crop",
       "location": "New Delhi, India",
       "ranking": 23,
-      "fees": 10000,
-      "courses": ["MBBS", "BDS"],
-      "eligibility": "NEET-UG with very high marks (General: 680-705+ for Delhi candidates).",
+      "fees": "₹5,000–15,000 per year",
+      "courses": [
+        "MBBS",
+        "BDS"
+      ],
+      "eligibility": "NEET-UG + Delhi quota preferences.",
       "region": "India",
       "field": "Medical",
       "tier": "mid"
@@ -368,13 +461,15 @@
     {
       "id": "clg-in-med-mid-04",
       "name": "Grant Medical College (Mumbai)",
-      "description": "Attached to the JJ Group of Hospitals, one of India's largest, providing high patient footfall and great training. Very strong for surgery and internal medicine.",
-      "imageUrl": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1080&auto-format&fit=crop",
+      "description": "Very strong for surgery & internal medicine training. Attached to JJ Hospital (one of India’s largest) with high patient footfall.",
+      "imageUrl": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1080&auto=format&fit=crop",
       "location": "Mumbai, India",
       "ranking": 7,
-      "fees": 112500,
-      "courses": ["MBBS"],
-      "eligibility": "NEET-UG through Maharashtra state counselling (General: 600-650+ marks).",
+      "fees": "₹75,000–1.5 lakh per year",
+      "courses": [
+        "MBBS"
+      ],
+      "eligibility": "NEET-UG through Maharashtra state counselling.",
       "region": "India",
       "field": "Medical",
       "tier": "mid"
@@ -382,13 +477,16 @@
     {
       "id": "clg-in-med-mid-05",
       "name": "King George’s Medical University (KGMU Lucknow)",
-      "description": "The best medical college in the Uttar Pradesh region, offering a good balance of affordability and quality with excellent clinical exposure due to high OPD footfall.",
+      "description": "Good balance of affordability + quality. Excellent clinical exposure, best in Uttar Pradesh region with very high OPD footfall.",
       "imageUrl": "https://images.unsplash.com/photo-1579684385127-6ab18a5d7814?q=80&w=1080&auto=format&fit=crop",
       "location": "Lucknow, India",
       "ranking": 12,
-      "fees": 80000,
-      "courses": ["MBBS", "BDS"],
-      "eligibility": "NEET-UG through UP state counselling (General: 620-660+ marks).",
+      "fees": "₹60,000–1 lakh per year",
+      "courses": [
+        "MBBS",
+        "BDS"
+      ],
+      "eligibility": "NEET-UG, UP state counselling.",
       "region": "India",
       "field": "Medical",
       "tier": "mid"
@@ -396,13 +494,15 @@
     {
       "id": "clg-in-med-low-01",
       "name": "DY Patil Medical College",
-      "description": "A private medical college group with several campuses. Known for good infrastructure but high fees and moderate training quality. Clinical exposure varies by campus.",
+      "description": "High fees, moderate training quality, good infrastructure. Check campus before applying. Pune/Navi Mumbai campuses have decent hospital numbers.",
       "imageUrl": "https://images.unsplash.com/photo-1530497610245-94d3c16c6141?q=80&w=1080&auto=format&fit=crop",
-      "location": "Pune/Navi Mumbai/Kolhapur",
+      "location": "Pune, India",
       "ranking": 150,
-      "fees": 2400000,
-      "courses": ["MBBS"],
-      "eligibility": "NEET-UG with qualifying marks (General: 350-450). Admission through deemed university quota.",
+      "fees": "₹20–28 lakh per year",
+      "courses": [
+        "MBBS"
+      ],
+      "eligibility": "NEET-UG (Qualifying marks around 350-450). Counselling through deemed university quota.",
       "region": "India",
       "field": "Medical",
       "tier": "low"
@@ -410,13 +510,16 @@
     {
       "id": "clg-in-med-low-02",
       "name": "Dr. D.Y. Patil Vidyapeeth, Pune / Navi Mumbai (Private MBBS)",
-      "description": "Best suited for students who want a comfortable campus life and can afford high private fees. Navi Mumbai campus is generally stronger for clinical exposure.",
-      "imageUrl": "https://images.unsplash.com/photo-1600271658428-5a557b7a7833?q=80&w=1080&auto-format&fit=crop",
+      "description": "Best suited for students who want comfortable campus life and can afford private fees. Navi Mumbai campus generally stronger for clinical exposure.",
+      "imageUrl": "https://images.unsplash.com/photo-1600271658428-5a557b7a7833?q=80&w=1080&auto=format&fit=crop",
       "location": "Pune / Navi Mumbai, India",
       "ranking": 160,
-      "fees": 2200000,
-      "courses": ["MBBS", "BDS"],
-      "eligibility": "NEET-UG with qualifying marks (350-480). Admission via deemed university counselling.",
+      "fees": "₹20–24 lakh per year",
+      "courses": [
+        "MBBS",
+        "BDS"
+      ],
+      "eligibility": "NEET-UG + deemed university counselling. 350–480 marks often enough.",
       "region": "India",
       "field": "Medical",
       "tier": "low"
@@ -424,13 +527,17 @@
     {
       "id": "clg-ab-eng-top-01",
       "name": "Massachusetts Institute of Technology (MIT)",
-      "description": "A private research university in Cambridge, Massachusetts, MIT is a world leader in science and technology.",
+      "description": "A private research university in Cambridge, Massachusetts, MIT is a world leader in science and technology. Best engineering school globally in most rankings.",
       "imageUrl": "https://images.unsplash.com/photo-1572059002023-4b9e73a4f9de?q=80&w=1080&auto=format&fit=crop",
       "location": "Cambridge, USA",
       "ranking": 1,
-      "fees": 4600000,
-      "courses": ["Computer Science", "Mechanical Engineering", "Physics"],
-      "eligibility": "SAT/ACT, Essays, High School GPA",
+      "fees": "$59,750–$65,000 per year (undergraduate)",
+      "courses": [
+        "Computer Science",
+        "Mechanical Engineering",
+        "Physics"
+      ],
+      "eligibility": "SAT/ACT (optional), GPA: 3.9–4.0 typical, Strong STEM background, Exceptional projects/research, TOEFL/IELTS for non-native speakers.",
       "region": "Abroad",
       "field": "Engineering",
       "tier": "top"
@@ -438,13 +545,17 @@
     {
       "id": "clg-ab-eng-top-02",
       "name": "Stanford University",
-      "description": "Located in the heart of Silicon Valley, Stanford is renowned for its entrepreneurial spirit and engineering programs.",
+      "description": "Located in the heart of Silicon Valley, Stanford is renowned for its entrepreneurial spirit and engineering programs. Best for CS, AI, Robotics, EE.",
       "imageUrl": "https://images.unsplash.com/photo-1588849533662-a8c66a3311b3?q=80&w=1080&auto=format&fit=crop",
       "location": "Stanford, USA",
       "ranking": 2,
-      "fees": 4800000,
-      "courses": ["Computer Science", "Electrical Engineering", "Bioengineering"],
-      "eligibility": "SAT/ACT, Essays, High School GPA",
+      "fees": "$60,000/year",
+      "courses": [
+        "Computer Science",
+        "Electrical Engineering",
+        "Bioengineering"
+      ],
+      "eligibility": "Top 1–2% students, SAT/ACT optional, Strong research / projects, TOEFL/IELTS required.",
       "region": "Abroad",
       "field": "Engineering",
       "tier": "top"
@@ -452,13 +563,17 @@
     {
       "id": "clg-ab-eng-top-03",
       "name": "University of Cambridge",
-      "description": "One of the world's oldest and most prestigious universities, offering a rigorous and historic engineering program.",
+      "description": "One of the world's oldest and most prestigious universities, offering a rigorous and historic engineering program. Very rigorous; globally elite reputation.",
       "imageUrl": "https://images.unsplash.com/photo-1548625364-59c4a7a82269?q=80&w=1080&auto=format&fit=crop",
       "location": "Cambridge, UK",
       "ranking": 3,
-      "fees": 3300000,
-      "courses": ["General Engineering", "Chemical Engineering", "Manufacturing Engineering"],
-      "eligibility": "A-Levels, IB, or equivalent",
+      "fees": "£35,000–£45,000/year",
+      "courses": [
+        "General Engineering",
+        "Chemical Engineering",
+        "Manufacturing Engineering"
+      ],
+      "eligibility": "A-levels with AAA in math/physics, SAT/ACT (for some intl students), Interview required, IELTS 7.0+.",
       "region": "Abroad",
       "field": "Engineering",
       "tier": "top"
@@ -466,13 +581,17 @@
     {
       "id": "clg-ab-eng-mid-01",
       "name": "University of Toronto",
-      "description": "Canada's top-ranked university, offering a diverse range of engineering specializations and a vibrant city life.",
-      "imageUrl": "https://images.unsplash.com/photo-1580643781534-a694857429a8?q=80&w=1080&auto-format&fit=crop",
+      "description": "Canada's top-ranked university, offering a diverse range of engineering specializations and a vibrant city life. One of Canada’s most competitive engineering schools.",
+      "imageUrl": "https://images.unsplash.com/photo-1580643781534-a694857429a8?q=80&w=1080&auto=format&fit=crop",
       "location": "Toronto, Canada",
       "ranking": 21,
-      "fees": 4000000,
-      "courses": ["Civil Engineering", "Computer Engineering", "Industrial Engineering"],
-      "eligibility": "High School Diploma, English Proficiency",
+      "fees": "CAD $60,000–$65,000/year (international)",
+      "courses": [
+        "Civil Engineering",
+        "Computer Engineering",
+        "Industrial Engineering"
+      ],
+      "eligibility": "High grades (90%+), IELTS 6.5–7.0, Strong math/physics.",
       "region": "Abroad",
       "field": "Engineering",
       "tier": "mid"
@@ -480,13 +599,17 @@
     {
       "id": "clg-ab-eng-mid-02",
       "name": "Georgia Institute of Technology (Georgia Tech)",
-      "description": "A public research university and institute of technology in Atlanta, Georgia. It has a strong focus on co-op programs and research.",
-      "imageUrl": "https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?q=80&w=1080&auto-format&fit=crop",
+      "description": "A public research university and institute of technology in Atlanta, Georgia. It has a strong focus on co-op programs and research. Very strong for CS / aerospace / mechanical.",
+      "imageUrl": "https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?q=80&w=1080&auto=format&fit=crop",
       "location": "Atlanta, USA",
       "ranking": 38,
-      "fees": 2800000,
-      "courses": ["Aerospace Engineering", "Computer Science", "Biomedical Engineering"],
-      "eligibility": "SAT/ACT, Essays",
+      "fees": "$32,000–$35,000/year",
+      "courses": [
+        "Aerospace Engineering",
+        "Computer Science",
+        "Biomedical Engineering"
+      ],
+      "eligibility": "SAT/ACT recommended, GPA 3.8+, Strong math background.",
       "region": "Abroad",
       "field": "Engineering",
       "tier": "mid"
@@ -494,13 +617,17 @@
     {
       "id": "clg-ab-eng-mid-03",
       "name": "ETH Zürich",
-      "description": "A science, technology, engineering, and mathematics university in Zürich, Switzerland. It's one of the leading universities in the world.",
+      "description": "A science, technology, engineering, and mathematics university in Zürich, Switzerland. It's one of the leading universities in the world. Great research exposure.",
       "imageUrl": "https://images.unsplash.com/photo-1603530869632-969c6f78f567?q=80&w=1080&auto=format&fit=crop",
       "location": "Zürich, Switzerland",
       "ranking": 9,
-      "fees": 125000,
-      "courses": ["Mechanical Engineering", "Architecture", "Computer Science"],
-      "eligibility": "Entrance Examination or equivalent",
+      "fees": "CHF 1,000–1,500 per year",
+      "courses": [
+        "Mechanical Engineering",
+        "Architecture",
+        "Computer Science"
+      ],
+      "eligibility": "Very strong academics, German proficiency sometimes required, High math/physics scores.",
       "region": "Abroad",
       "field": "Engineering",
       "tier": "mid"
@@ -508,13 +635,17 @@
     {
       "id": "clg-ab-eng-mid-04",
       "name": "University of Melbourne",
-      "description": "Australia's top university, known for its comprehensive curriculum and research-intensive environment.",
+      "description": "Australia's top university, known for its comprehensive curriculum and research-intensive environment. Good engineering placements.",
       "imageUrl": "https://images.unsplash.com/photo-1558489094-4458516933a2?q=80&w=1080&auto=format&fit=crop",
       "location": "Melbourne, Australia",
       "ranking": 33,
-      "fees": 2900000,
-      "courses": ["Software Engineering", "Civil Engineering", "Biomedical Engineering"],
-      "eligibility": "High School qualification, English proficiency",
+      "fees": "AUD $42,000–$50,000/year",
+      "courses": [
+        "Software Engineering",
+        "Civil Engineering",
+        "Biomedical Engineering"
+      ],
+      "eligibility": "High school 85–90%, IELTS 6.5–7.0.",
       "region": "Abroad",
       "field": "Engineering",
       "tier": "mid"
@@ -522,13 +653,17 @@
     {
       "id": "clg-ab-eng-mid-05",
       "name": "Imperial College London",
-      "description": "A public research university in London, specializing in science, engineering, medicine, and business.",
+      "description": "A public research university in London, specializing in science, engineering, medicine, and business. Excellent tech/science jobs and strong London industry exposure.",
       "imageUrl": "https://images.unsplash.com/photo-1505701906663-89a957b7b1b3?q=80&w=1080&auto=format&fit=crop",
       "location": "London, UK",
       "ranking": 7,
-      "fees": 3150000,
-      "courses": ["Aeronautical Engineering", "Computing", "Bioengineering"],
-      "eligibility": "A-Levels, IB, or equivalent",
+      "fees": "£37,000–£42,000/year",
+      "courses": [
+        "Aeronautical Engineering",
+        "Computing",
+        "Bioengineering"
+      ],
+      "eligibility": "AAA in relevant subjects, IELTS 6.5–7.0.",
       "region": "Abroad",
       "field": "Engineering",
       "tier": "mid"
@@ -536,13 +671,17 @@
     {
       "id": "clg-ab-eng-low-01",
       "name": "University of Hertfordshire",
-      "description": "A modern public university in Hertfordshire, UK, known for its strong links with industry and a practical approach to teaching.",
+      "description": "A modern public university in Hertfordshire, UK, known for its strong links with industry and a practical approach to teaching. Good for basic engineering roles.",
       "imageUrl": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1080&auto=format&fit=crop",
       "location": "Hertfordshire, UK",
       "ranking": 601,
-      "fees": 1250000,
-      "courses": ["Automotive Engineering", "Computer Science", "Aerospace Engineering"],
-      "eligibility": "High School qualifications, English proficiency test",
+      "fees": "£13,000–£16,000/year",
+      "courses": [
+        "Automotive Engineering",
+        "Computer Science",
+        "Aerospace Engineering"
+      ],
+      "eligibility": "Moderate entry requirements, IELTS 6.0.",
       "region": "Abroad",
       "field": "Engineering",
       "tier": "low"
@@ -550,13 +689,17 @@
     {
       "id": "clg-ab-eng-low-02",
       "name": "De Montfort University",
-      "description": "A public university in Leicester, England, offering a range of creative and technical courses with a focus on employability.",
+      "description": "A public university in Leicester, England, offering a range of creative and technical courses with a focus on employability. Moderate placement outcomes.",
       "imageUrl": "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1080&auto=format&fit=crop",
       "location": "Leicester, UK",
       "ranking": 601,
-      "fees": 1150000,
-      "courses": ["Mechanical Engineering", "Cyber Security", "Architectural Technology"],
-      "eligibility": "High School qualifications, English proficiency test",
+      "fees": "£13,000–£15,000/year",
+      "courses": [
+        "Mechanical Engineering",
+        "Cyber Security",
+        "Architectural Technology"
+      ],
+      "eligibility": "55–65% in previous studies, IELTS 6.0.",
       "region": "Abroad",
       "field": "Engineering",
       "tier": "low"
@@ -564,13 +707,16 @@
     {
       "id": "clg-ab-mba-top-01",
       "name": "Harvard Business School (HBS)",
-      "description": "The graduate business school of Harvard University, consistently ranked among the top business schools in the world.",
+      "description": "The graduate business school of Harvard University, consistently ranked among the top business schools in the world. Average salary: $160,000 base.",
       "imageUrl": "https://images.unsplash.com/photo-1614361521033-2805e718f673?q=80&w=1080&auto=format&fit=crop",
       "location": "Boston, USA",
       "ranking": 1,
-      "fees": 6150000,
-      "courses": ["MBA", "Executive Education"],
-      "eligibility": "GMAT/GRE, Essays, Work Experience",
+      "fees": "$76,000/year (MBA)",
+      "courses": [
+        "MBA",
+        "Executive Education"
+      ],
+      "eligibility": "GMAT 730+, GPA 3.7+, Strong work experience, Essays + recommendations.",
       "region": "Abroad",
       "field": "MBA",
       "tier": "top"
@@ -578,13 +724,17 @@
     {
       "id": "clg-ab-mba-top-02",
       "name": "The Wharton School",
-      "description": "The business school of the University of Pennsylvania, renowned for its finance program and broad curriculum.",
+      "description": "The business school of the University of Pennsylvania, renowned for its finance program and broad curriculum. Highest finance salaries globally.",
       "imageUrl": "https://images.unsplash.com/photo-1504754524776-8f4f37790772?q=80&w=1080&auto=format&fit=crop",
       "location": "Philadelphia, USA",
       "ranking": 2,
-      "fees": 6650000,
-      "courses": ["MBA", "Executive MBA", "PhD"],
-      "eligibility": "GMAT/GRE, Essays, Work Experience",
+      "fees": "$80,000/year",
+      "courses": [
+        "MBA",
+        "Executive MBA",
+        "PhD"
+      ],
+      "eligibility": "GMAT 720–750, Strong resume.",
       "region": "Abroad",
       "field": "MBA",
       "tier": "top"
@@ -596,9 +746,12 @@
       "imageUrl": "https://images.unsplash.com/photo-1519070994522-8a0f5aee035b?q=80&w=1080&auto=format&fit=crop",
       "location": "France/Singapore",
       "ranking": 3,
-      "fees": 8000000,
-      "courses": ["MBA", "Global Executive MBA"],
-      "eligibility": "GMAT/GRE, Essays, Work Experience",
+      "fees": "€92,000 total",
+      "courses": [
+        "MBA",
+        "Global Executive MBA"
+      ],
+      "eligibility": "GMAT 700+, Very international profile, 2–5 years work experience minimum.",
       "region": "Abroad",
       "field": "MBA",
       "tier": "top"
@@ -610,8 +763,11 @@
       "imageUrl": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1080&auto=format&fit=crop",
       "location": "London, UK",
       "ranking": 8,
-      "fees": 8100000,
-      "courses": ["MBA", "Masters in Finance"],
+      "fees": "£92,000 total",
+      "courses": [
+        "MBA",
+        "Masters in Finance"
+      ],
       "eligibility": "GMAT/GRE, Essays, Work Experience",
       "region": "Abroad",
       "field": "MBA",
@@ -624,8 +780,11 @@
       "imageUrl": "https://images.unsplash.com/photo-1549490103-c7438495c1ea?q=80&w=1080&auto=format&fit=crop",
       "location": "Toronto, Canada",
       "ranking": 40,
-      "fees": 8300000,
-      "courses": ["Full-Time MBA", "Morning & Evening MBA"],
+      "fees": "CAD $67,000–$85,000",
+      "courses": [
+        "Full-Time MBA",
+        "Morning & Evening MBA"
+      ],
       "eligibility": "GMAT/GRE, Essays, Work Experience",
       "region": "Abroad",
       "field": "MBA",
@@ -634,12 +793,15 @@
     {
       "id": "clg-ab-mba-mid-03",
       "name": "Kelley School of Business",
-      "description": "The business school of Indiana University, known for its strong career services and collaborative environment.",
+      "description": "The business school of Indiana University, known for its strong career services and collaborative environment. Excellent for supply chain, consulting.",
       "imageUrl": "https://images.unsplash.com/photo-1560439514-e960a3ef50d9?q=80&w=1080&auto=format&fit=crop",
       "location": "Indiana, USA",
       "ranking": 23,
-      "fees": 4300000,
-      "courses": ["Full-Time MBA", "Online MBA"],
+      "fees": "$55,000–$65,000/year",
+      "courses": [
+        "Full-Time MBA",
+        "Online MBA"
+      ],
       "eligibility": "GMAT/GRE, Essays, Work Experience",
       "region": "Abroad",
       "field": "MBA",
@@ -648,12 +810,15 @@
     {
       "id": "clg-ab-mba-mid-04",
       "name": "HEC Paris",
-      "description": "A leading business school in France, offering a range of programs with a strong international focus.",
+      "description": "A leading business school in France, offering a range of programs with a strong international focus. Strong luxury/consulting recruitment.",
       "imageUrl": "https://images.unsplash.com/photo-1519070994522-8a0f5aee035b?q=80&w=1080&auto=format&fit=crop",
       "location": "Paris, France",
       "ranking": 10,
-      "fees": 6500000,
-      "courses": ["MBA", "MSc in Management"],
+      "fees": "€89,000–€92,000",
+      "courses": [
+        "MBA",
+        "MSc in Management"
+      ],
       "eligibility": "GMAT/GRE, Essays, Work Experience",
       "region": "Abroad",
       "field": "MBA",
@@ -662,12 +827,15 @@
     {
       "id": "clg-ab-mba-mid-05",
       "name": "Saïd Business School",
-      "description": "The business school of the University of Oxford, combining a historic academic setting with modern business education.",
+      "description": "The business school of the University of Oxford, combining a historic academic setting with modern business education. Strong tech, consulting.",
       "imageUrl": "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?q=80&w=1080&auto=format&fit=crop",
       "location": "Oxford, UK",
       "ranking": 16,
-      "fees": 5600000,
-      "courses": ["MBA", "1+1 MBA"],
+      "fees": "£71,000",
+      "courses": [
+        "MBA",
+        "1+1 MBA"
+      ],
       "eligibility": "GMAT/GRE, Essays, Work Experience",
       "region": "Abroad",
       "field": "MBA",
@@ -676,13 +844,16 @@
     {
       "id": "clg-ab-mba-low-01",
       "name": "Coventry University (MBA)",
-      "description": "A modern UK university with a focus on applied research and strong business links, offering an accessible MBA program.",
+      "description": "A modern UK university with a focus on applied research and strong business links, offering an accessible MBA program. Mixed outcomes.",
       "imageUrl": "https://images.unsplash.com/photo-1556740758-90de374c12ad?q=80&w=1080&auto=format&fit=crop",
       "location": "Coventry, UK",
       "ranking": 501,
-      "fees": 1650000,
-      "courses": ["MBA Global Business", "MBA International Marketing"],
-      "eligibility": "Bachelor's Degree, Work Experience, English Proficiency",
+      "fees": "£18,000–22,000",
+      "courses": [
+        "MBA Global Business",
+        "MBA International Marketing"
+      ],
+      "eligibility": "50–60% undergrad, IELTS 6.5, Work experience recommended.",
       "region": "Abroad",
       "field": "MBA",
       "tier": "low"
@@ -690,13 +861,16 @@
     {
       "id": "clg-ab-mba-low-02",
       "name": "Anglia Ruskin University",
-      "description": "A UK university offering a variety of MBA specialisms with a focus on practical skills and leadership.",
+      "description": "A UK university offering a variety of MBA specialisms with a focus on practical skills and leadership. Decent for business/management.",
       "imageUrl": "https://images.unsplash.com/photo-1582653291993-2070803d092c?q=80&w=1080&auto=format&fit=crop",
       "location": "Cambridge, UK",
       "ranking": 401,
-      "fees": 1400000,
-      "courses": ["MBA", "MBA Healthcare Management"],
-      "eligibility": "Bachelor's Degree, Work Experience, English Proficiency",
+      "fees": "£16,000–19,000",
+      "courses": [
+        "MBA",
+        "MBA Healthcare Management"
+      ],
+      "eligibility": "50–60% undergrad, IELTS 6.0.",
       "region": "Abroad",
       "field": "MBA",
       "tier": "low"
@@ -704,13 +878,16 @@
     {
       "id": "clg-ab-med-top-01",
       "name": "Harvard Medical School",
-      "description": "The graduate medical school of Harvard University, a global leader in medical education and research.",
+      "description": "The graduate medical school of Harvard University, a global leader in medical education and research. Among the best in the world for residency/placement.",
       "imageUrl": "https://images.unsplash.com/photo-1614361521033-2805e718f673?q=80&w=1080&auto=format&fit=crop",
       "location": "Boston, USA",
       "ranking": 1,
-      "fees": 5400000,
-      "courses": ["MD", "PhD in Biological Sciences"],
-      "eligibility": "MCAT, Undergraduate Degree, Essays",
+      "fees": "$69,000–$74,000/year",
+      "courses": [
+        "MD",
+        "PhD in Biological Sciences"
+      ],
+      "eligibility": "MCAT 515–520+, GPA 3.8–4.0, Research + publications.",
       "region": "Abroad",
       "field": "Medical",
       "tier": "top"
@@ -718,13 +895,16 @@
     {
       "id": "clg-ab-med-top-02",
       "name": "Johns Hopkins School of Medicine",
-      "description": "A leading medical school known for its groundbreaking research and patient care at Johns Hopkins Hospital.",
+      "description": "A leading medical school known for its groundbreaking research and patient care at Johns Hopkins Hospital. Best for surgery, oncology, neurology.",
       "imageUrl": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1080&auto=format&fit=crop",
       "location": "Baltimore, USA",
       "ranking": 2,
-      "fees": 5000000,
-      "courses": ["MD", "PhD Programs"],
-      "eligibility": "MCAT, Undergraduate Degree, Essays",
+      "fees": "$60,000–$65,000/year",
+      "courses": [
+        "MD",
+        "PhD Programs"
+      ],
+      "eligibility": "MCAT 515+, Heavy research focus, Essays.",
       "region": "Abroad",
       "field": "Medical",
       "tier": "top"
@@ -736,9 +916,11 @@
       "imageUrl": "https://images.unsplash.com/photo-1588776814546-da624a734049?q=80&w=1080&auto=format&fit=crop",
       "location": "Oxford, UK",
       "ranking": 2,
-      "fees": 4000000,
-      "courses": ["Bachelor of Medicine, Bachelor of Surgery (BM BCh)"],
-      "eligibility": "BMAT, A-Levels/IB, Interview",
+      "fees": "£39,000–£48,000/year",
+      "courses": [
+        "Bachelor of Medicine, Bachelor of Surgery (BM BCh)"
+      ],
+      "eligibility": "BMAT, A-Levels/IB, Interview mandatory.",
       "region": "Abroad",
       "field": "Medical",
       "tier": "top"
@@ -750,9 +932,12 @@
       "imageUrl": "https://images.unsplash.com/photo-1551601651-2a8555f1a13e?q=80&w=1080&auto=format&fit=crop",
       "location": "Toronto, Canada",
       "ranking": 13,
-      "fees": 5800000,
-      "courses": ["MD", "MD/PhD"],
-      "eligibility": "MCAT, Undergraduate Degree",
+      "fees": "CAD $91,000–$100,000 per year (international)",
+      "courses": [
+        "MD",
+        "MD/PhD"
+      ],
+      "eligibility": "MCAT, Undergraduate Degree, GPA 3.7+.",
       "region": "Abroad",
       "field": "Medical",
       "tier": "mid"
@@ -764,9 +949,11 @@
       "imageUrl": "https://images.unsplash.com/photo-1584820927239-158de8b2096a?q=80&w=1080&auto=format&fit=crop",
       "location": "Melbourne, Australia",
       "ranking": 18,
-      "fees": 6250000,
-      "courses": ["Doctor of Medicine (MD)"],
-      "eligibility": "GAMSAT/MCAT, Undergraduate Degree",
+      "fees": "AUD $80,000–95,000/year",
+      "courses": [
+        "Doctor of Medicine (MD)"
+      ],
+      "eligibility": "GAMSAT/MCAT, Undergraduate Degree.",
       "region": "Abroad",
       "field": "Medical",
       "tier": "mid"
@@ -778,9 +965,12 @@
       "imageUrl": "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?q=80&w=1080&auto=format&fit=crop",
       "location": "Stockholm, Sweden",
       "ranking": 10,
-      "fees": 1650000,
-      "courses": ["Medicine", "Biomedicine"],
-      "eligibility": "High School Diploma, entrance tests",
+      "fees": "€30,000–35,000/year",
+      "courses": [
+        "Medicine",
+        "Biomedicine"
+      ],
+      "eligibility": "Biology + Chemistry + Math background, IELTS 6.5+.",
       "region": "Abroad",
       "field": "Medical",
       "tier": "mid"
@@ -792,9 +982,11 @@
       "imageUrl": "https://images.unsplash.com/photo-1579684385127-6ab18a5d7814?q=80&w=1080&auto=format&fit=crop",
       "location": "Melbourne, Australia",
       "ranking": 42,
-      "fees": 5800000,
-      "courses": ["Bachelor of Medical Science / MD"],
-      "eligibility": "ISAT, High School Diploma",
+      "fees": "AUD $70,000–$80,000/year",
+      "courses": [
+        "Bachelor of Medical Science / MD"
+      ],
+      "eligibility": "ISAT, High School Diploma.",
       "region": "Abroad",
       "field": "Medical",
       "tier": "mid"
@@ -806,9 +998,11 @@
       "imageUrl": "https://images.unsplash.com/photo-1629909619969-6c38945f0dce?q=80&w=1080&auto=format&fit=crop",
       "location": "London, UK",
       "ranking": 9,
-      "fees": 4150000,
-      "courses": ["MBBS"],
-      "eligibility": "BMAT, A-Levels/IB",
+      "fees": "£38,000–£47,000/year",
+      "courses": [
+        "MBBS"
+      ],
+      "eligibility": "BMAT, A-Levels/IB.",
       "region": "Abroad",
       "field": "Medical",
       "tier": "mid"
@@ -820,9 +1014,11 @@
       "imageUrl": "https://images.unsplash.com/photo-1530497610245-94d3c16c6141?q=80&w=1080&auto=format&fit=crop",
       "location": "Debrecen, Hungary",
       "ranking": 401,
-      "fees": 1400000,
-      "courses": ["Medicine (MD)"],
-      "eligibility": "Entrance Exam, High School Diploma",
+      "fees": "€16,000–18,000/year",
+      "courses": [
+        "Medicine (MD)"
+      ],
+      "eligibility": "Entrance test + IELTS 6.0.",
       "region": "Abroad",
       "field": "Medical",
       "tier": "low"
@@ -834,9 +1030,11 @@
       "imageUrl": "https://images.unsplash.com/photo-1600271658428-5a557b7a7833?q=80&w=1080&auto=format&fit=crop",
       "location": "Riga, Latvia",
       "ranking": 801,
-      "fees": 750000,
-      "courses": ["Medicine (MD)"],
-      "eligibility": "High School Diploma, entrance exam/interview",
+      "fees": "€12,000–14,000/year",
+      "courses": [
+        "Medicine (MD)"
+      ],
+      "eligibility": "Biology + Chemistry background, IELTS 6.0.",
       "region": "Abroad",
       "field": "Medical",
       "tier": "low"

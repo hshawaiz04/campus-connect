@@ -5,7 +5,7 @@ export type College = {
     imageUrl: string;
     location: string;
     ranking: number;
-    fees: number;
+    fees: string;
     courses: string[];
     eligibility: string;
     region: 'India' | 'Abroad';

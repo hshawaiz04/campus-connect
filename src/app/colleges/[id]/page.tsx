@@ -2,7 +2,7 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import type { College } from '@/lib/colleges';
+import type { College } from '@/lib/types';
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -84,7 +84,7 @@ export default function CollegeDetailsPage() {
   const detailItems = [
     { icon: MapPin, label: 'Location', value: college.location },
     { icon: School, label: 'Ranking', value: `#${college.ranking}` },
-    { icon: DollarSign, label: 'Annual Fees', value: `₹${college.fees.toLocaleString()}` },
+    { icon: DollarSign, label: 'Annual Fees', value: college.fees },
     { icon: Target, label: 'Eligibility', value: college.eligibility },
   ];
 

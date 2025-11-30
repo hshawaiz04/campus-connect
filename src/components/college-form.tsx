@@ -33,7 +33,7 @@ const collegeSchema = z.object({
   imageUrl: z.string().url("Must be a valid URL."),
   location: z.string().min(1, "Location is required."),
   ranking: z.coerce.number().int().positive(),
-  fees: z.coerce.number().int().positive(),
+  fees: z.string().min(1, "Fees are required."),
   courses: z.string().min(1, "Enter at least one course, comma-separated."),
   eligibility: z.string().min(1, "Eligibility is required."),
   region: z.enum(['India', 'Abroad']),
@@ -59,7 +59,7 @@ export function CollegeForm({ college, onSubmit, isSubmitting, mode }: CollegeFo
     imageUrl: college?.imageUrl || '',
     location: college?.location || '',
     ranking: college?.ranking || 0,
-    fees: college?.fees || 0,
+    fees: college?.fees || '',
     courses: college?.courses.join(', ') || '',
     eligibility: college?.eligibility || '',
     region: college?.region || 'India',
@@ -156,7 +156,7 @@ export function CollegeForm({ college, onSubmit, isSubmitting, mode }: CollegeFo
                 render={({ field }) => (
                     <FormItem>
                     <FormLabel>Annual Fees</FormLabel>
-                    <FormControl><Input type="number" placeholder="200000" {...field} /></FormControl>
+                    <FormControl><Input placeholder="₹200000 or $50,000" {...field} /></FormControl>
                     <FormMessage />
                     </FormItem>
                 )}
