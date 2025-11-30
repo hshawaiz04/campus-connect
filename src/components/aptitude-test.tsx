@@ -109,11 +109,12 @@ export default function AptitudeTest() {
         finalScore++;
       }
     });
-    setScore(finalScore);
+    const finalScorePercentage = Math.round((finalScore / questions.length) * 100);
+    setScore(finalScorePercentage);
 
     if (user && firestore) {
       const profileRef = doc(firestore, `users/${user.uid}/profiles`, user.uid);
-      const scoreData = { aptitudeTestScore: finalScore };
+      const scoreData = { aptitudeTestScore: finalScorePercentage };
       setDocumentNonBlocking(profileRef, scoreData, { merge: true });
       toast({
         title: "Score Saved!",
@@ -134,7 +135,7 @@ export default function AptitudeTest() {
     return (
       <div className="text-center space-y-6">
         <h2 className="text-2xl font-bold font-headline">Test Complete!</h2>
-        <p className="text-4xl font-bold text-primary">Your Score: {score} / {questions.length}</p>
+        <p className="text-4xl font-bold text-primary">Your Score: {score} / 100</p>
         <p className="text-muted-foreground">
             {user ? 'Your score has been saved to your profile and can be used for recommendations.' : 'Log in to save your score and get better recommendations.'}
         </p>

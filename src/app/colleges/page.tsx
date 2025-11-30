@@ -4,7 +4,7 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import type { College } from '@/lib/colleges';
+import type { College } from '@/lib/types';
 import { Skeleton } from '@/components/ui/skeleton';
 import Link from 'next/link';
 import { useState, useEffect, useMemo } from 'react';
@@ -24,8 +24,8 @@ export default function CollegesPage() {
       setIsLoading(true);
       try {
         const response = await fetch('/colleges.json');
-        const data: { colleges: College[] } = await response.json();
-        setAllColleges(data.colleges.sort((a, b) => a.ranking - b.ranking));
+        const data: College[] = await response.json();
+        setAllColleges(data.sort((a, b) => a.ranking - b.ranking));
       } catch (error) {
         console.error("Failed to fetch college data:", error);
       } finally {

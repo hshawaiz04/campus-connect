@@ -38,7 +38,7 @@ export default function CollegeDetailsPage() {
       setIsLoading(true);
       try {
         const response = await fetch('/colleges.json');
-        const allColleges: College[] = (await response.json()).colleges;
+        const allColleges: College[] = (await response.json());
         const foundCollege = allColleges.find(c => c.id === collegeId);
         setCollege(foundCollege || null);
       } catch (error) {
@@ -128,7 +128,7 @@ export default function CollegeDetailsPage() {
   const detailItems = [
     { icon: MapPin, label: 'Location', value: college.location },
     { icon: School, label: 'Ranking', value: `#${college.ranking}` },
-    { icon: DollarSign, label: 'Annual Fees', value: college.fees },
+    { icon: DollarSign, label: 'Annual Fees', value: `₹${Number(college.fees).toLocaleString('en-IN')}` },
     { icon: Target, label: 'Eligibility', value: college.eligibility },
   ];
 

@@ -74,7 +74,7 @@ export function RecommendationForm({ onSubmit, isLoading }: RecommendationFormPr
         cgpa: userProfile.cgpa || 7.5,
         entranceExamScore: userProfile.entranceExamScores || 90,
         regionPreference: userProfile.regionPreference || 'India',
-        aptitudeTestScore: userProfile.aptitudeTestScore || form.getValues('aptitudeTestScore'),
+        aptitudeTestScore: userProfile.aptitudeTestScore || 85,
         coursePreference: form.getValues('coursePreference'), // Keep current value
         additionalDetails: form.getValues('additionalDetails'), // Keep current value
       });

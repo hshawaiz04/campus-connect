@@ -8,7 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import { collection, doc } from 'firebase/firestore';
-import type { UserProfile, FavoriteCollege, College } from '@/lib/types';
+import type { UserProfile, FavoriteCollege } from '@/lib/types';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
@@ -142,7 +142,7 @@ export default function ProfilePage() {
             {favoriteColleges && favoriteColleges.length > 0 ? (
               <div className="space-y-4">
                 {favoriteColleges.map(college => (
-                  <Link key={college.id} href={`/colleges/${college.id}`} className="block">
+                  <Link key={college.id} href={`/colleges/${college.collegeId}`} className="block">
                     <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors">
                       <div>
                         <p className="font-semibold">{college.name}</p>
