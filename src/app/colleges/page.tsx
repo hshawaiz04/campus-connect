@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -23,8 +24,8 @@ export default function CollegesPage() {
       setIsLoading(true);
       try {
         const response = await fetch('/colleges.json');
-        const data: College[] = await response.json();
-        setAllColleges(data.sort((a, b) => a.ranking - b.ranking));
+        const data: { colleges: College[] } = await response.json();
+        setAllColleges(data.colleges.sort((a, b) => a.ranking - b.ranking));
       } catch (error) {
         console.error("Failed to fetch college data:", error);
       } finally {

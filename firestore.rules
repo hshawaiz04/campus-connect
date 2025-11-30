@@ -109,11 +109,14 @@ service cloud.firestore {
     /**
      * @description Collection of colleges. This data is now served from a public file
      * and should only be managed by admins through the app's admin dashboard.
-     * Direct client access is denied.
+     * Direct client access for public pages is no longer needed.
+     * Admins can read and write.
      */
     match /colleges/{collegeId} {
-      allow read, write: if false;
+        allow read: if true;
+        allow write: if isAdmin();
     }
+
 
     /**
      * @description A private collection used by security rules to identify admins.

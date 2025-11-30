@@ -1,4 +1,6 @@
-[
+
+{
+  "colleges": [
     {
       "id": "clg-in-eng-top-01",
       "name": "IIT Bombay",
@@ -840,3 +842,4 @@
       "tier": "low"
     }
   ]
+}

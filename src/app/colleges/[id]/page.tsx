@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useParams } from 'next/navigation';
@@ -24,7 +25,7 @@ export default function CollegeDetailsPage() {
       setIsLoading(true);
       try {
         const response = await fetch('/colleges.json');
-        const allColleges: College[] = await response.json();
+        const allColleges: College[] = (await response.json()).colleges;
         const foundCollege = allColleges.find(c => c.id === collegeId);
         setCollege(foundCollege || null);
       } catch (error) {

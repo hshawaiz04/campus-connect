@@ -1,6 +1,7 @@
+
 'use client';
 
-import { useUser, useCollection, useFirestore, useMemoFirebase, deleteDocumentNonBlocking } from '@/firebase';
+import { useUser, useCollection, useFirestore, useMemoFirebase, deleteDocumentNonBlocking, useDoc } from '@/firebase';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { collection, doc } from 'firebase/firestore';
@@ -43,7 +44,7 @@ export default function AdminDashboard() {
     () => collection(firestore, 'colleges'),
     [firestore]
   );
-  const { data: colleges, isLoading: areCollegesLoading } = useCollection<College>(collegesQuery);
+  const { data: colleges, isLoading: areCollegesLoading, error: collegesError } = useCollection<College>(collegesQuery);
 
   useEffect(() => {
     // If not loading and user is not admin, redirect
