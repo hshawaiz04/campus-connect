@@ -24,7 +24,7 @@ export default function Header() {
               Recommendations
             </Link>
             <Link
-              href="#"
+              href="/colleges"
               className="transition-colors hover:text-foreground/80 text-foreground/60"
             >
               Colleges
@@ -64,7 +64,7 @@ export default function Header() {
                 Recommendations
               </Link>
               <Link
-                href="#"
+                href="/colleges"
                 className="transition-colors hover:text-foreground/80 text-foreground/60"
               >
                 Colleges

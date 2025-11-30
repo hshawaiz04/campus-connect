@@ -1,0 +1,70 @@
+{
+  "colleges": [
+    {
+      "id": "clg-001",
+      "name": "Indian Institute of Technology, Bombay",
+      "description": "IIT Bombay is a leading engineering and technology university in India, renowned for its rigorous academics and vibrant campus life.",
+      "imageUrl": "https://images.unsplash.com/photo-1620712953154-712b7f32f3b3?q=80&w=1080&auto=format&fit=crop",
+      "location": "Mumbai, India",
+      "ranking": 1,
+      "fees": 250000,
+      "courses": ["Computer Science", "Mechanical Engineering", "Electrical Engineering"],
+      "eligibility": "JEE Advanced Rank"
+    },
+    {
+      "id": "clg-002",
+      "name": "Massachusetts Institute of Technology (MIT)",
+      "description": "MIT is a world-renowned private research university in Cambridge, Massachusetts, known for its cutting-edge research and innovation.",
+      "imageUrl": "https://images.unsplash.com/photo-1572059002023-4b9e73a4f9de?q=80&w=1080&auto=format&fit=crop",
+      "location": "Cambridge, USA",
+      "ranking": 1,
+      "fees": 55000,
+      "courses": ["Computer Science", "Physics", "Economics"],
+      "eligibility": "SAT/ACT Scores, Essays, Interviews"
+    },
+    {
+      "id": "clg-003",
+      "name": "Indian Institute of Management, Ahmedabad",
+      "description": "IIM Ahmedabad is a premier management institute in India, recognized globally for its excellence in management education.",
+      "imageUrl": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1080&auto=format&fit=crop",
+      "location": "Ahmedabad, India",
+      "ranking": 1,
+      "fees": 2300000,
+      "courses": ["MBA", "PGP in Management", "Executive MBA"],
+      "eligibility": "CAT Score"
+    },
+    {
+      "id": "clg-004",
+      "name": "Stanford University",
+      "description": "Stanford University is a private research university in Stanford, California. Stanford is known for its academic strength, wealth, and proximity to Silicon Valley.",
+      "imageUrl": "https://images.unsplash.com/photo-1588849533662-a8c66a3311b3?q=80&w=1080&auto=format&fit=crop",
+      "location": "Stanford, USA",
+      "ranking": 2,
+      "fees": 57000,
+      "courses": ["Business", "Law", "Medicine", "Engineering"],
+      "eligibility": "SAT/ACT Scores, Essays"
+    },
+    {
+      "id": "clg-005",
+      "name": "University of Cambridge",
+      "description": "The University of Cambridge is a collegiate research university in Cambridge, United Kingdom. It is one of the world's oldest and most prestigious universities.",
+      "imageUrl": "https://images.unsplash.com/photo-1542648753-37c2b01266b0?q=80&w=1080&auto=format&fit=crop",
+      "location": "Cambridge, UK",
+      "ranking": 3,
+      "fees": 25000,
+      "courses": ["Natural Sciences", "History", "Mathematics"],
+      "eligibility": "A-Levels, IB"
+    },
+    {
+      "id": "clg-006",
+      "name": "National University of Singapore (NUS)",
+      "description": "NUS is a national research university in Singapore. Founded in 1905 as the Straits Settlements and Federated Malay States Government Medical School, NUS is the oldest autonomous university in the country.",
+      "imageUrl": "https://images.unsplash.com/photo-1596429471801-9875510f44b3?q=80&w=1080&auto=format&fit=crop",
+      "location": "Singapore",
+      "ranking": 8,
+      "fees": 17550,
+      "courses": ["Computing", "Business Analytics", "Architecture"],
+      "eligibility": "Varies by country-specific qualifications"
+    }
+  ]
+}
