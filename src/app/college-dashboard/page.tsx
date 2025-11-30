@@ -50,15 +50,16 @@ export default function CollegeDashboardPage() {
     // A simple role check, real security is in Firestore rules
     const checkRole = async () => {
         if (user) {
+          const isEduEmail = user.email?.endsWith('.edu');
             try {
                 const userDocSnap = await getDoc(doc(firestore, 'users', user.uid));
-                if (userDocSnap.exists() && userDocSnap.data().role === 'college') {
+                if (userDocSnap.exists() && userDocSnap.data().role === 'college' && isEduEmail) {
                     setIsAuthorized(true);
                 } else {
                     toast({
                         variant: 'destructive',
                         title: 'Access Denied',
-                        description: 'You are not authorized to view this page.'
+                        description: 'You are not authorized to view this page. A valid .edu email is required.'
                     });
                     router.push('/');
                     setIsAuthorized(false);

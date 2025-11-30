@@ -17,6 +17,10 @@ service cloud.firestore {
       return isSignedIn() && request.auth.token.email == "admin@gmail.com";
     }
 
+    function isCollegeRep() {
+      return isSignedIn() && request.auth.token.email.matches('.+\\.edu$');
+    }
+
     match /users/{userId} {
       allow get: if isOwner(userId) || isAdmin();
       allow list: if isAdmin(); 
@@ -36,12 +40,12 @@ service cloud.firestore {
     match /colleges/{collegeId} {
         allow read: if isSignedIn();
         allow list: if isSignedIn();
-        // Allow create if the incoming document's managedBy field is the user's own ID.
-        allow create: if isSignedIn() && request.resource.data.managedBy == request.auth.uid;
-        // Allow delete if the user is the one who manages the college or is an admin.
-        allow delete: if (isAdmin() || request.auth.uid == resource.data.managedBy);
-        // Only the admin can update. Reps cannot.
-        allow update: if isAdmin();
+        
+        allow create: if isCollegeRep() && request.resource.data.managedBy == request.auth.uid;
+        
+        allow update: if isCollegeRep() && request.auth.uid == resource.data.managedBy || isAdmin();
+
+        allow delete: if isCollegeRep() && request.auth.uid == resource.data.managedBy || isAdmin();
     }
   }
 }
