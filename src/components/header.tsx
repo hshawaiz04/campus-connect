@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/icons';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Upload, UserPlus } from 'lucide-react';
+import { Menu, Upload } from 'lucide-react';
 import { UserButton } from '@/components/auth/user-button';
 
 export default function Header() {
@@ -87,11 +87,6 @@ export default function Header() {
                 <Link href="/admin/seed">
                   <Button variant="outline" size="sm">
                     <Upload className="mr-2 h-4 w-4" /> Seed Data
-                  </Button>
-                </Link>
-                <Link href="/admin/make-admin">
-                  <Button variant="outline" size="sm">
-                    <UserPlus className="mr-2 h-4 w-4" /> Make Admin
                   </Button>
                 </Link>
               </div>
