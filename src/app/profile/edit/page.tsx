@@ -28,6 +28,7 @@ import type { UserProfile } from '@/lib/types';
 import { useEffect, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const profileSchema = z.object({
   firstName: z.string().min(1, "First name is required."),
