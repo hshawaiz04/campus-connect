@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import type { GenerateCollegeRecommendationsInput } from '@/ai/flows/generate-college-recommendations';
 import { getRecommendationsAction } from '@/app/actions';
 import { RecommendationForm } from '@/components/recommendation-form';
 import { RecommendationList } from '@/components/recommendation-list';
@@ -9,6 +8,14 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+
+type GenerateCollegeRecommendationsInput = {
+    cgpa: number;
+    entranceExamScore: number;
+    aptitudeTestScore: number;
+    regionPreference: string;
+    additionalDetails?: string;
+};
 
 type RecommendedCollege = {
     collegeName: string;
@@ -26,20 +33,25 @@ export default function Home() {
     setLoading(true);
     setRecommendations([]); // Clear previous recommendations
     try {
-      const result = await getRecommendationsAction(data);
-      if (result && result.recommendations.length > 0) {
-        setRecommendations(result.recommendations);
-        toast({
-            title: "Recommendations Generated!",
-            description: "We've found some colleges that might be a great fit for you.",
-        });
-      } else {
-        toast({
-            variant: "destructive",
-            title: "No Recommendations Found",
-            description: "We couldn't find any suitable colleges based on your profile. Try adjusting your criteria.",
-        });
-      }
+      // Wrap in a timeout to simulate a network call for a better UX
+      setTimeout(async () => {
+        const result = await getRecommendationsAction(data);
+        if (result && result.recommendations.length > 0) {
+          setRecommendations(result.recommendations);
+          toast({
+              title: "Recommendations Generated!",
+              description: "We've found some colleges that might be a great fit for you.",
+          });
+        } else {
+          toast({
+              variant: "destructive",
+              title: "No Recommendations Found",
+              description: "We couldn't find any suitable colleges based on your profile. Try adjusting your criteria.",
+          });
+        }
+        setLoading(false);
+      }, 1000);
+
     } catch (e) {
       console.error(e);
       toast({
@@ -47,8 +59,7 @@ export default function Home() {
         title: "An Error Occurred",
         description: "Something went wrong while generating recommendations. Please try again later.",
       });
-    } finally {
-        setLoading(false);
+      setLoading(false);
     }
   };
 

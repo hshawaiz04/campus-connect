@@ -24,7 +24,6 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Loader2 } from 'lucide-react';
-import type { GenerateCollegeRecommendationsInput } from '@/ai/flows/generate-college-recommendations';
 
 const recommendationSchema = z.object({
   cgpa: z.coerce.number({invalid_type_error: 'Please enter a number.'}).min(0, "CGPA must be positive.").max(10, "CGPA cannot exceed 10."),
@@ -33,6 +32,9 @@ const recommendationSchema = z.object({
   regionPreference: z.string().min(1, "Please select a region."),
   additionalDetails: z.string().optional(),
 });
+
+type GenerateCollegeRecommendationsInput = z.infer<typeof recommendationSchema>;
+
 
 type RecommendationFormProps = {
   onSubmit: (data: GenerateCollegeRecommendationsInput) => void;

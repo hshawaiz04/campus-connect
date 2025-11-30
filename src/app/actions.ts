@@ -1,9 +1,6 @@
 'use server';
 
-import {
-  generateCollegeRecommendations,
-  type GenerateCollegeRecommendationsInput,
-} from '@/ai/flows/generate-college-recommendations';
+import { colleges, type College } from '@/lib/colleges';
 import { z } from 'zod';
 
 const recommendationSchema = z.object({
@@ -14,6 +11,30 @@ const recommendationSchema = z.object({
   additionalDetails: z.string().optional(),
 });
 
+type GenerateCollegeRecommendationsInput = z.infer<typeof recommendationSchema>;
+
+// A simple local recommendation engine
+const getLocalRecommendations = (
+  input: GenerateCollegeRecommendationsInput
+) => {
+  const { regionPreference, cgpa } = input;
+
+  const filteredColleges = colleges
+    .filter((college) => college.region === regionPreference)
+    .sort((a, b) => a.ranking - b.ranking); // Sort by ranking
+
+  // Simple logic: suggest top 3 ranked colleges in the preferred region.
+  // A more complex engine could match CGPA, scores, etc.
+  const recommended = filteredColleges.slice(0, 3);
+
+  return {
+    recommendations: recommended.map((college) => ({
+      collegeName: college.name,
+      reason: `A top-ranked institution in your preferred region (${college.region}) with a focus on programs like ${college.courses[0]}.`,
+    })),
+  };
+};
+
 export const getRecommendationsAction = async (
   input: GenerateCollegeRecommendationsInput
 ) => {
@@ -22,6 +43,6 @@ export const getRecommendationsAction = async (
     throw new Error('Invalid input');
   }
 
-  const result = await generateCollegeRecommendations(validatedInput.data);
+  const result = getLocalRecommendations(validatedInput.data);
   return result;
 };
