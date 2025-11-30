@@ -1,0 +1,40 @@
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // Admin role is now disabled. No user has admin privileges.
+    function isAdmin() {
+      return false;
+    }
+
+    match /users/{userId} {
+      allow get: if isOwner(userId) || isAdmin();
+      allow list: if false; 
+      allow create: if isOwner(userId);
+      allow update, delete: if isOwner(userId);
+
+      match /profiles/{profileId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      match /favorites/{collegeId} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    match /colleges/{collegeId} {
+        allow read: if isSignedIn();
+        // Writes and lists are disabled for all users.
+        allow list, write: if false;
+    }
+  }
+}
