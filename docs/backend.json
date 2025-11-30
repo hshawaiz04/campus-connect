@@ -1,0 +1,136 @@
+{
+  "entities": {
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user within the CampusConnect application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the user."
+        },
+        "email": {
+          "type": "string",
+          "description": "User's email address.",
+          "format": "email"
+        },
+        "role": {
+          "type": "string",
+          "description": "Role of the user (e.g., 'student', 'admin')."
+        },
+        "profileId": {
+          "type": "string",
+          "description": "Reference to UserProfile. (Relationship: User 1:1 UserProfile)"
+        }
+      },
+      "required": [
+        "id",
+        "email",
+        "role"
+      ]
+    },
+    "UserProfile": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserProfile",
+      "type": "object",
+      "description": "Represents the profile information for a user.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the user profile."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "User's first name."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "User's last name."
+        },
+        "cgpa": {
+          "type": "number",
+          "description": "User's Cumulative Grade Point Average."
+        },
+        "board": {
+          "type": "string",
+          "description": "User's education board."
+        },
+        "entranceExamScores": {
+          "type": "string",
+          "description": "User's entrance exam scores."
+        },
+        "regionPreference": {
+          "type": "string",
+          "description": "User's preferred region (e.g., 'India', 'Abroad')."
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Stores user authentication and authorization data. Path-based ownership for user-specific data.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/profiles/{profileId}",
+        "definition": {
+          "entityName": "UserProfile",
+          "schema": {
+            "$ref": "#/backend/entities/UserProfile"
+          },
+          "description": "Stores user profile information. Path-based ownership ensures only the user can modify their profile. Includes denormalized 'userId'.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            },
+            {
+              "name": "profileId",
+              "description": "The unique identifier for the user profile."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/roles_admin/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Indicates admin privileges. The existence of a document at this path grants admin rights.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "This Firestore data structure is designed to support the CampusConnect application, focusing on user authentication, college browsing, aptitude tests, college recommendations, registration, admin dashboards, and college profile management. The design prioritizes Authorization Independence and QAPs (Rules are not Filters).  User data and profiles are separated into different collections to optimize data access and security. Roles are managed using dedicated collections instead of custom claims (DBAC). The design employs path-based ownership for user-related data and denormalization for collaborative data. For Authorization Independence, key attributes like roles or membership maps are denormalized into subcollections where needed.\n\n**Authorization Independence (CRITICAL):**  The design avoids hierarchical authorization dependencies (`get()`). Structures relying on parent data break atomic operations (transactions/batches) and are hard to debug. User roles are determined by the existence of a document in role collections (e.g. `roles_admin/{uid}`). College membership is determined through the `members` map.\n\n**Clarity of Intent (Debuggability):** The structure makes authorization intent explicit. Role collections like `roles_admin` clearly indicate admin privileges.  Membership maps in collaborative entities explicitly define user roles within those entities.\n\n**DBAC (No Custom Claims):** Roles are stored in the database. Authorization relies solely on `request.auth.uid`. Role-based access is determined by checking for the existence of documents in role collections.\n\n**QAPs (Rules are not Filters):** The structure enables secure `list` operations.  By segregating data with different access needs into separate collections (e.g., `/users/{userId}/profiles` for private profiles), list operations can be secured without complex filtering in rules. This approach prevents unintended data exposure and improves performance.\n\n**Invariants:** The structure supports the integrity of ownership, timestamps, and denormalized data. Ownership is enforced through path-based security rules (e.g., only the user can modify their profile). Timestamps can be added as needed within documents and secured via rules. Denormalized data, such as membership maps, is maintained by triggers or application logic to ensure consistency.\n"
+  }
+}

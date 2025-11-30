@@ -1,0 +1,125 @@
+/**
+ * Core Philosophy: This ruleset enforces a strict user-ownership model combined with
+ * role-based access control (RBAC) for administrators. The default security posture
+ * is "deny-all," where access is only granted through explicit rules.
+ *
+ * Data Structure: All private user data, including their profile, is nested under a
+ * top-level `/users/{userId}` collection. This enforces a clear data boundary for
+ * each user. Administrative roles are managed in a separate, client-inaccessible
+ * `/roles_admin` collection, which is used by the rules engine for authorization checks.
+ *
+ * Key Security Decisions:
+ * - User Isolation: Users can only access documents within their own data tree
+ *   (i.e., paths starting with `/users/{their_auth_uid}`).
+ * - No User Listing: To protect user privacy, it is impossible for any client to
+ *   list all documents in the top-level `/users` collection.
+ * - Database-Centric Roles: Administrator status is determined by the existence of a
+ *   document in the `/roles_admin/{userId}` path. This avoids using custom claims,
+ *   making role management auditable directly within the database. This collection is
+ *   not readable or writable by any client to prevent enumeration of admins.
+ * - Self-Creation: Users are permitted to create their own initial user document,
+ *   which is essential for a sign-up flow.
+ *
+ * Denormalization for Authorization: The rules rely on path-based security, where the
+ * `{userId}` wildcard in the path is the primary source of truth for ownership. This
+ * avoids slow and costly `get()` calls to parent documents. The `roles_admin`
+ * collection is a form of denormalization; its sole purpose is to provide a fast,
+ * secure lookup for the `isAdmin()` authorization check.
+ *
+ * Structural Segregation: Private user data (`/users/{userId}/...`) is structurally
+ * segregated from the admin role data (`/roles_admin`). This clear separation allows for
+ * simple, highly secure rules for each collection without the risk of data leakage.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // --------------------------------------------------------------------------------
+    // Helper Functions
+    // --------------------------------------------------------------------------------
+
+    /**
+     * Returns true if the user is authenticated.
+     */
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    /**
+     * Returns true if the authenticated user's UID matches the provided userId.
+     * This is the primary function for checking document ownership.
+     */
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    /**
+     * Returns true if the user is the owner and the document already exists.
+     * Used for safe update and delete operations.
+     */
+    function isExistingOwner(userId) {
+      return isOwner(userId) && resource != null;
+    }
+
+    /**
+     * Returns true if the user has an admin role document.
+     * Checks for the existence of a doc in the private admin collection.
+     */
+    function isAdmin() {
+      return isSignedIn() && exists(/databases/$(database)/documents/roles_admin/$(request.auth.uid));
+    }
+
+    // --------------------------------------------------------------------------------
+    // Collection Rules
+    // --------------------------------------------------------------------------------
+
+    /**
+     * @description Manages user account documents. Allows a user to create their own
+     *              account document upon sign-up and manage it thereafter.
+     * @path /users/{userId}
+     * @allow A new user creates their own user document (create, auth.uid == userId).
+     * @deny An authenticated user tries to read another user's document (get, auth.uid != userId).
+     * @deny Any user tries to list all user documents in the collection (list).
+     * @principle Enforces self-creation and strict ownership of a user's root document.
+     */
+    match /users/{userId} {
+      allow get: if isOwner(userId) || isAdmin();
+      allow list: if false;
+      allow create: if isOwner(userId);
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Manages a user's private profile data, stored in a subcollection.
+     * @path /users/{userId}/profiles/{profileId}
+     * @allow An authenticated user creates or updates their own profile (create/update, auth.uid == userId).
+     * @deny User A tries to read or list the profiles of User B (get/list, auth.uid != userId).
+     * @principle Restricts all access to a user's own data tree (path-based ownership).
+     */
+    match /users/{userId}/profiles/{profileId} {
+      allow get: if isOwner(userId) || isAdmin();
+      allow list: if isOwner(userId);
+      allow create: if isOwner(userId);
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description A private collection used by security rules to identify admins.
+     *              This collection should not be readable or writable by any client.
+     * @path /roles_admin/{userId}
+     * @allow The security rules engine checks for admin status via exists().
+     * @deny Any client tries to read or write any document in this collection.
+     * @principle Secures role-defining data by making it inaccessible to clients,
+     *            preventing the discovery or manipulation of administrator lists.
+     */
+    match /roles_admin/{userId} {
+      allow get: if false;
+      allow list: if false;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+  }
+}
