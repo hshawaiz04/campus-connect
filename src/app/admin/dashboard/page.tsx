@@ -1,7 +1,6 @@
-
 'use client';
 
-import { useUser, useCollection, useFirestore, useMemoFirebase, deleteDocumentNonBlocking, useDoc } from '@/firebase';
+import { useUser, useCollection, useFirestore, useMemoFirebase, deleteDocumentNonBlocking } from '@/firebase';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { collection, doc } from 'firebase/firestore';
@@ -32,24 +31,24 @@ export default function AdminDashboard() {
 
   const [collegeToDelete, setCollegeToDelete] = useState<College | null>(null);
 
-  // Check if the user is an admin
-  const adminRoleRef = useMemoFirebase(
-    () => (user ? doc(firestore, 'roles_admin', user.uid) : null),
+  // Instead of checking for a role document, we attempt to query the 'colleges'
+  // collection. The security rules will only allow an admin to do this.
+  // If the query fails with a permission error, we know the user is not an admin.
+  const collegesQuery = useMemoFirebase(
+    () => (user ? collection(firestore, 'colleges') : null),
     [firestore, user]
   );
-  const { data: adminRole, isLoading: isAdminLoading } = useDoc(adminRoleRef);
-  const isAdmin = !!adminRole;
+  const { data: colleges, isLoading: areCollegesLoading, error: collegesError } = useCollection<College>(collegesQuery);
 
-  const collegesQuery = useMemoFirebase(
-    () => (isAdmin ? collection(firestore, 'colleges') : null),
-    [firestore, isAdmin]
-  );
-  const { data: colleges, isLoading: areCollegesLoading } = useCollection<College>(collegesQuery);
+  const isAdmin = !collegesError; // If there's no permission error, the user is an admin.
+  const isLoading = isUserLoading || areCollegesLoading;
 
   useEffect(() => {
-    // If auth is still loading, do nothing.
-    if (isUserLoading || isAdminLoading) return;
-    // If loading is finished and user is not logged in or not an admin, redirect to home.
+    // If auth is still loading, or collections are loading, do nothing yet.
+    if (isLoading) return;
+    
+    // After loading, if the user is not logged in OR if there was a permission error fetching colleges,
+    // they are not an admin. Redirect them.
     if (!user || !isAdmin) {
       toast({
         variant: 'destructive',
@@ -58,7 +57,7 @@ export default function AdminDashboard() {
       })
       router.push('/');
     }
-  }, [user, isUserLoading, isAdmin, isAdminLoading, router, toast]);
+  }, [user, isLoading, isAdmin, router, toast]);
   
   const handleDelete = () => {
     if (!collegeToDelete || !firestore) return;
@@ -70,8 +69,6 @@ export default function AdminDashboard() {
     });
     setCollegeToDelete(null);
   };
-
-  const isLoading = isUserLoading || isAdminLoading || areCollegesLoading;
 
   if (isLoading || !isAdmin) {
     return (
