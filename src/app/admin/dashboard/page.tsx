@@ -3,66 +3,106 @@
 import { useUser, useCollection, useFirestore, useMemoFirebase } from '@/firebase';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { collection } from 'firebase/firestore';
+import { collection, deleteDoc, doc } from 'firebase/firestore';
 import type { College } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { MoreHorizontal, PlusCircle } from 'lucide-react';
+import { MoreHorizontal, PlusCircle, Trash2, Edit } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 
 export default function AdminDashboard() {
   const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
   const router = useRouter();
   const { toast } = useToast();
+  const [collegeToDelete, setCollegeToDelete] = useState<College | null>(null);
 
   const collegesQuery = useMemoFirebase(
-    () => (user ? collection(firestore, 'colleges') : null),
-    [firestore, user]
+    () => (firestore ? collection(firestore, 'colleges') : null),
+    [firestore]
   );
-  // This hook will now always result in an error for any user because of the security rules.
-  const { isLoading: areCollegesLoading, error: collegesError } = useCollection<College>(collegesQuery);
-  
+  const { data: colleges, isLoading: areCollegesLoading, error: collegesError } = useCollection<College>(collegesQuery);
+
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
 
   useEffect(() => {
-    // Wait until loading is complete before making a decision.
+    // Wait until user and data loading is complete
     if (isUserLoading || areCollegesLoading) {
       return;
     }
 
-    // If there's any user and a permission error exists after loading, they are not an admin.
-    // This will now be true for ALL users.
-    if (user && collegesError) {
+    // If there is no user, redirect to login
+    if (!user) {
+      toast({
+        variant: 'destructive',
+        title: 'Access Denied',
+        description: 'You must be logged in to view this page.'
+      });
+      router.push('/login');
       setIsAuthorized(false);
+      return;
+    }
+    
+    // If there is a permission error fetching colleges, the user is not an admin
+    if (collegesError) {
       toast({
         variant: 'destructive',
         title: 'Access Denied',
         description: 'You do not have permission to view this page.'
       });
       router.push('/');
-    } else if (!user) {
-      // If there's no user, deny access.
       setIsAuthorized(false);
-       toast({
-        variant: 'destructive',
-        title: 'Access Denied',
-        description: 'You must be logged in to view this page.'
-      });
-      router.push('/login');
-    } else {
-        // This case should not be reachable if rules are correct, but as a fallback, deny access.
-        setIsAuthorized(false);
-        toast({
-            variant: 'destructive',
-            title: 'Access Denied',
-            description: 'You do not have permission to view this page.'
-          });
-        router.push('/');
+      return;
     }
+
+    // If loading is finished, there's a user, and no error, they are authorized
+    if (!areCollegesLoading && !collegesError) {
+        setIsAuthorized(true);
+    }
+
   }, [user, isUserLoading, areCollegesLoading, collegesError, router, toast]);
+
+  const handleDeleteCollege = async () => {
+    if (!collegeToDelete || !firestore) return;
+
+    try {
+      await deleteDoc(doc(firestore, 'colleges', collegeToDelete.id));
+      toast({
+        title: 'College Deleted',
+        description: `${collegeToDelete.name} has been removed.`,
+      });
+    } catch (error) {
+      const e = error as Error;
+      toast({
+        variant: 'destructive',
+        title: 'Error Deleting College',
+        description: e.message || 'An unknown error occurred.',
+      });
+    } finally {
+      setCollegeToDelete(null);
+    }
+  };
+
 
   // Show a full-page loading skeleton while we determine authorization.
   if (isAuthorized === null) {
@@ -95,9 +135,24 @@ export default function AdminDashboard() {
     return null;
   }
   
-  // This part of the component is now effectively unreachable but is kept for structural integrity.
   return (
     <div className="container mx-auto py-12">
+      <AlertDialog open={!!collegeToDelete} onOpenChange={(open) => !open && setCollegeToDelete(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete the college
+              &quot;{collegeToDelete?.name}&quot;.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDeleteCollege}>Delete</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
@@ -105,9 +160,9 @@ export default function AdminDashboard() {
                 <CardTitle>Admin Dashboard</CardTitle>
                 <CardDescription>Manage college listings.</CardDescription>
             </div>
-            <Button disabled>
+            <Button onClick={() => router.push('/admin/colleges/new')}>
                 <PlusCircle className="mr-2 h-4 w-4" />
-                Add College (Disabled)
+                Add College
             </Button>
           </div>
         </CardHeader>
@@ -123,11 +178,54 @@ export default function AdminDashboard() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              <TableRow>
-                <TableCell colSpan={5} className="text-center text-muted-foreground">
-                  Admin access is disabled.
-                </TableCell>
-              </TableRow>
+              {areCollegesLoading ? (
+                 [...Array(5)].map((_, i) => (
+                  <TableRow key={i}>
+                    <TableCell><Skeleton className="h-5 w-3/4" /></TableCell>
+                    <TableCell><Skeleton className="h-5 w-3/4" /></TableCell>
+                    <TableCell><Skeleton className="h-5 w-1/2" /></TableCell>
+                    <TableCell><Skeleton className="h-5 w-1/2" /></TableCell>
+                    <TableCell className="text-right"><Skeleton className="h-5 w-5 ml-auto" /></TableCell>
+                  </TableRow>
+                 ))
+              ) : colleges && colleges.length > 0 ? (
+                colleges.map((college) => (
+                  <TableRow key={college.id}>
+                    <TableCell className="font-medium">{college.name}</TableCell>
+                    <TableCell>{college.location}</TableCell>
+                    <TableCell>{college.field}</TableCell>
+                    <TableCell><span className="capitalize">{college.tier}</span></TableCell>
+                    <TableCell className="text-right">
+                       <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" className="h-8 w-8 p-0">
+                            <span className="sr-only">Open menu</span>
+                            <MoreHorizontal className="h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                          <DropdownMenuItem onClick={() => router.push(`/admin/colleges/${college.id}/edit`)}>
+                            <Edit className="mr-2 h-4 w-4" />
+                            Edit
+                          </DropdownMenuItem>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem onClick={() => setCollegeToDelete(college)} className="text-destructive focus:text-destructive">
+                            <Trash2 className="mr-2 h-4 w-4" />
+                            Delete
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={5} className="text-center h-24 text-muted-foreground">
+                    No colleges found. Start by adding one.
+                  </TableCell>
+                </TableRow>
+              )}
             </TableBody>
           </Table>
         </CardContent>
