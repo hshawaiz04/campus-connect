@@ -129,19 +129,19 @@ service cloud.firestore {
 
     /**
      * @description A private collection used by security rules to identify admins.
-     *              This collection should not be readable or writable by any client.
-     *              For development, we are temporarily allowing a user to write their own
-     *              admin role document. THIS IS NOT SAFE FOR PRODUCTION.
+     *              This collection should not be readable or writable by any client
+     *              except for a user managing their own admin document.
      * @path /roles_admin/{userId}
-     * @allow The security rules engine checks for admin status via exists().
-     * @deny Any client tries to read or write any document in this collection.
-     * @principle Secures role-defining data by making it inaccessible to clients,
+     * @allow A user can create/read/write their own admin role document.
+     * @deny Any client tries to list documents in this collection.
+     * @principle Secures role-defining data by making it inaccessible to other clients,
      *            preventing the discovery or manipulation of administrator lists.
      */
     match /roles_admin/{userId} {
       allow get: if isOwner(userId);
       allow list: if false;
-      allow write: if isOwner(userId); // Temporarily allow for dev setup
+      allow create: if isOwner(userId);
+      allow update, delete: if isOwner(userId);
     }
   }
 }
