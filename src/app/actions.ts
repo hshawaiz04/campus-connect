@@ -3,7 +3,9 @@
 import {
   generateCollegeRecommendations,
   type GenerateCollegeRecommendationsInput,
+  type GenerateCollegeRecommendationsOutput,
 } from '@/ai/flows/generate-college-recommendations';
+import { experimental_streamObject } from 'ai';
 import { z } from 'zod';
 
 const recommendationSchema = z.object({
@@ -14,14 +16,26 @@ const recommendationSchema = z.object({
   additionalDetails: z.string().optional(),
 });
 
-export async function getRecommendationsAction(
+const RecommendedCollegeSchema = z.object({
+  collegeName: z.string(),
+  reason: z.string(),
+});
+
+export const getRecommendationsAction = (
   input: GenerateCollegeRecommendationsInput
-) {
+) => {
   const validatedInput = recommendationSchema.safeParse(input);
   if (!validatedInput.success) {
     throw new Error('Invalid input');
   }
 
-  const recommendations = await generateCollegeRecommendations(validatedInput.data);
-  return recommendations;
+  return experimental_streamObject<z.infer<typeof RecommendedCollegeSchema>>({
+    cb: async (stream) => {
+      await generateCollegeRecommendations(validatedInput.data, (recommendation) => {
+        stream.update(recommendation);
+      });
+      stream.done();
+    },
+    schema: RecommendedCollegeSchema
+  })
 }

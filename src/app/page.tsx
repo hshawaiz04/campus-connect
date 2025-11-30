@@ -9,31 +9,24 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { useStreamableValue } from 'ai/rsc';
+
 
 export default function Home() {
-  const [loading, setLoading] = useState(false);
-  const [recommendations, setRecommendations] = useState<GenerateCollegeRecommendationsOutput | null>(null);
+  const [recommendations, setRecommendations] = useState<GenerateCollegeRecommendationsOutput>([]);
   const { toast } = useToast();
   const heroImage = PlaceHolderImages.find(p => p.id === 'hero-campus');
 
+  const [loading, setLoading] = useState(false);
+  const [stream, setStream] = useState<any>()
+  const { partial, status, error } = useStreamableValue(stream);
+
   const handleGetRecommendations = async (data: GenerateCollegeRecommendationsInput) => {
     setLoading(true);
-    setRecommendations(null);
+    setRecommendations([]); // Clear previous recommendations
     try {
-      const result = await getRecommendationsAction(data);
-      if (result && result.length > 0) {
-        setRecommendations(result);
-        toast({
-          title: "Recommendations Generated!",
-          description: "We've found some colleges that might be a great fit for you.",
-        });
-      } else {
-        toast({
-          variant: "destructive",
-          title: "No Recommendations Found",
-          description: "We couldn't find any suitable colleges based on your profile. Try adjusting your criteria.",
-        });
-      }
+      const { stream } = getRecommendationsAction(data);
+      setStream(stream)
     } catch (e) {
       console.error(e);
       toast({
@@ -41,10 +34,43 @@ export default function Home() {
         title: "An Error Occurred",
         description: "Something went wrong while generating recommendations. Please try again later.",
       });
-    } finally {
       setLoading(false);
     }
   };
+
+  // As new partial results come in, add them to the list of recommendations
+  // This is a bit of a hacky way to do this, but it works for now
+  if (partial && partial.collegeName && !recommendations.find(r => r.collegeName === partial.collegeName)) {
+    const newRecs = [...recommendations, partial];
+    setRecommendations(newRecs as GenerateCollegeRecommendationsOutput);
+  }
+  
+  // When the stream is done, set loading to false
+  if (status === 'done' && loading) {
+    if (recommendations.length > 0) {
+      toast({
+        title: "Recommendations Generated!",
+        description: "We've found some colleges that might be a great fit for you.",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "No Recommendations Found",
+        description: "We couldn't find any suitable colleges based on your profile. Try adjusting your criteria.",
+      });
+    }
+    setLoading(false);
+  }
+  
+  if (error && loading) {
+    console.error(error);
+    toast({
+      variant: "destructive",
+      title: "An Error Occurred",
+      description: "Something went wrong while generating recommendations. Please try again later.",
+    });
+    setLoading(false);
+  }
 
   return (
     <main>

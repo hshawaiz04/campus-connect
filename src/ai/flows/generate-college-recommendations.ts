@@ -38,15 +38,20 @@ export type GenerateCollegeRecommendationsOutput = z.infer<
 >;
 
 export async function generateCollegeRecommendations(
-  input: GenerateCollegeRecommendationsInput
-): Promise<GenerateCollegeRecommendationsOutput> {
-  return generateCollegeRecommendationsFlow(input);
+  input: GenerateCollegeRecommendationsInput,
+  // A callback to stream results
+  onRecommendation: (recommendation: z.infer<typeof RecommendedCollegeSchema>) => void
+) {
+  const stream = await generateCollegeRecommendationsFlow.stream(input);
+  for await (const chunk of stream) {
+    onRecommendation(chunk);
+  }
 }
 
 const prompt = ai.definePrompt({
   name: 'generateCollegeRecommendationsPrompt',
   input: {schema: GenerateCollegeRecommendationsInputSchema},
-  output: {schema: GenerateCollegeRecommendationsOutputSchema},
+  output: {schema: RecommendedCollegeSchema},
   prompt: `You are an expert college advisor with access to a vast database of information about colleges and universities around the world. Your task is to provide personalized college recommendations based on a student's profile.
 
 Analyze the provided student profile and leverage your knowledge of real-world colleges to suggest suitable institutions. Consider factors like admission difficulty relative to the student's scores, program strengths, location, and any other relevant details from the student's input.
@@ -58,14 +63,14 @@ Aptitude Test Score: {{{aptitudeTestScore}}}
 Region Preference: {{{regionPreference}}}
 Additional Details: {{{additionalDetails}}}
 
-Based on this information, recommend a list of 3-5 colleges. For each college, provide a clear and concise reason explaining why it is a good match for the student. Your response must be in the specified JSON format.`,
+Based on this information, recommend one college. Provide a clear and concise reason explaining why it is a good match for the student. Your response must be in the specified JSON format.`,
 });
 
 const generateCollegeRecommendationsFlow = ai.defineFlow(
   {
     name: 'generateCollegeRecommendationsFlow',
     inputSchema: GenerateCollegeRecommendationsInputSchema,
-    outputSchema: GenerateCollegeRecommendationsOutputSchema,
+    outputSchema: RecommendedCollegeSchema,
   },
   async input => {
     const {output} = await prompt(input);
