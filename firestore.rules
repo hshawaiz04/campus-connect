@@ -112,8 +112,8 @@ service cloud.firestore {
      * @deny Writes are only allowed for administrators.
      */
     match /colleges/{collegeId} {
-      allow get, list: if true;
-      allow create, update, delete: if isAdmin();
+      allow read: if true;
+      allow write: if isAdmin();
     }
 
     /**
