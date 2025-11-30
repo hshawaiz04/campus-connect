@@ -2,11 +2,15 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import type { GenerateCollegeRecommendationsOutput } from '@/ai/flows/generate-college-recommendations';
 import { Lightbulb, Building2, FileText } from 'lucide-react';
 
+type RecommendedCollege = {
+    collegeName: string;
+    reason: string;
+};
+
 type RecommendationListProps = {
-  recommendations: GenerateCollegeRecommendationsOutput | null;
+  recommendations: RecommendedCollege[] | null;
   isLoading: boolean;
 };
 
@@ -31,7 +35,7 @@ export function RecommendationList({ recommendations, isLoading }: Recommendatio
     );
   }
 
-  if (!recommendations) {
+  if (!recommendations || recommendations.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center text-center p-8 border-2 border-dashed rounded-lg h-full min-h-[400px]">
         <div className="p-4 bg-primary/10 rounded-full mb-4">
