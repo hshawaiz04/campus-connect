@@ -3,7 +3,6 @@
 import {
   generateCollegeRecommendations,
   type GenerateCollegeRecommendationsInput,
-  type GenerateCollegeRecommendationsOutput,
 } from '@/ai/flows/generate-college-recommendations';
 import { experimental_streamObject } from 'ai';
 import { z } from 'zod';
@@ -21,7 +20,7 @@ const RecommendedCollegeSchema = z.object({
   reason: z.string(),
 });
 
-export const getRecommendationsAction = (
+export const getRecommendationsAction = async (
   input: GenerateCollegeRecommendationsInput
 ) => {
   const validatedInput = recommendationSchema.safeParse(input);
