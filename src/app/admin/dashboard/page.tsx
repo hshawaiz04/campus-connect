@@ -2,9 +2,10 @@
 
 import { useUser, useCollection, useFirestore, useMemoFirebase } from '@/firebase';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { collection, deleteDoc, doc } from 'firebase/firestore';
 import type { College } from '@/lib/types';
+import { colleges as localColleges } from '@/lib/colleges';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -41,13 +42,28 @@ export default function AdminDashboard() {
     () => (firestore ? collection(firestore, 'colleges') : null),
     [firestore]
   );
-  const { data: colleges, isLoading: areCollegesLoading, error: collegesError } = useCollection<College>(collegesQuery);
+  const { data: firestoreColleges, isLoading: areCollegesLoading, error: collegesError } = useCollection<College>(collegesQuery);
+
+  const allColleges = useMemo(() => {
+    const combined = new Map<string, College>();
+    
+    // Add local colleges first
+    localColleges.forEach(college => combined.set(college.id, college));
+
+    // Add/overwrite with firestore colleges
+    if (firestoreColleges) {
+      firestoreColleges.forEach(college => combined.set(college.id, college));
+    }
+    
+    return Array.from(combined.values()).sort((a,b) => a.ranking - b.ranking);
+  }, [firestoreColleges]);
+
 
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
 
   useEffect(() => {
     // Wait until user and data loading is complete
-    if (isUserLoading || areCollegesLoading) {
+    if (isUserLoading) {
       return;
     }
 
@@ -64,7 +80,8 @@ export default function AdminDashboard() {
     }
     
     // If there is a permission error fetching colleges, the user is not an admin
-    if (collegesError) {
+    // We check this by seeing if the user is `admin@gmail.com`
+    if (user.email !== 'admin@gmail.com') {
       toast({
         variant: 'destructive',
         title: 'Access Denied',
@@ -75,12 +92,12 @@ export default function AdminDashboard() {
       return;
     }
 
-    // If loading is finished, there's a user, and no error, they are authorized
-    if (!areCollegesLoading && !collegesError) {
+    // If loading is finished, there's a user, and it's the admin, they are authorized
+    if (!isUserLoading && user.email === 'admin@gmail.com') {
         setIsAuthorized(true);
     }
 
-  }, [user, isUserLoading, areCollegesLoading, collegesError, router, toast]);
+  }, [user, isUserLoading, router, toast]);
 
   const handleDeleteCollege = async () => {
     if (!collegeToDelete || !firestore) return;
@@ -143,7 +160,7 @@ export default function AdminDashboard() {
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
               This action cannot be undone. This will permanently delete the college
-              &quot;{collegeToDelete?.name}&quot;.
+              &quot;{collegeToDelete?.name}&quot; and remove it from public view.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -158,7 +175,7 @@ export default function AdminDashboard() {
           <div className="flex items-center justify-between">
             <div>
                 <CardTitle>Admin Dashboard</CardTitle>
-                <CardDescription>Manage college listings.</CardDescription>
+                <CardDescription>Manage all college listings.</CardDescription>
             </div>
             <Button onClick={() => router.push('/admin/colleges/new')}>
                 <PlusCircle className="mr-2 h-4 w-4" />
@@ -179,7 +196,7 @@ export default function AdminDashboard() {
             </TableHeader>
             <TableBody>
               {areCollegesLoading ? (
-                 [...Array(5)].map((_, i) => (
+                 [...Array(10)].map((_, i) => (
                   <TableRow key={i}>
                     <TableCell><Skeleton className="h-5 w-3/4" /></TableCell>
                     <TableCell><Skeleton className="h-5 w-3/4" /></TableCell>
@@ -188,8 +205,8 @@ export default function AdminDashboard() {
                     <TableCell className="text-right"><Skeleton className="h-5 w-5 ml-auto" /></TableCell>
                   </TableRow>
                  ))
-              ) : colleges && colleges.length > 0 ? (
-                colleges.map((college) => (
+              ) : allColleges && allColleges.length > 0 ? (
+                allColleges.map((college) => (
                   <TableRow key={college.id}>
                     <TableCell className="font-medium">{college.name}</TableCell>
                     <TableCell>{college.location}</TableCell>
