@@ -11,13 +11,12 @@ export default function LoginPage() {
         <CardHeader>
           <CardTitle>Admin Access</CardTitle>
           <CardDescription>
-            To access the admin dashboard, sign up and log in with the following credentials:
+            This area is for authorized administrators only.
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-2 text-sm">
-            <p><strong>Email:</strong> admin@gmail.com</p>
-            <p><strong>Password:</strong> admin@123</p>
+            <p>Contact the administrator for the login credentials.</p>
           </div>
         </CardContent>
       </Card>
