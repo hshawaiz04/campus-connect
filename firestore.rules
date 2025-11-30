@@ -14,14 +14,15 @@ service cloud.firestore {
     function isAdmin() {
       // The admin's email is hardcoded here.
       // Any user who signs in with this email will have admin privileges.
-      return request.auth.token.email == "admin@gmail.com";
+      return isSignedIn() && request.auth.token.email == "admin@gmail.com";
     }
 
     match /users/{userId} {
       allow get: if isOwner(userId) || isAdmin();
-      allow list: if false; 
+      allow list: if isAdmin(); 
+      // Allow a user to create their own user document
       allow create: if isOwner(userId);
-      allow update, delete: if isOwner(userId);
+      allow update, delete: if isOwner(userId) || isAdmin();
 
       match /profiles/{profileId} {
         allow read, write: if isOwner(userId);
@@ -34,8 +35,13 @@ service cloud.firestore {
 
     match /colleges/{collegeId} {
         allow read: if isSignedIn();
-        // Only the admin can list all colleges and write to them.
-        allow list, write: if isAdmin();
+        allow list: if isSignedIn();
+        
+        // Allow create if the incoming document's managedBy field is the user's own ID.
+        allow create: if isSignedIn() && request.resource.data.managedBy == request.auth.uid;
+        
+        // Allow update or delete if the user is the one who manages the college or is an admin.
+        allow update, delete: if (isAdmin() || (isSignedIn() && request.auth.uid == resource.data.managedBy));
     }
   }
 }
