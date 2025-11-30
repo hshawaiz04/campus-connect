@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   FirebaseError,
+  UserCredential
 } from 'firebase/auth';
 import { toast } from '@/hooks/use-toast';
 
@@ -41,12 +42,18 @@ export function initiateAnonymousSignIn(authInstance: Auth): void {
   signInAnonymously(authInstance).catch(handleAuthError);
 }
 
-/** Initiate email/password sign-up (non-blocking). */
-export function initiateEmailSignUp(authInstance: Auth, email: string, password: string): void {
-  createUserWithEmailAndPassword(authInstance, email, password).catch(handleAuthError);
+/** Initiate email/password sign-up (non-blocking). Returns a promise with UserCredential. */
+export function initiateEmailSignUp(authInstance: Auth, email: string, password: string): Promise<UserCredential> {
+  return createUserWithEmailAndPassword(authInstance, email, password).catch(error => {
+    handleAuthError(error);
+    throw error; // Re-throw to be caught by the caller's try/catch
+  });
 }
 
-/** Initiate email/password sign-in (non-blocking). */
-export function initiateEmailSignIn(authInstance: Auth, email: string, password: string): void {
-  signInWithEmailAndPassword(authInstance, email, password).catch(handleAuthError);
+/** Initiate email/password sign-in (non-blocking). Returns a promise with UserCredential. */
+export function initiateEmailSignIn(authInstance: Auth, email: string, password: string): Promise<UserCredential> {
+  return signInWithEmailAndPassword(authInstance, email, password).catch(error => {
+    handleAuthError(error);
+    throw error; // Re-throw to be caught by the caller's try/catch
+  });
 }
