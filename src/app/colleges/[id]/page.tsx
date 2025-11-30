@@ -9,7 +9,6 @@ import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, School, MapPin, Target, BookOpen, DollarSign, Milestone, Heart, Home, Award, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import { useUser, useFirestore, useDoc, useMemoFirebase, setDocumentNonBlocking, deleteDocumentNonBlocking } from '@/firebase';
 import { doc } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
@@ -18,11 +17,15 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 export default function CollegeDetailsPage() {
   const params = useParams();
   const collegeId = typeof params.id === 'string' ? params.id : '';
-  const [college, setCollege] = useState<College | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
   const { user } = useUser();
   const firestore = useFirestore();
   const { toast } = useToast();
+
+  const collegeRef = useMemoFirebase(
+    () => (firestore && collegeId ? doc(firestore, 'colleges', collegeId) : null),
+    [firestore, collegeId]
+  );
+  const { data: college, isLoading } = useDoc<College>(collegeRef);
 
   const favoriteRef = useMemoFirebase(
     () => (user ? doc(firestore, `users/${user.uid}/favorites`, collegeId) : null),
@@ -30,27 +33,6 @@ export default function CollegeDetailsPage() {
   );
   const { data: favorite } = useDoc(favoriteRef);
   const isFavorite = !!favorite;
-
-  useEffect(() => {
-    if (!collegeId) return;
-
-    const fetchCollege = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch('/colleges.json');
-        const allColleges: College[] = (await response.json());
-        const foundCollege = allColleges.find(c => c.id === collegeId);
-        setCollege(foundCollege || null);
-      } catch (error) {
-        console.error("Failed to fetch college data:", error);
-        setCollege(null);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchCollege();
-  }, [collegeId]);
 
   const handleFavoriteToggle = () => {
     if (!user) {

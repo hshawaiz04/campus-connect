@@ -1,41 +1,33 @@
 
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import type { College } from '@/lib/types';
 import { Skeleton } from '@/components/ui/skeleton';
 import Link from 'next/link';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Search, MapPin, BookOpen } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
+import { collection, orderBy, query } from 'firebase/firestore';
 
 export default function CollegesPage() {
-  const [allColleges, setAllColleges] = useState<College[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const firestore = useFirestore();
   const [searchTerm, setSearchTerm] = useState('');
   const [fieldFilter, setFieldFilter] = useState('All');
   const [regionFilter, setRegionFilter] = useState('All');
 
-  useEffect(() => {
-    const fetchColleges = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch('/colleges.json');
-        const data: College[] = await response.json();
-        setAllColleges(data.sort((a, b) => a.ranking - b.ranking));
-      } catch (error) {
-        console.error("Failed to fetch college data:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchColleges();
-  }, []);
+  const collegesQuery = useMemoFirebase(
+    () => (firestore ? query(collection(firestore, 'colleges'), orderBy('ranking')) : null),
+    [firestore]
+  );
+  const { data: allColleges, isLoading } = useCollection<College>(collegesQuery);
 
   const filteredColleges = useMemo(() => {
+    if (!allColleges) return [];
     return allColleges
       .filter(college =>
         college.name.toLowerCase().includes(searchTerm.toLowerCase())
