@@ -13,7 +13,7 @@ service cloud.firestore {
 
     // Admin role is now disabled. No user has admin privileges.
     function isAdmin() {
-      return false;
+      return request.auth.token.email == "admin@gmail.com";
     }
 
     match /users/{userId} {
@@ -33,8 +33,12 @@ service cloud.firestore {
 
     match /colleges/{collegeId} {
         allow read: if isSignedIn();
-        // Writes and lists are disabled for all users.
-        allow list, write: if false;
+        // Allow create for any signed-in user.
+        allow create: if isSignedIn();
+        // Allow update/delete only if the user is the one who manages the college or is an admin.
+        allow update, delete: if request.auth.uid == resource.data.managedBy || isAdmin();
+        // Public list is fine, but admin can see all.
+        allow list: if isSignedIn();
     }
   }
 }
