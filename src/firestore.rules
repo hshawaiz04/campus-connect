@@ -35,12 +35,11 @@ service cloud.firestore {
 
     match /colleges/{collegeId} {
         allow read: if isSignedIn();
-        // Allow create if the user is signed in and is setting themselves as the manager.
-        allow create: if isSignedIn() && request.auth.uid == request.resource.data.managedBy;
-        // Allow update/delete only if the user is the one who manages the college or is an admin.
-        allow update, delete: if (request.auth.uid == resource.data.managedBy || isAdmin());
-        // Public list is fine, and admin can see all.
         allow list: if isSignedIn();
+        // Allow create if the incoming document's managedBy field is the user's own ID.
+        allow create: if isSignedIn() && request.resource.data.managedBy == request.auth.uid;
+        // Allow update/delete if the user is the one who manages the college or is an admin.
+        allow update, delete: if (isAdmin() || request.auth.uid == resource.data.managedBy);
     }
   }
 }
