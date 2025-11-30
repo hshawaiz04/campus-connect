@@ -33,6 +33,16 @@ const questions = [
     question: "A is B's sister. C is B's mother. D is C's father. E is D's mother. Then, how is A related to D?",
     options: ["Grandfather", "Grandmother", "Daughter", "Granddaughter"],
     answer: "Granddaughter"
+  },
+  {
+    question: "Look at this series: 22, 21, 23, 22, 24, 23, ... What number should come next?",
+    options: ["22", "25", "26", "27"],
+    answer: "25"
+  },
+  {
+    question: "Odometer is to mileage as compass is to:",
+    options: ["speed", "hiking", "needle", "direction"],
+    answer: "direction"
   }
 ];
 
