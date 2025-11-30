@@ -1,3 +1,4 @@
+
 /**
  * Core Philosophy: This ruleset enforces a strict user-ownership model combined with
  * role-based access control (RBAC) for administrators. The default security posture
@@ -112,7 +113,7 @@ service cloud.firestore {
      * @deny Writes are only allowed for administrators.
      */
     match /colleges/{collegeId} {
-      allow get, list: if true;
+      allow read: if true;
       allow write: if isAdmin();
     }
 
