@@ -1,6 +1,6 @@
 'use client';
 
-import { useUser, useAuth, useFirestore, useDoc, useMemoFirebase } from '@/firebase';
+import { useUser, useAuth } from '@/firebase';
 import { useRouter } from 'next/navigation';
 import {
   DropdownMenu,
@@ -14,36 +14,19 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { LogOut, User as UserIcon, Shield } from 'lucide-react';
 import { Skeleton } from '../ui/skeleton';
-import { doc } from 'firebase/firestore';
-
 
 export function UserButton() {
   const { user, isUserLoading } = useUser();
   const auth = useAuth();
-  const firestore = useFirestore();
   const router = useRouter();
-  
-  const adminRoleRef = useMemoFirebase(
-    () => (user ? doc(firestore, 'roles_admin', user.uid) : null),
-    [firestore, user]
-  );
-  
-  // This hook will attempt to read the document.
-  // Firestore security rules will deny this, but we're not using the result directly.
-  // The isAdmin flag will be determined by a secure server-side check.
-  // This hook is primarily for triggering re-renders when auth state changes.
-  const { data: adminRole, isLoading: isAdminLoading } = useDoc(adminRoleRef, {
-    // This is a dummy call; we won't use the result because it will be denied by security rules.
-    // In a real app, we'd use a cloud function to securely check the role.
-    // For this prototype, we'll assume the user is an admin if they're a specific hardcoded user for demo purposes.
-  });
 
   // A secure `isAdmin` check would typically involve a custom claim or a Cloud Function call.
-  // For this prototype, we will simulate this by checking a hardcoded UID.
+  // For this prototype, we will simulate this by checking a hardcoded email.
   // In a real application, you would replace this with a call to a secure backend endpoint.
+  // This resolves the Firestore permission error caused by trying to read the 'roles_admin' collection.
   const isAdmin = user?.email === 'admin@example.com';
 
-  if (isUserLoading || (user && isAdminLoading)) {
+  if (isUserLoading) {
     return <Skeleton className="h-10 w-10 rounded-full" />;
   }
 
