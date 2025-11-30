@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import Link from 'next/link';
 
 type GenerateCollegeRecommendationsInput = {
     cgpa: number;
@@ -73,13 +74,15 @@ export default function Home() {
               Find Your <span className="text-primary">Future</span> Campus
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto md:mx-0">
-              Our AI-powered tool analyzes your academic profile and preferences to provide personalized college recommendations, guiding you to the perfect institution.
+              Our tool analyzes your academic profile and preferences to provide personalized college recommendations, guiding you to the perfect institution.
             </p>
             <div className="flex gap-4 justify-center md:justify-start">
               <Button size="lg" asChild>
                 <a href="#recommendation-tool">Get Started</a>
               </Button>
-              <Button size="lg" variant="outline">Learn More</Button>
+              <Button size="lg" variant="outline" asChild>
+                <Link href="/colleges">Learn More</Link>
+              </Button>
             </div>
           </div>
           <div className="relative h-64 md:h-96 rounded-lg overflow-hidden shadow-2xl">
@@ -102,7 +105,7 @@ export default function Home() {
           <div className="max-w-3xl mx-auto text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-headline font-bold">College Recommendation Tool</h2>
             <p className="text-muted-foreground mt-4 text-lg">
-              Fill in your details below, and let our AI find the best colleges for you.
+              Fill in your details below, and let our recommendation engine find the best colleges for you.
             </p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-start">
